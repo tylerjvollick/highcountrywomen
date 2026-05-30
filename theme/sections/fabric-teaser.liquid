@@ -1,0 +1,288 @@
+{%- liquid
+  assign coll = section.settings.collection
+  assign image = section.settings.image
+  if image == blank
+    assign image = coll.featured_image
+  endif
+  assign cta_url = section.settings.cta_url
+  if cta_url == blank
+    assign cta_url = coll.url
+  endif
+  assign cta_label = section.settings.cta_label | strip
+-%}
+
+<section class="fabric-teaser color-{{ section.settings.color_scheme }} full-width">
+  <div class="fabric-teaser__wrap">
+    <div class="fabric-teaser__split fabric-teaser__split--{{ section.settings.image_position }}">
+      <div class="fabric-teaser__copy">
+        {%- if section.settings.eyebrow != blank -%}
+          <span class="fabric-teaser__eyebrow">{{ section.settings.eyebrow }}</span>
+        {%- endif -%}
+
+        {%- if section.settings.heading != blank -%}
+          <div class="fabric-teaser__heading">{{ section.settings.heading }}</div>
+        {%- endif -%}
+
+        {%- if section.settings.body != blank -%}
+          <div class="fabric-teaser__body">{{ section.settings.body }}</div>
+        {%- endif -%}
+
+        {%- if cta_url != blank and cta_label != blank -%}
+          <a class="fabric-teaser__cta" href="{{ cta_url }}">
+            {{ cta_label }}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14"/>
+              <path d="m12 5 7 7-7 7"/>
+            </svg>
+          </a>
+        {%- endif -%}
+      </div>
+
+      <div class="fabric-teaser__media">
+        {%- if image != blank -%}
+          {{ image | image_url: width: 1200 | image_tag:
+              loading: 'lazy',
+              sizes: '(min-width: 860px) 55vw, 90vw',
+              widths: '480, 720, 960, 1200, 1600',
+              class: 'fabric-teaser__img'
+          }}
+        {%- else -%}
+          <img
+            class="fabric-teaser__img"
+            src="{{ 'DSCF2426.jpg' | asset_url }}"
+            alt=""
+            loading="lazy"
+          >
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .fabric-teaser {
+    background: var(--bg);
+    color: var(--text);
+    padding-block: clamp(56px, 9vw, 132px);
+    width: 100%;
+  }
+
+  .fabric-teaser__wrap {
+    max-width: var(--page-width);
+    margin-inline: auto;
+    padding-inline: var(--page-margin);
+  }
+
+  .fabric-teaser__split {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: clamp(28px, 4vw, 64px);
+    align-items: center;
+  }
+  .fabric-teaser__split--left .fabric-teaser__copy {
+    order: 2;
+  }
+  .fabric-teaser__split--left .fabric-teaser__media {
+    order: 1;
+  }
+
+  .fabric-teaser__copy {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .fabric-teaser__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--font-sans);
+    font-size: var(--step--1);
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .fabric-teaser__eyebrow::before {
+    content: "";
+    width: 26px;
+    height: 0;
+    border-top: 1.5px solid currentColor;
+    opacity: 0.8;
+  }
+
+  .fabric-teaser__heading {
+    margin: 16px 0 0;
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 1.5rem + 1.6vw, 3.1rem);
+    line-height: 1.08;
+  }
+  .fabric-teaser__heading > p {
+    margin: 0;
+    max-width: none;
+  }
+  .fabric-teaser__heading em {
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 400;
+  }
+
+  .fabric-teaser__body {
+    margin-top: 20px;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: var(--step-1);
+    line-height: 1.5;
+    color: var(--text-soft);
+    max-width: 40ch;
+  }
+  .fabric-teaser__body > p {
+    margin: 0 0 0.6em;
+    max-width: none;
+  }
+  .fabric-teaser__body > p:last-child {
+    margin-bottom: 0;
+  }
+
+  .fabric-teaser__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 28px;
+    padding: 14px 24px;
+    background: var(--accent);
+    color: var(--accent-text);
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    transition: background var(--dur) var(--ease);
+  }
+  .fabric-teaser__cta:hover {
+    background: var(--hcw-red-deep);
+  }
+  .fabric-teaser__cta svg {
+    width: 16px;
+    height: 16px;
+    transition: transform var(--dur) var(--ease);
+  }
+  .fabric-teaser__cta:hover svg {
+    transform: translateX(3px);
+  }
+
+  .fabric-teaser__media {
+    position: relative;
+    aspect-ratio: 5 / 4;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    background: var(--surface);
+  }
+  .fabric-teaser__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  @media (max-width: 860px) {
+    .fabric-teaser__split,
+    .fabric-teaser__split--left {
+      grid-template-columns: 1fr;
+    }
+    /* On mobile, image always lands first so it visually anchors the section */
+    .fabric-teaser__split .fabric-teaser__copy {
+      order: 2;
+    }
+    .fabric-teaser__split .fabric-teaser__media {
+      order: 1;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Fabric teaser",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "By the yard"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Wrap a word in <em>…</em> for an italic Lora accent.",
+      "default": "<p>Vintage-floral cottons<br>for your next make</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Body",
+      "default": "<p>Natural-fiber cottons and linens, hand-picked to pair with our patterns. Soft, durable, and made to be lived in.</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image",
+      "info": "When blank, falls back to the collection image, then to the bundled default."
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image position",
+      "options": [
+        { "value": "right", "label": "Right" },
+        { "value": "left", "label": "Left" }
+      ],
+      "default": "right"
+    },
+    {
+      "type": "header",
+      "content": "Call to action"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Linked collection",
+      "info": "The button links here unless you set a URL override below."
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Button label",
+      "default": "Shop fabric"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "Button URL override"
+    },
+    {
+      "type": "header",
+      "content": "Appearance"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "cream"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Fabric teaser",
+      "settings": {
+        "color_scheme": "cream"
+      }
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  }
+}
+{% endschema %}

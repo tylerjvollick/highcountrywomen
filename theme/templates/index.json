@@ -48,12 +48,17 @@
     "heritage-band": {
       "type": "heritage-band",
       "settings": {}
+    },
+    "fabric-teaser": {
+      "type": "fabric-teaser",
+      "settings": {}
     }
   },
   "order": [
     "hero",
     "collection-tiles",
     "featured-patterns",
-    "heritage-band"
+    "heritage-band",
+    "fabric-teaser"
   ]
 }
