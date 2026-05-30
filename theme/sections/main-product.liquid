@@ -209,6 +209,36 @@
       </div>
     </div>
   </div>
+
+  <script type="application/json" data-product-variants>
+  [
+  {%- for v in product.variants -%}
+  {%- unless forloop.first -%},{%- endunless -%}
+  {%- liquid
+    if v.featured_image
+      assign v_src = v.featured_image | image_url: width: 1200
+      assign v_src_480 = v.featured_image | image_url: width: 480
+      assign v_src_720 = v.featured_image | image_url: width: 720
+      assign v_src_960 = v.featured_image | image_url: width: 960
+      assign v_src_1600 = v.featured_image | image_url: width: 1600
+      capture v_srcset
+        echo v_src_480
+        echo ' 480w, '
+        echo v_src_720
+        echo ' 720w, '
+        echo v_src_960
+        echo ' 960w, '
+        echo v_src
+        echo ' 1200w, '
+        echo v_src_1600
+        echo ' 1600w'
+      endcapture
+    endif
+  -%}
+  {"id":{{ v.id }},"options":{{ v.options | json }},"available":{{ v.available }},"price":{{ v.price }},"price_formatted":{{ v.price | money | json }},"compare_at_price_formatted":{%- if v.compare_at_price > v.price -%}{{ v.compare_at_price | money | json }}{%- else -%}null{%- endif -%}{%- if v.featured_image -%},"image":{"src":{{ v_src | json }},"srcset":{{ v_srcset | json }}}{%- endif -%}}
+  {%- endfor -%}
+  ]
+  </script>
 </section>
 
 {% stylesheet %}
@@ -569,36 +599,6 @@
     }
   }
 {% endstylesheet %}
-
-<script type="application/json" data-product-variants>
-[
-{%- for v in product.variants -%}
-{%- unless forloop.first -%},{%- endunless -%}
-{%- liquid
-  if v.featured_image
-    assign v_src = v.featured_image | image_url: width: 1200
-    assign v_src_480 = v.featured_image | image_url: width: 480
-    assign v_src_720 = v.featured_image | image_url: width: 720
-    assign v_src_960 = v.featured_image | image_url: width: 960
-    assign v_src_1600 = v.featured_image | image_url: width: 1600
-    capture v_srcset
-      echo v_src_480
-      echo ' 480w, '
-      echo v_src_720
-      echo ' 720w, '
-      echo v_src_960
-      echo ' 960w, '
-      echo v_src
-      echo ' 1200w, '
-      echo v_src_1600
-      echo ' 1600w'
-    endcapture
-  endif
--%}
-{"id":{{ v.id }},"options":{{ v.options | json }},"available":{{ v.available }},"price":{{ v.price }},"price_formatted":{{ v.price | money | json }},"compare_at_price_formatted":{%- if v.compare_at_price > v.price -%}{{ v.compare_at_price | money | json }}{%- else -%}null{%- endif -%}{%- if v.featured_image -%},"image":{"src":{{ v_src | json }},"srcset":{{ v_srcset | json }}}{%- endif -%}}
-{%- endfor -%}
-]
-</script>
 
 {% javascript %}
   // Thumbnail rail: click a thumb → swap the main cover image
