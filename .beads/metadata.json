@@ -1,0 +1,7 @@
+{
+  "database": "dolt",
+  "backend": "dolt",
+  "dolt_mode": "embedded",
+  "dolt_database": "highcountrywomen",
+  "project_id": "299b24d2-5ef1-41a9-8425-b4a2c11f8ca3"
+}
