@@ -4,7 +4,7 @@
 -%}
 
 {%- if text != blank -%}
-  <div class="announcement-bar color-{{ section.settings.color_scheme }}">
+  <div class="announcement-bar color-{{ section.settings.color_scheme }} full-width">
     <div class="announcement-bar__inner">
       {%- if link != blank -%}
         <a class="announcement-bar__text" href="{{ link }}">{{ text }}</a>
