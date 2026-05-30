@@ -1,77 +1,297 @@
-<header>
-  <h2 class="header__title">
-    {{ shop.name | link_to: routes.root_url }}
-  </h2>
+{%- liquid
+  assign logo = section.settings.logo
+  assign menu = section.settings.menu
+  assign show_search = section.settings.show_search
+-%}
 
-  <div class="header__menu">
-    {% for link in section.settings.menu.links %}
-      {{ link.title | link_to: link.url }}
-    {% endfor %}
-  </div>
+<header
+  class="site-header color-{{ section.settings.color_scheme }} full-width"
+  data-sticky="{{ section.settings.sticky }}"
+>
+  <div class="site-header__inner">
+    {%- comment -%} Left: desktop nav / mobile hamburger {%- endcomment -%}
+    <div class="site-header__nav-col">
+      <nav class="site-header__nav site-header__nav--desktop" aria-label="Primary">
+        {%- for link in menu.links -%}
+          <a
+            class="site-header__nav-link"
+            href="{{ link.url }}"
+            {% if link.active %}aria-current="page"{% endif %}
+          >
+            {{ link.title }}
+          </a>
+        {%- endfor -%}
+      </nav>
 
-  <div class="header__icons">
-    {% if shop.customer_accounts_enabled %}
-      <shopify-account menu="{{ section.settings.customer_account_menu }}">
-        {{ 'icon-account.svg' | inline_asset_content }}
-      </shopify-account>
-    {% endif %}
+      <details class="site-header__mobile">
+        <summary class="site-header__icon-btn" aria-label="Menu">
+          <svg class="site-header__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="4" x2="20" y1="6" y2="6"/>
+            <line x1="4" x2="20" y1="12" y2="12"/>
+            <line x1="4" x2="20" y1="18" y2="18"/>
+          </svg>
+        </summary>
+        <nav class="site-header__nav site-header__nav--mobile" aria-label="Primary">
+          {%- for link in menu.links -%}
+            <a
+              class="site-header__nav-link site-header__nav-link--mobile"
+              href="{{ link.url }}"
+              {% if link.active %}aria-current="page"{% endif %}
+            >
+              {{ link.title }}
+            </a>
+          {%- endfor -%}
+        </nav>
+      </details>
+    </div>
 
-    <a href="{{ routes.cart_url }}">
-      {% if cart.item_count > 0 %}
-        <sup>{{ cart.item_count }}</sup>
-      {% endif %}
-
-      {{ 'icon-cart.svg' | inline_asset_content }}
+    {%- comment -%} Center: logo / wordmark {%- endcomment -%}
+    <a class="site-header__logo" href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
+      {%- if logo != blank -%}
+        {{ logo | image_url: width: 600 | image_tag:
+            loading: 'eager',
+            sizes: '(min-width: 750px) 220px, 160px',
+            widths: '160, 220, 320, 440',
+            class: 'site-header__logo-img'
+        }}
+      {%- else -%}
+        <span class="site-header__wordmark wordmark">{{ shop.name }}</span>
+      {%- endif -%}
     </a>
+
+    {%- comment -%} Right: utilities (search, cart) {%- endcomment -%}
+    <div class="site-header__utils">
+      {%- if show_search -%}
+        <a class="site-header__icon-btn" href="{{ routes.search_url }}" aria-label="Search">
+          <svg class="site-header__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="m21 21-4.3-4.3"/>
+          </svg>
+        </a>
+      {%- endif -%}
+
+      <a class="site-header__icon-btn site-header__cart" href="{{ routes.cart_url }}" aria-label="Cart, {{ cart.item_count }} items">
+        <svg class="site-header__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/>
+          <path d="M3 6h18"/>
+          <path d="M16 10a4 4 0 0 1-8 0"/>
+        </svg>
+        {%- if cart.item_count > 0 -%}
+          <span class="site-header__cart-count" aria-hidden="true">{{ cart.item_count }}</span>
+        {%- endif -%}
+      </a>
+    </div>
   </div>
 </header>
 
 {% stylesheet %}
-  header {
-    height: 5rem;
+  .site-header {
+    background: var(--bg);
+    color: var(--text);
+    border-bottom: 1px solid var(--line);
+    width: 100%;
+  }
+
+  .site-header[data-sticky="true"] {
+    position: sticky;
+    top: 0;
+    z-index: 60;
+  }
+
+  .site-header__inner {
+    max-width: var(--page-width);
+    margin-inline: auto;
+    padding: 18px var(--page-margin);
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 16px;
+  }
+
+  /* Left nav column */
+  .site-header__nav-col {
+    justify-self: start;
     display: flex;
     align-items: center;
-    justify-content: space-between;
   }
-  header a {
-    position: relative;
-    text-decoration: none;
-    color: var(--color-foreground);
+  .site-header__nav {
     display: flex;
+    align-items: center;
+    gap: 26px;
+  }
+  .site-header__nav-link {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-soft);
+    text-decoration: none;
+    padding-bottom: 3px;
+    border-bottom: 1.5px solid transparent;
+    transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+  }
+  .site-header__nav-link:hover,
+  .site-header__nav-link[aria-current="page"] {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+
+  /* Center logo */
+  .site-header__logo {
+    justify-self: center;
+    display: inline-flex;
+    align-items: center;
+    color: inherit;
+    text-decoration: none;
+  }
+  .site-header__logo-img {
+    display: block;
+    height: 36px;
+    width: auto;
+  }
+  .site-header__wordmark {
+    font-size: clamp(1.1rem, 1.4vw, 1.4rem);
+  }
+
+  /* Right utilities */
+  .site-header__utils {
+    justify-self: end;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+
+  /* Icon buttons (shared across header) */
+  .site-header__icon-btn {
+    display: inline-flex;
     align-items: center;
     justify-content: center;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    color: var(--text-soft);
+    padding: 6px;
+    transition: color var(--dur) var(--ease);
   }
-  header a sup {
+  .site-header__icon-btn:hover {
+    color: var(--accent);
+  }
+  .site-header__icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Cart badge */
+  .site-header__cart {
+    position: relative;
+  }
+  .site-header__cart-count {
     position: absolute;
-    left: 100%;
-    overflow: hidden;
-    max-width: var(--page-margin);
+    top: -2px;
+    right: -4px;
+    min-width: 17px;
+    height: 17px;
+    padding: 0 4px;
+    background: var(--accent);
+    color: var(--accent-text);
+    font-family: var(--font-sans);
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 17px;
+    text-align: center;
+    border-radius: var(--radius-pill);
   }
-  header svg {
-    width: 2rem;
+
+  /* Mobile drawer (details/summary, no JS) */
+  .site-header__mobile {
+    display: none;
   }
-  header .header__menu,
-  header .header__icons {
-    display: flex;
-    gap: 1rem;
+  .site-header__mobile > summary {
+    list-style: none;
+    cursor: pointer;
+  }
+  .site-header__mobile > summary::-webkit-details-marker {
+    display: none;
+  }
+  .site-header__nav--mobile {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 16px var(--page-margin) 24px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+  }
+  .site-header__nav-link--mobile {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    text-transform: none;
+    letter-spacing: 0;
+    font-weight: 400;
+    color: var(--text);
+    padding: 12px 0;
+    border-bottom: 1px dashed var(--line);
+  }
+
+  /* Responsive switch */
+  @media (max-width: 860px) {
+    .site-header__nav--desktop {
+      display: none;
+    }
+    .site-header__mobile {
+      display: block;
+    }
+    .site-header__inner {
+      padding-block: 14px;
+      position: relative;
+    }
+    .site-header__logo-img {
+      height: 28px;
+    }
   }
 {% endstylesheet %}
 
 {% schema %}
 {
-  "name": "t:general.header",
+  "name": "Header",
   "settings": [
     {
-      "type": "link_list",
-      "id": "menu",
-      "label": "t:labels.menu"
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image",
+      "info": "Leave empty to show the shop name as a wordmark."
     },
     {
       "type": "link_list",
-      "id": "customer_account_menu",
-      "label": "t:labels.customer_account_menu",
-      "default": "customer-account-main-menu"
+      "id": "menu",
+      "label": "Navigation menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_search",
+      "label": "Show search icon",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "sticky",
+      "label": "Stick to top on scroll",
+      "default": true
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "cream"
     }
-  ]
+  ],
+  "enabled_on": {
+    "groups": ["header"]
+  }
 }
 {% endschema %}
