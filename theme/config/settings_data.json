@@ -8,5 +8,86 @@
  * ------------------------------------------------------------
  */
 {
-  "current": {}
+  "current": {
+    "color_schemes": {
+      "cream": {
+        "label": "Cream",
+        "settings": {
+          "background": "#F5EFE5",
+          "surface": "#FBF8F1",
+          "text": "#2E2A24",
+          "text_soft": "#4B4B4B",
+          "text_mute": "#8C8275",
+          "accent": "#D33F2B",
+          "accent_text": "#FFFFFF",
+          "line": "#E2D8C6"
+        }
+      },
+      "wheat": {
+        "label": "Wheat",
+        "settings": {
+          "background": "#EADFCC",
+          "surface": "#F5EFE5",
+          "text": "#2E2A24",
+          "text_soft": "#4B4B4B",
+          "text_mute": "#8C8275",
+          "accent": "#D33F2B",
+          "accent_text": "#FFFFFF",
+          "line": "#DCCDB4"
+        }
+      },
+      "blue": {
+        "label": "Blue",
+        "settings": {
+          "background": "#6D84AE",
+          "surface": "#7B91B8",
+          "text": "#FBF8F1",
+          "text_soft": "#E8EDF4",
+          "text_mute": "#CBD5E6",
+          "accent": "#F5EFE5",
+          "accent_text": "#50658B",
+          "line": "#96A6C5"
+        }
+      },
+      "ink": {
+        "label": "Ink",
+        "settings": {
+          "background": "#2E2A24",
+          "surface": "#3A352E",
+          "text": "#F5EFE5",
+          "text_soft": "#D9CFBE",
+          "text_mute": "#A99E8C",
+          "accent": "#DD3A29",
+          "accent_text": "#FFFFFF",
+          "line": "#4E4A43"
+        }
+      },
+      "terracotta": {
+        "label": "Terracotta",
+        "settings": {
+          "background": "#D33F2B",
+          "surface": "#C7472F",
+          "text": "#FFF6EC",
+          "text_soft": "#FBE3D8",
+          "text_mute": "#F0C3B3",
+          "accent": "#F5EFE5",
+          "accent_text": "#A6341F",
+          "line": "#E07665"
+        }
+      },
+      "sage": {
+        "label": "Sage",
+        "settings": {
+          "background": "#888A66",
+          "surface": "#94966F",
+          "text": "#FBF8F1",
+          "text_soft": "#ECEBD8",
+          "text_mute": "#CFCFB3",
+          "accent": "#F5EFE5",
+          "accent_text": "#5F6147",
+          "line": "#A7A88E"
+        }
+      }
+    }
+  }
 }

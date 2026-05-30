@@ -1,9 +1,9 @@
 [
   {
     "name": "theme_info",
-    "theme_name": "Skeleton",
+    "theme_name": "High Country Women",
     "theme_version": "0.1.0",
-    "theme_author": "Shopify",
+    "theme_author": "High Country Women",
     "theme_documentation_url": "https://help.shopify.com/manual/online-store/themes",
     "theme_support_url": "https://support.shopify.com/"
   },
@@ -57,26 +57,90 @@
     "name": "t:general.colors",
     "settings": [
       {
-        "type": "color",
-        "id": "background_color",
-        "default": "#FFFFFF",
-        "label": "t:labels.background"
+        "type": "paragraph",
+        "content": "t:settings_schema.colors.paragraph"
       },
       {
-        "type": "color",
-        "id": "foreground_color",
-        "default": "#333333",
-        "label": "t:labels.foreground"
-      },
-      {
-        "type": "range",
-        "id": "input_corner_radius",
-        "min": 0,
-        "max": 10,
-        "step": 1,
-        "unit": "px",
-        "label": "t:labels.input_corner_radius",
-        "default": 4
+        "type": "color_scheme_group",
+        "id": "color_schemes",
+        "definition": [
+          {
+            "type": "color",
+            "id": "background",
+            "label": "t:settings_schema.colors.definition.background.label",
+            "default": "#F5EFE5",
+            "info": "t:settings_schema.colors.definition.background.info"
+          },
+          {
+            "type": "color_background",
+            "id": "background_gradient",
+            "label": "t:settings_schema.colors.definition.background_gradient.label",
+            "info": "t:settings_schema.colors.definition.background_gradient.info"
+          },
+          {
+            "type": "color",
+            "id": "surface",
+            "label": "t:settings_schema.colors.definition.surface.label",
+            "default": "#FBF8F1",
+            "info": "t:settings_schema.colors.definition.surface.info"
+          },
+          {
+            "type": "color",
+            "id": "text",
+            "label": "t:settings_schema.colors.definition.text.label",
+            "default": "#2E2A24"
+          },
+          {
+            "type": "color",
+            "id": "text_soft",
+            "label": "t:settings_schema.colors.definition.text_soft.label",
+            "default": "#4B4B4B",
+            "info": "t:settings_schema.colors.definition.text_soft.info"
+          },
+          {
+            "type": "color",
+            "id": "text_mute",
+            "label": "t:settings_schema.colors.definition.text_mute.label",
+            "default": "#8C8275",
+            "info": "t:settings_schema.colors.definition.text_mute.info"
+          },
+          {
+            "type": "color",
+            "id": "accent",
+            "label": "t:settings_schema.colors.definition.accent.label",
+            "default": "#D33F2B",
+            "info": "t:settings_schema.colors.definition.accent.info"
+          },
+          {
+            "type": "color",
+            "id": "accent_text",
+            "label": "t:settings_schema.colors.definition.accent_text.label",
+            "default": "#FFFFFF",
+            "info": "t:settings_schema.colors.definition.accent_text.info"
+          },
+          {
+            "type": "color",
+            "id": "line",
+            "label": "t:settings_schema.colors.definition.line.label",
+            "default": "#E2D8C6",
+            "info": "t:settings_schema.colors.definition.line.info"
+          }
+        ],
+        "role": {
+          "text": "text",
+          "background": {
+            "solid": "background",
+            "gradient": "background_gradient"
+          },
+          "links": "accent",
+          "icons": "text",
+          "primary_button": "accent",
+          "on_primary_button": "accent_text",
+          "primary_button_border": "accent",
+          "secondary_button": "surface",
+          "on_secondary_button": "text",
+          "secondary_button_border": "line"
+        }
       }
     ]
   }

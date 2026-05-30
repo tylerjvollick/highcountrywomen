@@ -72,6 +72,48 @@
       "title": "Title",
       "subtitle": "Subtitle",
       "normal": "Normal text"
-    },
+    }
+  },
+  "settings_schema": {
+    "colors": {
+      "paragraph": "Each section on your storefront uses one of these schemes. Edit a scheme's colors here and the change will flow to every section that uses it.",
+      "definition": {
+        "background": {
+          "label": "Background",
+          "info": "The base color behind a section."
+        },
+        "background_gradient": {
+          "label": "Background gradient",
+          "info": "Optional gradient overlay on the background. Leave blank for a flat color."
+        },
+        "surface": {
+          "label": "Surface",
+          "info": "Lifted surfaces like cards, inputs, and chips."
+        },
+        "text": {
+          "label": "Text"
+        },
+        "text_soft": {
+          "label": "Soft text",
+          "info": "Secondary copy, captions, and supporting type."
+        },
+        "text_mute": {
+          "label": "Muted text",
+          "info": "Meta details, dates, and helper text."
+        },
+        "accent": {
+          "label": "Accent",
+          "info": "Buttons, links, and small marks of emphasis."
+        },
+        "accent_text": {
+          "label": "Accent text",
+          "info": "Text and icons that sit on the accent color."
+        },
+        "line": {
+          "label": "Line",
+          "info": "Hairlines, dividers, and quiet borders."
+        }
+      }
+    }
   }
 }
