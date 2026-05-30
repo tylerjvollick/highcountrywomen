@@ -44,11 +44,16 @@
     "featured-patterns": {
       "type": "featured-patterns",
       "settings": {}
+    },
+    "heritage-band": {
+      "type": "heritage-band",
+      "settings": {}
     }
   },
   "order": [
     "hero",
     "collection-tiles",
-    "featured-patterns"
+    "featured-patterns",
+    "heritage-band"
   ]
 }

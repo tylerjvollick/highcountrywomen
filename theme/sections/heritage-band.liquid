@@ -1,0 +1,223 @@
+{%- liquid
+  assign image = section.settings.image
+  assign cta_url = section.settings.cta_url
+  assign cta_label = section.settings.cta_label | strip
+-%}
+
+<section class="heritage-band color-{{ section.settings.color_scheme }} full-width">
+  <div class="heritage-band__wrap">
+    {%- if image != blank -%}
+      <div class="heritage-band__vignette">
+        {{ image | image_url: width: 1200 | image_tag:
+            loading: 'lazy',
+            sizes: '(min-width: 860px) 720px, 90vw',
+            widths: '480, 720, 960, 1200',
+            class: 'heritage-band__vignette-img'
+        }}
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.eyebrow != blank -%}
+      <span class="heritage-band__eyebrow">{{ section.settings.eyebrow }}</span>
+    {%- endif -%}
+
+    {%- if section.settings.heading != blank -%}
+      <div class="heritage-band__heading">{{ section.settings.heading }}</div>
+    {%- endif -%}
+
+    {%- if section.settings.body != blank -%}
+      <div class="heritage-band__body">{{ section.settings.body }}</div>
+    {%- endif -%}
+
+    {%- if cta_url != blank and cta_label != blank -%}
+      <a class="heritage-band__cta" href="{{ cta_url }}">{{ cta_label }}</a>
+    {%- endif -%}
+
+    <hr class="heritage-band__rule" aria-hidden="true">
+  </div>
+</section>
+
+{% stylesheet %}
+  .heritage-band {
+    background: var(--bg);
+    color: var(--text);
+    width: 100%;
+  }
+
+  .heritage-band__wrap {
+    max-width: var(--page-width);
+    margin-inline: auto;
+    padding: clamp(56px, 9vw, 132px) var(--page-margin);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .heritage-band__vignette {
+    width: clamp(280px, 50vw, 480px);
+    aspect-ratio: 4 / 3;
+    margin-bottom: clamp(28px, 4vw, 48px);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+  .heritage-band__vignette-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .heritage-band__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--font-sans);
+    font-size: var(--step--1);
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .heritage-band__eyebrow::before {
+    content: "";
+    width: 26px;
+    height: 0;
+    border-top: 1.5px solid currentColor;
+    opacity: 0.8;
+  }
+
+  .heritage-band__heading {
+    margin: 24px 0 0;
+    font-family: var(--font-display);
+    font-size: clamp(1.7rem, 1.1rem + 2.6vw, 3.1rem);
+    line-height: 1.18;
+    max-width: 20ch;
+    color: var(--text);
+  }
+  /* richtext wraps content in <p> — strip its margin so the heading sits flush */
+  .heritage-band__heading > p {
+    margin: 0;
+    max-width: none;
+  }
+  .heritage-band__heading em {
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 400;
+  }
+
+  .heritage-band__body {
+    margin-top: 22px;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: var(--step-1);
+    line-height: 1.5;
+    color: var(--text-soft);
+    max-width: 42ch;
+  }
+  .heritage-band__body > p {
+    margin: 0 0 0.6em;
+    max-width: none;
+  }
+  .heritage-band__body > p:last-child {
+    margin-bottom: 0;
+  }
+
+  .heritage-band__cta {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 28px;
+    padding: 14px 24px;
+    background: var(--accent);
+    color: var(--accent-text);
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    transition: background var(--dur) var(--ease);
+  }
+  .heritage-band__cta:hover {
+    background: var(--hcw-red-deep);
+  }
+
+  /* Stitched accent rule — a short dashed line in --accent, centered */
+  .heritage-band__rule {
+    border: 0;
+    border-top: 1.5px dashed var(--text-soft);
+    margin: 34px auto 0;
+    width: 64px;
+    height: 0;
+    opacity: 0.9;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Heritage band",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Named for the women before us"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Wrap a word in <em>…</em> for an italic Lora accent.",
+      "default": "<p>Each pattern is named after a high country woman in Wyoming.</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Body",
+      "default": "<p>Classic, well-used, and made to become heirloom.</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Vignette image",
+      "info": "Optional. Renders above the heading."
+    },
+    {
+      "type": "header",
+      "content": "Call to action"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Button label"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Appearance"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "blue"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Heritage band",
+      "settings": {
+        "color_scheme": "blue"
+      }
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  }
+}
+{% endschema %}
