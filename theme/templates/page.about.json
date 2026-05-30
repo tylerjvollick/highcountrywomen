@@ -1,0 +1,82 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "banner": {
+      "type": "page-banner",
+      "settings": {
+        "eyebrow": "Our story",
+        "heading": "Two friends, sewing in the high country.",
+        "body": "<p>High Country Women began at a kitchen table in Lander, Wyoming — a shared love of natural fibers, old-fashioned charm, and pieces made to last.</p>"
+      }
+    },
+    "studio-image": {
+      "type": "media-band",
+      "settings": {
+        "height_vw": 52,
+        "height_max": 640,
+        "focal_x": 50,
+        "focal_y": 40
+      }
+    },
+    "story": {
+      "type": "fabric-teaser",
+      "settings": {
+        "eyebrow": "Heirloom, by hand",
+        "heading": "<p>An homage to the women who came before</p>",
+        "body": "<p>Every pattern is named after a high country woman in Wyoming — Nellie, Esther, Lizabeth — a quiet tribute to the grandmothers and makers who taught us that the best things are well-used and passed down.</p><p>We design beginner-friendly patterns and stock the natural-fiber fabric to make them, so anyone can sew something they'll keep for years.</p>",
+        "image_position": "left",
+        "cta_label": "Shop the patterns",
+        "cta_url": "/collections/sewingpatterns"
+      }
+    },
+    "values": {
+      "type": "values-grid",
+      "blocks": {
+        "natural": {
+          "type": "value",
+          "settings": {
+            "heading": "Natural fibers",
+            "body": "<p>Cottons, linens and vintage florals chosen to wear in, not out.</p>"
+          }
+        },
+        "beginner": {
+          "type": "value",
+          "settings": {
+            "heading": "Beginner friendly",
+            "body": "<p>Clear instructions and full video sewalongs for every pattern.</p>"
+          }
+        },
+        "heirloom": {
+          "type": "value",
+          "settings": {
+            "heading": "Made to last",
+            "body": "<p>Durable, comfortable pieces meant to become heirlooms.</p>"
+          }
+        }
+      },
+      "block_order": ["natural", "beginner", "heirloom"],
+      "settings": {
+        "color_scheme": "blue"
+      }
+    },
+    "newsletter-band": {
+      "type": "newsletter-band",
+      "settings": {}
+    }
+  },
+  "order": [
+    "banner",
+    "studio-image",
+    "story",
+    "values",
+    "newsletter-band"
+  ]
+}

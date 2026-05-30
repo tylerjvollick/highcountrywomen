@@ -1,0 +1,182 @@
+<section class="values-grid color-{{ section.settings.color_scheme }} full-width">
+  <div class="values-grid__wrap">
+    {%- if section.settings.eyebrow != blank or section.settings.heading != blank -%}
+      <div class="values-grid__header">
+        {%- if section.settings.eyebrow != blank -%}
+          <span class="values-grid__eyebrow">{{ section.settings.eyebrow }}</span>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 class="values-grid__heading">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="values-grid__grid">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'value' -%}
+          {%- assign num = forloop.index | prepend: '0' | slice: -2, 2 -%}
+          <article class="value-card" {{ block.shopify_attributes }}>
+            <span class="value-card__index">{{ num }}</span>
+            <hr class="value-card__rule" aria-hidden="true">
+            {%- if block.settings.heading != blank -%}
+              <h3 class="value-card__heading">{{ block.settings.heading }}</h3>
+            {%- endif -%}
+            {%- if block.settings.body != blank -%}
+              <div class="value-card__body">{{ block.settings.body }}</div>
+            {%- endif -%}
+          </article>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .values-grid {
+    background: var(--bg);
+    color: var(--text);
+    width: 100%;
+  }
+  .values-grid__wrap {
+    max-width: var(--page-width);
+    margin-inline: auto;
+    padding: clamp(56px, 9vw, 132px) var(--page-margin);
+  }
+
+  .values-grid__header {
+    text-align: center;
+    margin-bottom: clamp(36px, 5vw, 60px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+  .values-grid__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--font-sans);
+    font-size: var(--step--1);
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .values-grid__eyebrow::before {
+    content: "";
+    width: 26px;
+    height: 0;
+    border-top: 1.5px solid currentColor;
+    opacity: 0.8;
+  }
+  .values-grid__heading {
+    margin: 0;
+    font-size: clamp(1.8rem, 1.3rem + 1.6vw, 2.6rem);
+    max-width: 24ch;
+  }
+
+  .values-grid__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(24px, 4vw, 56px);
+  }
+
+  .value-card__index {
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 1.6rem + 1.6vw, 3rem);
+    letter-spacing: -0.02em;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .value-card__rule {
+    border: 0;
+    border-top: 1.5px dashed var(--text-soft);
+    margin: 14px 0;
+    width: 100%;
+    opacity: 0.9;
+  }
+  .value-card__heading {
+    margin: 0;
+    font-size: var(--step-2);
+    line-height: 1.1;
+  }
+  .value-card__body {
+    margin-top: 10px;
+    font-family: var(--font-sans);
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: var(--text-soft);
+  }
+  .value-card__body > p {
+    margin: 0 0 0.6em;
+    max-width: none;
+  }
+  .value-card__body > p:last-child {
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 860px) {
+    .values-grid__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Values grid",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "blue"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "value",
+      "name": "Value",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "body",
+          "label": "Body"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Values grid",
+      "settings": {
+        "color_scheme": "blue"
+      },
+      "blocks": [
+        { "type": "value" },
+        { "type": "value" },
+        { "type": "value" }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  }
+}
+{% endschema %}

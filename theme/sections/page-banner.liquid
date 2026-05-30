@@ -1,0 +1,125 @@
+{%- liquid
+  assign eyebrow = section.settings.eyebrow
+  assign heading = section.settings.heading
+  if heading == blank and page != blank
+    assign heading = page.title
+  endif
+  assign body = section.settings.body
+-%}
+
+<section class="page-banner color-{{ section.settings.color_scheme }} full-width">
+  <div class="page-banner__wrap">
+    {%- if eyebrow != blank -%}
+      <span class="page-banner__eyebrow">{{ eyebrow }}</span>
+    {%- endif -%}
+
+    {%- if heading != blank -%}
+      <h1 class="page-banner__heading">{{ heading }}</h1>
+    {%- endif -%}
+
+    {%- if body != blank -%}
+      <div class="page-banner__body">{{ body }}</div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+  .page-banner {
+    background: var(--bg);
+    color: var(--text);
+    width: 100%;
+  }
+  .page-banner__wrap {
+    max-width: var(--page-width);
+    margin-inline: auto;
+    padding: clamp(48px, 7vw, 104px) var(--page-margin) clamp(36px, 5vw, 64px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .page-banner__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--font-sans);
+    font-size: var(--step--1);
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .page-banner__eyebrow::before {
+    content: "";
+    width: 26px;
+    height: 0;
+    border-top: 1.5px solid currentColor;
+    opacity: 0.8;
+  }
+
+  .page-banner__heading {
+    margin: 18px 0 0;
+    font-size: clamp(2.6rem, 1.8rem + 4vw, 5rem);
+    line-height: 1.02;
+    max-width: 18ch;
+  }
+
+  .page-banner__body {
+    margin-top: 22px;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: var(--step-1);
+    line-height: 1.5;
+    color: var(--text-soft);
+    max-width: 52ch;
+  }
+  .page-banner__body > p {
+    margin: 0 0 0.5em;
+    max-width: none;
+  }
+  .page-banner__body > p:last-child {
+    margin-bottom: 0;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Page banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading override",
+      "info": "When blank on a page template, falls back to the page title."
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Body"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "cream"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Page banner",
+      "settings": {
+        "color_scheme": "cream"
+      }
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  }
+}
+{% endschema %}

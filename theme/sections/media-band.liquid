@@ -1,0 +1,108 @@
+{%- liquid
+  assign image = section.settings.image
+  assign focal_x = section.settings.focal_x | default: 50
+  assign focal_y = section.settings.focal_y | default: 50
+-%}
+
+<section
+  class="media-band color-{{ section.settings.color_scheme }} full-width"
+  style="--media-height: clamp(320px, {{ section.settings.height_vw }}vw, {{ section.settings.height_max }}px); --focal-x: {{ focal_x }}%; --focal-y: {{ focal_y }}%;"
+>
+  {%- if image != blank -%}
+    {{ image | image_url: width: 2000 | image_tag:
+        loading: 'lazy',
+        sizes: '100vw',
+        widths: '720, 1080, 1440, 1800, 2400',
+        class: 'media-band__img'
+    }}
+  {%- else -%}
+    <img
+      class="media-band__img"
+      src="{{ 'DSCF2468.jpg' | asset_url }}"
+      alt=""
+      loading="lazy"
+    >
+  {%- endif -%}
+</section>
+
+{% stylesheet %}
+  .media-band {
+    width: 100%;
+    height: var(--media-height);
+    overflow: hidden;
+    background: var(--surface);
+  }
+  .media-band__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: var(--focal-x) var(--focal-y);
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Media band",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "range",
+      "id": "height_vw",
+      "label": "Height (viewport scaling)",
+      "min": 30,
+      "max": 70,
+      "step": 2,
+      "unit": "vw",
+      "default": 52
+    },
+    {
+      "type": "range",
+      "id": "height_max",
+      "label": "Max height",
+      "min": 320,
+      "max": 900,
+      "step": 20,
+      "unit": "px",
+      "default": 640
+    },
+    {
+      "type": "range",
+      "id": "focal_x",
+      "label": "Focal point — horizontal",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "focal_y",
+      "label": "Focal point — vertical",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 40
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "cream"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Media band"
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  }
+}
+{% endschema %}
