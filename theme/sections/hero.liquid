@@ -1,0 +1,241 @@
+{%- liquid
+  assign heading = section.settings.heading
+  assign subheading = section.settings.subheading
+  assign image = section.settings.image
+  assign badge_text = section.settings.badge_text | strip
+  assign cta_url = section.settings.cta_url
+  assign cta_label = section.settings.cta_label | strip
+-%}
+
+<section class="hero-card color-{{ section.settings.color_scheme }} full-width">
+  <div class="hero-card__wrap">
+    <div class="hero-card__layout">
+      <div class="hero-card__img">
+        {%- if image != blank -%}
+          {{ image | image_url: width: 1200 | image_tag:
+              loading: 'eager',
+              fetchpriority: 'high',
+              sizes: '(min-width: 860px) 66vw, 100vw',
+              widths: '480, 720, 960, 1200, 1600',
+              class: 'hero-card__img-el'
+          }}
+        {%- else -%}
+          {{ 'lifestyle-1' | placeholder_svg_tag: 'hero-card__img-el hero-card__img-el--placeholder' }}
+        {%- endif -%}
+
+        {%- if badge_text != blank -%}
+          <span class="hero-card__badge">{{ badge_text }}</span>
+        {%- endif -%}
+      </div>
+
+      <div class="hero-card__card">
+        {%- if heading != blank -%}
+          <h1 class="hero-card__heading">{{ heading }}</h1>
+        {%- endif -%}
+
+        <hr class="hero-card__rule" aria-hidden="true">
+
+        {%- if subheading != blank -%}
+          <p class="hero-card__subheading">{{ subheading }}</p>
+        {%- endif -%}
+
+        {%- if cta_url != blank and cta_label != blank -%}
+          <a class="hero-card__cta" href="{{ cta_url }}">{{ cta_label }}</a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .hero-card {
+    background: var(--bg);
+    color: var(--text);
+    padding-block: clamp(24px, 3.5vw, 56px);
+    width: 100%;
+  }
+
+  .hero-card__wrap {
+    max-width: var(--page-width);
+    margin-inline: auto;
+    padding-inline: var(--page-margin);
+  }
+
+  .hero-card__layout {
+    position: relative;
+  }
+
+  /* Image — right column on desktop, full width on mobile */
+  .hero-card__img {
+    position: relative;
+    width: 66%;
+    margin-left: auto;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    background: var(--surface);
+  }
+  .hero-card__img-el {
+    display: block;
+    width: 100%;
+    height: clamp(552px, 83vh, 782px);
+    object-fit: cover;
+    object-position: center 16%;
+  }
+  .hero-card__img-el--placeholder {
+    height: clamp(420px, 60vh, 620px);
+    object-fit: cover;
+  }
+
+  /* Sage corner badge */
+  .hero-card__badge {
+    position: absolute;
+    top: clamp(16px, 1.6vw, 24px);
+    right: clamp(16px, 1.6vw, 24px);
+    background: var(--hcw-sage);
+    color: #FBF8F1;
+    font-family: var(--font-sans);
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 8px 14px;
+  }
+
+  /* Content card — left, overlaps image, vertically centered */
+  .hero-card__card {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40%;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-md);
+    padding: clamp(22px, 2vw, 32px);
+  }
+
+  .hero-card__heading {
+    margin: 0;
+    font-size: clamp(2.4rem, 2rem + 1.6vw, 3.6rem);
+    line-height: 1.08;
+  }
+  /* Italic Lora highlight inside heading — merchant writes <em>word</em> */
+  .hero-card__heading em {
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 400;
+  }
+
+  .hero-card__rule {
+    border: 0;
+    border-top: 2px solid var(--accent);
+    width: 40px;
+    margin: 14px 0;
+  }
+
+  .hero-card__subheading {
+    font-family: var(--font-sans);
+    font-size: clamp(0.88rem, 0.85rem + 0.12vw, 0.98rem);
+    color: var(--text-soft);
+    max-width: 30ch;
+    margin: 0;
+  }
+
+  .hero-card__cta {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 22px;
+    padding: 14px 24px;
+    background: var(--accent);
+    color: var(--accent-text);
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    transition: background var(--dur) var(--ease);
+  }
+  .hero-card__cta:hover {
+    background: var(--hcw-red-deep);
+  }
+
+  @media (max-width: 860px) {
+    .hero-card__img {
+      width: 100%;
+    }
+    .hero-card__img-el {
+      height: clamp(380px, 60vh, 560px);
+    }
+    .hero-card__card {
+      position: static;
+      transform: none;
+      width: auto;
+      margin: -56px 14px 0;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Wrap a word in <em>…</em> for an italic accent (e.g. <em>heirloom</em>).",
+      "default": "<p>sewing patterns & fabric for <em>heirloom</em> pieces.</p>"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Everything you need to make pieces worth keeping."
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Corner badge",
+      "info": "Optional editorial label on the image.",
+      "default": "Heirloom Pieces · No. 01"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Hero image",
+      "info": "Portrait orientation works best."
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "Button link"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Button label",
+      "default": "Shop the collection"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "cream"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero",
+      "settings": {
+        "color_scheme": "cream"
+      }
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  }
+}
+{% endschema %}
