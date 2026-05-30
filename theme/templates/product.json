@@ -45,6 +45,10 @@
       "block_order": ["difficulty", "sizing", "includes", "fabric"],
       "settings": {}
     },
+    "sewalong-video": {
+      "type": "sewalong-video",
+      "settings": {}
+    },
     "related-products": {
       "type": "related-products",
       "settings": {}
@@ -56,6 +60,7 @@
   },
   "order": [
     "main",
+    "sewalong-video",
     "related-products",
     "newsletter-band"
   ]
