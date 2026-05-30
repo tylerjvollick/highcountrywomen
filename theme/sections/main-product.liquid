@@ -6,7 +6,7 @@
   endif
 -%}
 
-<section class="product color-{{ section.settings.color_scheme }} full-width">
+<section class="product color-{{ section.settings.color_scheme }} full-width" data-product-section>
   <div class="product__wrap">
     {%- if section.settings.show_breadcrumb -%}
       <nav class="product__breadcrumb" aria-label="Breadcrumb">
@@ -70,10 +70,8 @@
         <h1 class="product__title">{{ product.title }}</h1>
 
         <div class="product__meta">
-          <span class="product__price">{{ variant.price | money }}{% if variant.unit_price_measurement %} <span class="product__unit">{{ variant.unit_price | money }}{{ variant.unit_price_measurement.reference_value }}{{ variant.unit_price_measurement.reference_unit }}</span>{% endif %}</span>
-          {%- if variant.compare_at_price > variant.price -%}
-            <span class="product__compare-price">{{ variant.compare_at_price | money }}</span>
-          {%- endif -%}
+          <span class="product__price" data-variant-price>{{ variant.price | money }}{% if variant.unit_price_measurement %} <span class="product__unit">{{ variant.unit_price | money }}{{ variant.unit_price_measurement.reference_value }}{{ variant.unit_price_measurement.reference_unit }}</span>{% endif %}</span>
+          <span class="product__compare-price" data-variant-compare-price {% unless variant.compare_at_price > variant.price %}hidden{% endunless %}>{{ variant.compare_at_price | money }}</span>
           {%- if section.settings.show_meta_secondary and product.vendor != blank -%}
             <span class="product__meta-secondary">· {{ product.vendor }}</span>
           {%- endif -%}
@@ -85,29 +83,31 @@
 
         {%- form 'product', product, class: 'product__form' -%}
           {%- unless product.has_only_default_variant -%}
-            {%- for option in product.options_with_values -%}
-              <fieldset class="product__option" name="{{ option.name }}">
-                <legend class="product__option-legend">{{ option.name }}</legend>
-                <div class="product__option-values">
-                  {%- for value in option.values -%}
-                    {%- assign option_index = forloop.parentloop.index0 -%}
-                    {%- assign is_selected = false -%}
-                    {%- if product.selected_or_first_available_variant.options[option_index] == value -%}
-                      {%- assign is_selected = true -%}
-                    {%- endif -%}
-                    <label class="product__swatch {% if is_selected %}is-selected{% endif %}">
-                      <input
-                        type="radio"
-                        name="options[{{ option.name | escape }}]"
-                        value="{{ value | escape }}"
-                        {% if is_selected %}checked{% endif %}
-                      >
-                      <span>{{ value }}</span>
-                    </label>
-                  {%- endfor -%}
-                </div>
-              </fieldset>
-            {%- endfor -%}
+            <div data-product-options>
+              {%- for option in product.options_with_values -%}
+                <fieldset class="product__option" name="{{ option.name }}">
+                  <legend class="product__option-legend">{{ option.name }}</legend>
+                  <div class="product__option-values">
+                    {%- for value in option.values -%}
+                      {%- assign option_index = forloop.parentloop.index0 -%}
+                      {%- assign is_selected = false -%}
+                      {%- if product.selected_or_first_available_variant.options[option_index] == value -%}
+                        {%- assign is_selected = true -%}
+                      {%- endif -%}
+                      <label class="product__swatch {% if is_selected %}is-selected{% endif %}">
+                        <input
+                          type="radio"
+                          name="options[{{ option.name | escape }}]"
+                          value="{{ value | escape }}"
+                          {% if is_selected %}checked{% endif %}
+                        >
+                        <span>{{ value }}</span>
+                      </label>
+                    {%- endfor -%}
+                  </div>
+                </fieldset>
+              {%- endfor -%}
+            </div>
 
             <noscript>
               <label class="product__option-legend" for="VariantSelect-{{ section.id }}">Variant</label>
@@ -121,7 +121,7 @@
             </noscript>
           {%- endunless -%}
 
-          <input type="hidden" name="id" value="{{ variant.id }}">
+          <input type="hidden" name="id" value="{{ variant.id }}" data-variant-id-input>
 
           {%- if section.settings.show_quantity -%}
             <div class="product__quantity">
@@ -142,13 +142,17 @@
             <button
               type="submit"
               class="product__add-to-cart"
+              data-add-to-cart
+              data-button-label="{{ section.settings.button_label | escape }}"
               {% unless variant.available %}disabled{% endunless %}
             >
-              {%- if variant.available -%}
-                {{ section.settings.button_label }} — {{ variant.price | money }}
-              {%- else -%}
-                Sold out
-              {%- endif -%}
+              <span data-add-to-cart-text>
+                {%- if variant.available -%}
+                  {{ section.settings.button_label }} — {{ variant.price | money }}
+                {%- else -%}
+                  Sold out
+                {%- endif -%}
+              </span>
             </button>
 
             {%- if section.settings.show_dynamic_checkout -%}
@@ -566,7 +570,38 @@
   }
 {% endstylesheet %}
 
+<script type="application/json" data-product-variants>
+[
+{%- for v in product.variants -%}
+{%- unless forloop.first -%},{%- endunless -%}
+{%- liquid
+  if v.featured_image
+    assign v_src = v.featured_image | image_url: width: 1200
+    assign v_src_480 = v.featured_image | image_url: width: 480
+    assign v_src_720 = v.featured_image | image_url: width: 720
+    assign v_src_960 = v.featured_image | image_url: width: 960
+    assign v_src_1600 = v.featured_image | image_url: width: 1600
+    capture v_srcset
+      echo v_src_480
+      echo ' 480w, '
+      echo v_src_720
+      echo ' 720w, '
+      echo v_src_960
+      echo ' 960w, '
+      echo v_src
+      echo ' 1200w, '
+      echo v_src_1600
+      echo ' 1600w'
+    endcapture
+  endif
+-%}
+{"id":{{ v.id }},"options":{{ v.options | json }},"available":{{ v.available }},"price":{{ v.price }},"price_formatted":{{ v.price | money | json }},"compare_at_price_formatted":{%- if v.compare_at_price > v.price -%}{{ v.compare_at_price | money | json }}{%- else -%}null{%- endif -%}{%- if v.featured_image -%},"image":{"src":{{ v_src | json }},"srcset":{{ v_srcset | json }}}{%- endif -%}}
+{%- endfor -%}
+]
+</script>
+
 {% javascript %}
+  // Thumbnail rail: click a thumb → swap the main cover image
   document.querySelectorAll('[data-product-gallery]').forEach((gallery) => {
     const cover = gallery.querySelector('[data-product-cover]');
     const thumbs = gallery.querySelectorAll('[data-product-thumb]');
@@ -582,6 +617,92 @@
         thumbs.forEach((t) => t.classList.remove('is-active'));
         thumb.classList.add('is-active');
       });
+    });
+  });
+
+  // Variant picker: change a swatch → resolve matching variant, update id +
+  // price + button + cover (when the variant carries its own featured_image)
+  document.querySelectorAll('[data-product-section]').forEach((section) => {
+    const optionsRoot = section.querySelector('[data-product-options]');
+    const variantsScript = section.querySelector('[data-product-variants]');
+    if (!optionsRoot || !variantsScript) return;
+
+    let variants;
+    try { variants = JSON.parse(variantsScript.textContent); } catch (e) { return; }
+    if (!Array.isArray(variants)) return;
+
+    const idInput = section.querySelector('[data-variant-id-input]');
+    const priceEl = section.querySelector('[data-variant-price]');
+    const compareEl = section.querySelector('[data-variant-compare-price]');
+    const cover = section.querySelector('[data-product-cover]');
+    const thumbs = section.querySelectorAll('[data-product-thumb]');
+    const addBtn = section.querySelector('[data-add-to-cart]');
+    const addBtnText = section.querySelector('[data-add-to-cart-text]');
+
+    function selectedOptions() {
+      return Array.from(optionsRoot.querySelectorAll('input[type="radio"]:checked'))
+        .map((input) => input.value);
+    }
+
+    function findVariant() {
+      const sel = selectedOptions();
+      return variants.find((v) =>
+        Array.isArray(v.options) &&
+        v.options.length === sel.length &&
+        v.options.every((opt, i) => opt === sel[i])
+      );
+    }
+
+    function updateSwatchHighlight() {
+      optionsRoot.querySelectorAll('.product__swatch').forEach((label) => {
+        const input = label.querySelector('input[type="radio"]');
+        label.classList.toggle('is-selected', !!input && input.checked);
+      });
+    }
+
+    function syncCoverToThumbs(src) {
+      thumbs.forEach((t) => {
+        t.classList.toggle('is-active', t.dataset.coverSrc === src);
+      });
+    }
+
+    function applyVariant(variant) {
+      if (!variant) return;
+
+      if (idInput) idInput.value = variant.id;
+
+      if (priceEl) priceEl.textContent = variant.price_formatted;
+      if (compareEl) {
+        if (variant.compare_at_price_formatted) {
+          compareEl.textContent = variant.compare_at_price_formatted;
+          compareEl.hidden = false;
+        } else {
+          compareEl.hidden = true;
+        }
+      }
+
+      if (addBtn) {
+        addBtn.disabled = !variant.available;
+      }
+      if (addBtnText) {
+        const label = addBtn ? addBtn.dataset.buttonLabel : 'Add to cart';
+        addBtnText.textContent = variant.available
+          ? label + ' — ' + variant.price_formatted
+          : 'Sold out';
+      }
+
+      if (variant.image && cover) {
+        cover.src = variant.image.src;
+        if (variant.image.srcset) cover.srcset = variant.image.srcset;
+        syncCoverToThumbs(variant.image.src);
+      }
+    }
+
+    optionsRoot.addEventListener('change', (e) => {
+      if (e.target && e.target.matches('input[type="radio"]')) {
+        updateSwatchHighlight();
+        applyVariant(findVariant());
+      }
     });
   });
 {% endjavascript %}
