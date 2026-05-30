@@ -1,0 +1,345 @@
+{%- liquid
+  assign image = section.settings.image
+-%}
+
+<section class="newsletter-band color-{{ section.settings.color_scheme }} full-width">
+  <div class="newsletter-band__split newsletter-band__split--{{ section.settings.image_position }}">
+    <div class="newsletter-band__copy">
+      <div class="newsletter-band__inner">
+        {%- if section.settings.eyebrow != blank -%}
+          <span class="newsletter-band__eyebrow">{{ section.settings.eyebrow }}</span>
+        {%- endif -%}
+
+        {%- if section.settings.heading != blank -%}
+          <div class="newsletter-band__heading">{{ section.settings.heading }}</div>
+        {%- endif -%}
+
+        {%- if section.settings.body != blank -%}
+          <div class="newsletter-band__body">{{ section.settings.body }}</div>
+        {%- endif -%}
+
+        {%- form 'customer', class: 'newsletter-band__form' -%}
+          {%- if form.posted_successfully? -%}
+            <p class="newsletter-band__success">{{ section.settings.success_message }}</p>
+          {%- else -%}
+            <input type="hidden" name="contact[tags]" value="newsletter,{{ section.settings.tag | escape }}">
+            <label class="visually-hidden" for="NewsletterEmail-{{ section.id }}">Email</label>
+            <input
+              id="NewsletterEmail-{{ section.id }}"
+              class="newsletter-band__input"
+              type="email"
+              name="contact[email]"
+              placeholder="{{ section.settings.placeholder_text | escape }}"
+              autocomplete="email"
+              required
+            >
+            <button type="submit" class="newsletter-band__submit">{{ section.settings.button_label }}</button>
+            {%- if form.errors -%}
+              <p class="newsletter-band__error">{{ form.errors | default_errors }}</p>
+            {%- endif -%}
+          {%- endif -%}
+        {%- endform -%}
+      </div>
+    </div>
+
+    <div class="newsletter-band__media">
+      {%- if image != blank -%}
+        {{ image | image_url: width: 1200 | image_tag:
+            loading: 'lazy',
+            sizes: '(min-width: 860px) 50vw, 100vw',
+            widths: '480, 720, 960, 1200, 1600',
+            class: 'newsletter-band__img'
+        }}
+      {%- else -%}
+        <img
+          class="newsletter-band__img"
+          src="{{ 'DSCF1546.jpg' | asset_url }}"
+          alt=""
+          loading="lazy"
+        >
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .newsletter-band {
+    background: var(--bg);
+    color: var(--text);
+    width: 100%;
+  }
+
+  .newsletter-band__split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
+  }
+  .newsletter-band__split--left .newsletter-band__copy {
+    order: 2;
+  }
+  .newsletter-band__split--left .newsletter-band__media {
+    order: 1;
+  }
+
+  .newsletter-band__copy {
+    padding: clamp(40px, 7vw, 104px) clamp(24px, 5vw, 72px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .newsletter-band__inner {
+    max-width: 560px;
+  }
+
+  .newsletter-band__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--font-sans);
+    font-size: var(--step--1);
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .newsletter-band__eyebrow::before {
+    content: "";
+    width: 26px;
+    height: 0;
+    border-top: 1.5px solid currentColor;
+    opacity: 0.8;
+  }
+
+  .newsletter-band__heading {
+    margin: 20px 0;
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 1.5rem + 1.6vw, 3.1rem);
+    line-height: 1.08;
+  }
+  .newsletter-band__heading > p {
+    margin: 0;
+    max-width: none;
+  }
+  .newsletter-band__heading em {
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 400;
+  }
+
+  .newsletter-band__body {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: var(--step-1);
+    line-height: 1.5;
+    color: var(--text-soft);
+    max-width: 42ch;
+  }
+  .newsletter-band__body > p {
+    margin: 0 0 0.6em;
+    max-width: none;
+  }
+  .newsletter-band__body > p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Form */
+  .newsletter-band__form {
+    display: flex;
+    gap: 10px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+  }
+
+  .newsletter-band__input {
+    flex: 1 1 220px;
+    padding: 13px 16px;
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-sans);
+    font-size: 15px;
+    transition: border-color var(--dur) var(--ease);
+  }
+  .newsletter-band__input::placeholder {
+    color: var(--text-mute);
+  }
+  .newsletter-band__input:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+
+  .newsletter-band__submit {
+    padding: 13px 24px;
+    background: var(--accent);
+    color: var(--accent-text);
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border: 0;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: background var(--dur) var(--ease);
+  }
+  .newsletter-band__submit:hover {
+    background: var(--hcw-red-deep);
+  }
+
+  .newsletter-band__success {
+    margin-top: 30px;
+    padding: 16px 20px;
+    background: var(--surface);
+    border-left: 3px solid var(--accent);
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: var(--step-1);
+    color: var(--text);
+  }
+
+  .newsletter-band__error {
+    flex-basis: 100%;
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: 13px;
+    color: var(--accent);
+  }
+
+  /* Media */
+  .newsletter-band__media {
+    position: relative;
+    min-height: 440px;
+    overflow: hidden;
+  }
+  .newsletter-band__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+  }
+
+  /* Accessibility helper */
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  @media (max-width: 860px) {
+    .newsletter-band__split,
+    .newsletter-band__split--left {
+      grid-template-columns: 1fr;
+    }
+    /* Image first on mobile so it visually anchors */
+    .newsletter-band__split .newsletter-band__copy {
+      order: 2;
+    }
+    .newsletter-band__split .newsletter-band__media {
+      order: 1;
+      min-height: 320px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Newsletter band",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Ready for an easy sewing project?"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Wrap a word in <em>…</em> for an italic Lora accent.",
+      "default": "<p>Download the Free<br>Pillow Cover Pattern</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Body",
+      "default": "<p>A classic pillow cover with an envelope opening and optional ruffle — perfect for beginners. Refresh any space with cozy textures and color.</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image position",
+      "options": [
+        { "value": "right", "label": "Right" },
+        { "value": "left", "label": "Left" }
+      ],
+      "default": "right"
+    },
+    {
+      "type": "header",
+      "content": "Form"
+    },
+    {
+      "type": "text",
+      "id": "placeholder_text",
+      "label": "Email field placeholder",
+      "default": "Email address"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Email me the pattern"
+    },
+    {
+      "type": "text",
+      "id": "tag",
+      "label": "Customer tag",
+      "info": "Added to each new customer alongside \"newsletter\". Use this to trigger a Shopify Flow that sends the pattern.",
+      "default": "free-pillow-pattern"
+    },
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Success message",
+      "default": "Thank you — check your inbox for the pattern."
+    },
+    {
+      "type": "header",
+      "content": "Appearance"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "wheat"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Newsletter band",
+      "settings": {
+        "color_scheme": "wheat"
+      }
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  }
+}
+{% endschema %}

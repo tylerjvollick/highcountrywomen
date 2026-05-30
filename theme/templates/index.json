@@ -52,6 +52,10 @@
     "fabric-teaser": {
       "type": "fabric-teaser",
       "settings": {}
+    },
+    "newsletter-band": {
+      "type": "newsletter-band",
+      "settings": {}
     }
   },
   "order": [
@@ -59,6 +63,7 @@
     "collection-tiles",
     "featured-patterns",
     "heritage-band",
-    "fabric-teaser"
+    "fabric-teaser",
+    "newsletter-band"
   ]
 }
