@@ -1,0 +1,90 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "page-hero",
+      "settings": {
+        "eyebrow": "In-person · Lander, Wyoming",
+        "heading": "Workshops & Classes",
+        "height_vw": 52,
+        "height_max": 620,
+        "focal_x": 50,
+        "focal_y": 45
+      }
+    },
+    "list": {
+      "type": "workshops-list",
+      "blocks": {
+        "beginner": {
+          "type": "class",
+          "settings": {
+            "date": "Sat · Jun 14",
+            "heading": "Beginner Sewing 101",
+            "detail": "<p>Thread your machine, master a straight seam, and finish your first pillow cover.</p>",
+            "level": "No experience needed",
+            "price": "$65",
+            "cta_label": "Reserve a spot",
+            "cta_url": "/collections/workshops"
+          }
+        },
+        "esther": {
+          "type": "class",
+          "settings": {
+            "date": "Sat · Jun 28",
+            "heading": "Make the Esther Tank",
+            "detail": "<p>Sew the Esther Tank start to finish in a guided half-day class.</p>",
+            "level": "Beginner",
+            "price": "$85",
+            "cta_label": "Reserve a spot",
+            "cta_url": "/collections/workshops"
+          }
+        },
+        "nellie": {
+          "type": "class",
+          "settings": {
+            "date": "Sun · Jul 13",
+            "heading": "Nellie Dress Intensive",
+            "detail": "<p>A full-day workshop building the Nellie button-placket bodice & tiered skirt.</p>",
+            "level": "Confident Beginner",
+            "price": "$120",
+            "cta_label": "Reserve a spot",
+            "cta_url": "/collections/workshops"
+          }
+        }
+      },
+      "block_order": ["beginner", "esther", "nellie"],
+      "settings": {
+        "lead": "<p>Small, friendly classes for beginners and upskilling sewists. Machines, fabric, and tea provided — just bring yourself.</p>"
+      }
+    },
+    "private-sessions": {
+      "type": "heritage-band",
+      "settings": {
+        "eyebrow": "Private & group sessions",
+        "heading": "<p>Gather a few friends for a private sewing afternoon.</p>",
+        "body": "",
+        "cta_label": "Get in touch",
+        "cta_url": "/pages/about",
+        "color_scheme": "wheat"
+      }
+    },
+    "newsletter-band": {
+      "type": "newsletter-band",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "list",
+    "private-sessions",
+    "newsletter-band"
+  ]
+}
