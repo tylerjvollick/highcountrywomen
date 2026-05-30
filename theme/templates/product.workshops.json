@@ -1,0 +1,71 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "when-where": {
+          "type": "metafield",
+          "settings": {
+            "heading": "When & where",
+            "namespace": "custom",
+            "key": "workshop_schedule",
+            "open_by_default": true
+          }
+        },
+        "skill-level": {
+          "type": "metafield",
+          "settings": {
+            "heading": "Skill level",
+            "namespace": "custom",
+            "key": "workshop_level"
+          }
+        },
+        "what-youll-make": {
+          "type": "metafield",
+          "settings": {
+            "heading": "What you'll make",
+            "namespace": "custom",
+            "key": "workshop_outcome"
+          }
+        },
+        "what-to-bring": {
+          "type": "info_accordion",
+          "settings": {
+            "heading": "What to bring",
+            "content": "<p>Just yourself. Machines, fabric, tea, and tools are all provided.</p>"
+          }
+        }
+      },
+      "block_order": ["when-where", "skill-level", "what-youll-make", "what-to-bring"],
+      "settings": {
+        "fallback_type_label": "Workshop",
+        "button_label": "Reserve a spot",
+        "legal": "<p>Reservation is final on payment. If you need to cancel, please give us at least seven days' notice and we'll happily transfer your spot to another date or issue a credit toward fabric or a pattern.</p>"
+      }
+    },
+    "related-products": {
+      "type": "related-products",
+      "settings": {
+        "heading": "Other workshops"
+      }
+    },
+    "newsletter-band": {
+      "type": "newsletter-band",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "related-products",
+    "newsletter-band"
+  ]
+}

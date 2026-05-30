@@ -1,0 +1,70 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "half-yard": {
+          "type": "info_accordion",
+          "settings": {
+            "heading": "Sold by the half yard",
+            "content": "<p>Fabric is priced and sold by the half yard — a quantity of 2 equals 1 yard, a quantity of 4 equals 2 yards, and so on. Cuts are continuous up to the bolt's available length.</p>",
+            "open_by_default": true
+          }
+        },
+        "care": {
+          "type": "info_accordion",
+          "settings": {
+            "heading": "Care & washing",
+            "content": "<p>We recommend you pre-wash your fabric however you intend to wash your finished garment. For us, that's machine wash cool, dry on medium heat. Natural fibers will soften and develop a beautiful drape with use.</p>"
+          }
+        },
+        "fiber": {
+          "type": "metafield",
+          "settings": {
+            "heading": "Fiber content",
+            "namespace": "custom",
+            "key": "fiber_content"
+          }
+        },
+        "width": {
+          "type": "metafield",
+          "settings": {
+            "heading": "Width & weight",
+            "namespace": "custom",
+            "key": "fabric_specs"
+          }
+        }
+      },
+      "block_order": ["half-yard", "care", "fiber", "width"],
+      "settings": {
+        "fallback_type_label": "Fabric",
+        "show_quantity": true,
+        "legal": "<p>Natural fibers vary slightly in color and texture from cut to cut and from screen to in-hand. We do our best to photograph faithfully; small variations are part of the charm of working with real cloth.</p>"
+      }
+    },
+    "related-products": {
+      "type": "related-products",
+      "settings": {
+        "heading": "More fabric"
+      }
+    },
+    "newsletter-band": {
+      "type": "newsletter-band",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "related-products",
+    "newsletter-band"
+  ]
+}
