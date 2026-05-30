@@ -40,10 +40,15 @@
       },
       "block_order": ["fabric", "patterns", "workshops"],
       "settings": {}
+    },
+    "featured-patterns": {
+      "type": "featured-patterns",
+      "settings": {}
     }
   },
   "order": [
     "hero",
-    "collection-tiles"
+    "collection-tiles",
+    "featured-patterns"
   ]
 }
