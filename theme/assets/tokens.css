@@ -5,32 +5,33 @@
    barn red is the single loud voice; earth tones (ochre, sage, clay, prairie
    blue) provide vertical rhythm across a page.
 
-   FONTS — all three brand families are now self-hosted from /fonts (the user's
-   licensed files). Only the body sans is delivered from Google (it's the NEW
-   face we introduced, not a brand asset):
-   - Display serif  : "Goudy Old Style" (brand)  — self-hosted /fonts
-   - Secondary serif: "Lora" (brand)             — self-hosted /fonts
-   - Decorative     : "Amsterdam One" (brand)    — self-hosted /fonts
-   - Body sans      : Hanken Grotesk (Google CDN) — the "professional polish"
+   FONTS — all three brand families are self-hosted from theme/assets/ (the
+   user's licensed files). The body sans (Hanken Grotesk) is loaded from Google
+   Fonts in layout/theme.liquid — it is not a brand asset.
+   - Display serif  : "Goudy Old Style" (brand)  — self-hosted in assets/
+   - Secondary serif: "Lora" (brand)             — self-hosted in assets/
+   - Decorative     : "Amsterdam One" (brand)    — self-hosted in assets/
+   - Body sans      : Hanken Grotesk (Google CDN, declared in layout)
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300..700&display=swap');
-
 /* ---- Self-hosted brand faces ------------------------------------------- */
+/* Shopify serves all assets flat from /cdn/.../assets/, so the .ttf files
+   sit alongside this CSS file and are referenced by bare filename. */
+
 /* Goudy Old Style — display serif */
-@font-face { font-family: 'Goudy Old Style'; font-style: normal; font-weight: 400; font-display: swap; src: url('fonts/GOUDOS.ttf') format('truetype'); }
-@font-face { font-family: 'Goudy Old Style'; font-style: italic; font-weight: 400; font-display: swap; src: url('fonts/GOUDOSI.TTF') format('truetype'); }
-@font-face { font-family: 'Goudy Old Style'; font-style: normal; font-weight: 700; font-display: swap; src: url('fonts/GOUDOSB.TTF') format('truetype'); }
+@font-face { font-family: 'Goudy Old Style'; font-style: normal; font-weight: 400; font-display: swap; src: url('GOUDOS.ttf') format('truetype'); }
+@font-face { font-family: 'Goudy Old Style'; font-style: italic; font-weight: 400; font-display: swap; src: url('GOUDOSI.TTF') format('truetype'); }
+@font-face { font-family: 'Goudy Old Style'; font-style: normal; font-weight: 700; font-display: swap; src: url('GOUDOSB.TTF') format('truetype'); }
 
 /* Lora — secondary serif */
-@font-face { font-family: 'Lora'; font-style: normal; font-weight: 400; font-display: swap; src: url('fonts/Lora-Regular.ttf') format('truetype'); }
-@font-face { font-family: 'Lora'; font-style: italic; font-weight: 400; font-display: swap; src: url('fonts/Lora-Italic.ttf') format('truetype'); }
-@font-face { font-family: 'Lora'; font-style: normal; font-weight: 700; font-display: swap; src: url('fonts/Lora-Bold.ttf') format('truetype'); }
-@font-face { font-family: 'Lora'; font-style: italic; font-weight: 700; font-display: swap; src: url('fonts/Lora-BoldItalic.ttf') format('truetype'); }
+@font-face { font-family: 'Lora'; font-style: normal; font-weight: 400; font-display: swap; src: url('Lora-Regular.ttf') format('truetype'); }
+@font-face { font-family: 'Lora'; font-style: italic; font-weight: 400; font-display: swap; src: url('Lora-Italic.ttf') format('truetype'); }
+@font-face { font-family: 'Lora'; font-style: normal; font-weight: 700; font-display: swap; src: url('Lora-Bold.ttf') format('truetype'); }
+@font-face { font-family: 'Lora'; font-style: italic; font-weight: 700; font-display: swap; src: url('Lora-BoldItalic.ttf') format('truetype'); }
 
 /* Amsterdam One — decorative script (slant variant = italic) */
-@font-face { font-family: 'Amsterdam One'; font-style: normal; font-weight: 400; font-display: swap; src: url('fonts/AmsterdamOne-eZ12l.ttf') format('truetype'); }
-@font-face { font-family: 'Amsterdam One'; font-style: italic; font-weight: 400; font-display: swap; src: url('fonts/AmsterdamOneSlant-0WglP.ttf') format('truetype'); }
+@font-face { font-family: 'Amsterdam One'; font-style: normal; font-weight: 400; font-display: swap; src: url('AmsterdamOne-eZ12l.ttf') format('truetype'); }
+@font-face { font-family: 'Amsterdam One'; font-style: italic; font-weight: 400; font-display: swap; src: url('AmsterdamOneSlant-0WglP.ttf') format('truetype'); }
 
 :root {
   /* ---- Core brand palette (anchored to the brand's stated values) -------- */
