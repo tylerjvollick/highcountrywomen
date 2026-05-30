@@ -19,6 +19,7 @@
         "fabric": {
           "type": "tile",
           "settings": {
+            "collection": "fabric",
             "heading": "Fabric",
             "subheading": "Natural-fiber florals & linens"
           }
@@ -26,6 +27,7 @@
         "patterns": {
           "type": "tile",
           "settings": {
+            "collection": "sewingpatterns",
             "heading": "Sewing Patterns",
             "subheading": "Beginner-friendly PDF patterns"
           }
@@ -33,6 +35,7 @@
         "workshops": {
           "type": "tile",
           "settings": {
+            "collection": "workshops",
             "heading": "Workshops",
             "subheading": "In-person classes in Lander"
           }
@@ -43,7 +46,9 @@
     },
     "featured-patterns": {
       "type": "featured-patterns",
-      "settings": {}
+      "settings": {
+        "collection": "sewingpatterns"
+      }
     },
     "heritage-band": {
       "type": "heritage-band",
@@ -51,7 +56,9 @@
     },
     "fabric-teaser": {
       "type": "fabric-teaser",
-      "settings": {}
+      "settings": {
+        "collection": "fabric"
+      }
     },
     "newsletter-band": {
       "type": "newsletter-band",
