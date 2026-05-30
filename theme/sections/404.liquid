@@ -1,23 +1,153 @@
-{% comment %}
-  This section is used in the 404 template to render page shown when customers
-  enter an invalid store URL.
+<section class="not-found color-{{ section.settings.color_scheme }} full-width">
+  <div class="not-found__wrap">
+    <span class="not-found__numeral">404</span>
+    <span class="not-found__eyebrow">Off the beaten path</span>
+    <h1 class="not-found__heading">{{ '404.title' | t | default: 'Page not found' }}</h1>
+    <p class="not-found__body">
+      {{ '404.not_found' | t | default: "The page you're looking for isn't here. It may have moved, or maybe never existed at all." }}
+    </p>
+    <div class="not-found__actions">
+      <a class="not-found__cta" href="{{ routes.root_url }}">
+        Back to the homepage
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 12h14"/>
+          <path d="m12 5 7 7-7 7"/>
+        </svg>
+      </a>
+      <a class="not-found__link" href="{{ routes.all_products_collection_url }}">
+        Shop everything
+      </a>
+    </div>
+  </div>
+</section>
 
-  https://shopify.dev/docs/storefronts/themes/architecture/templates/404
-{% endcomment %}
+{% stylesheet %}
+  .not-found {
+    background: var(--bg);
+    color: var(--text);
+    width: 100%;
+  }
+  .not-found__wrap {
+    max-width: var(--page-width);
+    margin-inline: auto;
+    padding: clamp(80px, 12vw, 160px) var(--page-margin);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
 
-<h1>{{ '404.title' | t }}</h1>
-
-<p>
-  {{ '404.not_found' | t }}
-</p>
-
-<a href="{{ routes.all_products_collection_url }}">
-  {{ '404.back_to_shopping' | t }}
-</a>
+  .not-found__numeral {
+    font-family: var(--font-display);
+    font-size: clamp(6rem, 4rem + 10vw, 12rem);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: var(--accent);
+  }
+  .not-found__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 8px;
+    font-family: var(--font-sans);
+    font-size: var(--step--1);
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .not-found__eyebrow::before {
+    content: "";
+    width: 26px;
+    height: 0;
+    border-top: 1.5px solid currentColor;
+    opacity: 0.8;
+  }
+  .not-found__heading {
+    margin: 18px 0 0;
+    font-size: clamp(2rem, 1.5rem + 1.6vw, 3rem);
+  }
+  .not-found__body {
+    margin-top: 18px;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: var(--step-1);
+    line-height: 1.5;
+    color: var(--text-soft);
+    max-width: 46ch;
+  }
+  .not-found__actions {
+    margin-top: 32px;
+    display: flex;
+    gap: 22px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .not-found__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 24px;
+    background: var(--accent);
+    color: var(--accent-text);
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    transition: background var(--dur) var(--ease);
+  }
+  .not-found__cta:hover {
+    background: var(--hcw-red-deep);
+  }
+  .not-found__cta svg {
+    width: 14px;
+    height: 14px;
+  }
+  .not-found__link {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-soft);
+    text-decoration: none;
+    position: relative;
+    padding-bottom: 2px;
+  }
+  .not-found__link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1.5px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--dur) var(--ease);
+  }
+  .not-found__link:hover::after {
+    transform: scaleX(1);
+  }
+{% endstylesheet %}
 
 {% schema %}
 {
-  "name": "t:general.404",
-  "settings": []
+  "name": "404",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "cream"
+    }
+  ],
+  "enabled_on": {
+    "templates": ["404"]
+  }
 }
 {% endschema %}
