@@ -1,47 +1,456 @@
-{% comment %}
-  This section is used in the collection template to render collection page
-  listing all products within a collection.
+{%- liquid
+  assign per_page = section.settings.products_per_page
+  assign label = section.settings.product_label
+  if label == blank
+    assign label = 'products'
+  endif
+-%}
 
-  https://shopify.dev/docs/storefronts/themes/architecture/templates/collection
-{% endcomment %}
+<section class="collection-grid color-{{ section.settings.color_scheme }} full-width">
+  <div class="collection-grid__wrap">
+    {%- paginate collection.products by per_page -%}
+      <div class="collection-grid__bar">
+        <div class="collection-grid__filters">
+          {%- if section.settings.show_filters -%}
+            {%- for filter in collection.filters -%}
+              <details class="collection-grid__filter">
+                <summary class="collection-grid__filter-summary">
+                  {{ filter.label }}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="m6 9 6 6 6-6"/>
+                  </svg>
+                </summary>
+                <div class="collection-grid__filter-body">
+                  {%- case filter.type -%}
+                    {%- when 'list' or 'boolean' -%}
+                      <ul>
+                        {%- for value in filter.values -%}
+                          <li>
+                            <a
+                              class="collection-grid__filter-link {% if value.active %}is-active{% endif %}"
+                              href="{{ value.url_to_add }}"
+                            >
+                              {{ value.label }}
+                              <span class="collection-grid__filter-count">({{ value.count }})</span>
+                            </a>
+                          </li>
+                        {%- endfor -%}
+                      </ul>
+                    {%- when 'price_range' -%}
+                      <div class="collection-grid__filter-range">
+                        <span>{{ filter.min_value.value | money }} – {{ filter.max_value.value | money }}</span>
+                      </div>
+                  {%- endcase -%}
+                </div>
+              </details>
+            {%- endfor -%}
+          {%- endif -%}
+        </div>
 
-<h1>{{ collection.title }}</h1>
+        <div class="collection-grid__meta">
+          <span class="collection-grid__count">{{ collection.products_count }} {{ label }}</span>
 
-<div class="collection-products">
-  {% paginate collection.products by 20 %}
-    {% for product in collection.products %}
-      <div class="collection-product">
-        {% if product.featured_image %}
-          {% render 'image',
-            class: 'collection-product__image',
-            image: product.featured_image,
-            url: product.url,
-            width: 400,
-            height: 400,
-            crop: 'center'
-          %}
-        {% endif %}
-        <div class="collection-product__content">
-          <p>{{ product.title | escape | link_to: product.url }}</p>
-          <p>{{ product.price | money }}</p>
+          {%- if section.settings.show_sort -%}
+            <details class="collection-grid__sort">
+              <summary class="collection-grid__filter-summary">
+                Sort
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="m6 9 6 6 6-6"/>
+                </svg>
+              </summary>
+              <ul class="collection-grid__filter-body collection-grid__sort-body">
+                {%- for option in collection.sort_options -%}
+                  <li>
+                    <a
+                      class="collection-grid__filter-link {% if collection.sort_by == option.value or collection.default_sort_by == option.value and collection.sort_by == blank %}is-active{% endif %}"
+                      href="{{ collection.url }}?sort_by={{ option.value }}"
+                    >
+                      {{ option.name }}
+                    </a>
+                  </li>
+                {%- endfor -%}
+              </ul>
+            </details>
+          {%- endif -%}
         </div>
       </div>
-    {% endfor %}
 
-    {{ paginate | default_pagination }}
-  {% endpaginate %}
-</div>
+      <div class="collection-grid__grid">
+        {%- for product in collection.products -%}
+          <article class="pattern-card">
+            <a class="pattern-card__media" href="{{ product.url }}" aria-label="{{ product.title }}">
+              {%- if product.featured_image -%}
+                {{ product.featured_image | image_url: width: 600 | image_tag:
+                    loading: 'lazy',
+                    sizes: '(min-width: 860px) 25vw, 50vw',
+                    widths: '300, 450, 600, 900',
+                    class: 'pattern-card__img'
+                }}
+              {%- else -%}
+                {{ 'product-1' | placeholder_svg_tag: 'pattern-card__img pattern-card__img--placeholder' }}
+              {%- endif -%}
+
+              {%- if product.tags contains 'featured' -%}
+                <span class="pattern-card__tag">Featured</span>
+              {%- elsif product.compare_at_price > product.price -%}
+                <span class="pattern-card__tag">Sale</span>
+              {%- endif -%}
+            </a>
+
+            <div class="pattern-card__title-row">
+              <a class="pattern-card__title" href="{{ product.url }}">{{ product.title }}</a>
+              <span class="pattern-card__price">{{ product.price | money }}</span>
+            </div>
+
+            {%- assign meta = product.type | default: 'PDF Pattern' -%}
+            <p class="pattern-card__meta">{{ meta }}</p>
+
+            <a class="pattern-card__cta ulink" href="{{ product.url }}">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12h14"/>
+                <path d="m12 5 7 7-7 7"/>
+              </svg>
+              View pattern
+            </a>
+          </article>
+        {%- else -%}
+          <p class="collection-grid__empty">No {{ label | downcase }} match these filters.</p>
+        {%- endfor -%}
+      </div>
+
+      {%- if paginate.pages > 1 -%}
+        <nav class="collection-grid__pagination" aria-label="Pagination">
+          {{ paginate | default_pagination }}
+        </nav>
+      {%- endif -%}
+    {%- endpaginate -%}
+  </div>
+</section>
 
 {% stylesheet %}
-  .collection-products {
+  .collection-grid {
+    background: var(--bg);
+    color: var(--text);
+    width: 100%;
+  }
+
+  .collection-grid__wrap {
+    max-width: var(--page-width);
+    margin-inline: auto;
+    padding: clamp(36px, 5vw, 56px) var(--page-margin) clamp(56px, 8vw, 112px);
+  }
+
+  /* Bar: filters left, count + sort right */
+  .collection-grid__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    border-block: 1px solid var(--line);
+    padding: 12px 0;
+    margin: 0 0 clamp(28px, 4vw, 44px);
+  }
+  .collection-grid__filters,
+  .collection-grid__meta {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    flex-wrap: wrap;
+  }
+  .collection-grid__count {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    color: var(--text-mute);
+  }
+
+  .collection-grid__filter,
+  .collection-grid__sort {
+    position: relative;
+  }
+  .collection-grid__filter-summary {
+    list-style: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 0;
+    font-family: var(--font-sans);
+    font-size: 13px;
+    letter-spacing: 0.02em;
+    color: var(--text-soft);
+  }
+  .collection-grid__filter-summary::-webkit-details-marker {
+    display: none;
+  }
+  .collection-grid__filter-summary svg {
+    width: 14px;
+    height: 14px;
+    transition: transform var(--dur) var(--ease);
+  }
+  details[open] > .collection-grid__filter-summary svg {
+    transform: rotate(180deg);
+  }
+
+  .collection-grid__filter-body {
+    position: absolute;
+    z-index: 5;
+    top: 100%;
+    left: 0;
+    min-width: 220px;
+    padding: 14px 18px;
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-md);
+    list-style: none;
+    margin: 8px 0 0;
+  }
+  .collection-grid__sort-body {
+    right: 0;
+    left: auto;
+  }
+  .collection-grid__filter-body ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .collection-grid__filter-link {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    color: var(--text-soft);
+    text-decoration: none;
+  }
+  .collection-grid__filter-link:hover,
+  .collection-grid__filter-link.is-active {
+    color: var(--accent);
+  }
+  .collection-grid__filter-count {
+    color: var(--text-mute);
+    font-size: 12px;
+  }
+
+  /* Grid (same look as featured-patterns) */
+  .collection-grid__grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(18px, 2.5vw, 32px) clamp(18px, 2.5vw, 28px);
+  }
+
+  .collection-grid__empty {
+    grid-column: 1 / -1;
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: var(--text-mute);
+    text-align: center;
+    padding: 60px 20px;
+  }
+
+  /* Pattern card (duplicated from featured-patterns until extracted to a snippet) */
+  .pattern-card {
+    font-family: var(--font-sans);
+    display: flex;
+    flex-direction: column;
+  }
+  .pattern-card__media {
+    position: relative;
+    display: block;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+  }
+  .pattern-card__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s var(--ease);
+  }
+  .pattern-card__media:hover .pattern-card__img {
+    transform: scale(1.04);
+  }
+  .pattern-card__img--placeholder {
+    opacity: 0.5;
+  }
+  .pattern-card__tag {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 2;
+    background: var(--hcw-ink);
+    color: var(--hcw-cream);
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 5px 11px;
+    border-radius: var(--radius-pill);
+  }
+  .pattern-card__title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 10px;
+    margin-top: 15px;
+  }
+  .pattern-card__title {
+    font-family: var(--font-display);
+    font-size: 18px;
+    line-height: 1.15;
+    color: var(--text);
+    text-decoration: none;
+  }
+  .pattern-card__title:hover {
+    color: var(--accent);
+  }
+  .pattern-card__price {
+    font-size: 14px;
+    color: var(--text-soft);
+    white-space: nowrap;
+  }
+  .pattern-card__meta {
+    margin: 3px 0 0;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 13.5px;
+    color: var(--text-mute);
+  }
+  .pattern-card__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 11px;
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent);
+    text-decoration: none;
+    align-self: flex-start;
+    position: relative;
+    padding-bottom: 2px;
+  }
+  .pattern-card__cta svg {
+    width: 14px;
+    height: 14px;
+  }
+  .pattern-card__cta::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -2px;
+    height: 1.5px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--dur) var(--ease);
+  }
+  .pattern-card__cta:hover::after {
+    transform: scaleX(1);
+  }
+
+  /* Pagination */
+  .collection-grid__pagination {
+    margin-top: clamp(36px, 5vw, 60px);
+    display: flex;
+    justify-content: center;
+    font-family: var(--font-sans);
+    font-size: 14px;
+  }
+  .collection-grid__pagination .pagination {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .collection-grid__pagination a,
+  .collection-grid__pagination .page.current {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 36px;
+    height: 36px;
+    padding: 0 10px;
+    color: var(--text-soft);
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+  }
+  .collection-grid__pagination a:hover {
+    color: var(--accent);
+    background: var(--surface);
+  }
+  .collection-grid__pagination .page.current {
+    color: var(--accent-text);
+    background: var(--accent);
+  }
+
+  @media (max-width: 860px) {
+    .collection-grid__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .collection-grid__bar {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .collection-grid__meta {
+      width: 100%;
+      justify-content: space-between;
+    }
   }
 {% endstylesheet %}
 
 {% schema %}
 {
-  "name": "t:general.collection",
-  "settings": []
+  "name": "Collection",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "label": "Products per page",
+      "min": 8,
+      "max": 32,
+      "step": 4,
+      "default": 12
+    },
+    {
+      "type": "text",
+      "id": "product_label",
+      "label": "Count label",
+      "info": "Used in the \"X products\" line above the grid.",
+      "default": "patterns"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_filters",
+      "label": "Show storefront filters",
+      "info": "Enable filters in your Shopify admin → Online Store → Navigation → Filtering and editing menu for them to appear.",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sort",
+      "label": "Show sort dropdown",
+      "default": true
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "cream"
+    }
+  ],
+  "enabled_on": {
+    "templates": ["collection"]
+  }
 }
 {% endschema %}

@@ -12,15 +12,15 @@
     "banner": {
       "type": "collection-banner",
       "settings": {
-        "eyebrow": "The Pattern Library",
-        "blurb": "<p>Beginner-friendly PDF patterns for the home sewist — named for the women of the high country.</p>",
+        "eyebrow": "By the yard",
+        "blurb": "<p>Natural-fiber cottons and linens — vintage florals, gingham and stripes, chosen to pair beautifully with our patterns.</p>",
         "use_collection_description": true
       }
     },
     "main": {
       "type": "collection",
       "settings": {
-        "product_label": "patterns"
+        "product_label": "fabrics"
       }
     },
     "newsletter-band": {
