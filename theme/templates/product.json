@@ -10,11 +10,48 @@
 {
   "sections": {
     "main": {
-      "type": "product",
+      "type": "main-product",
+      "blocks": {
+        "difficulty": {
+          "type": "info_accordion",
+          "settings": {
+            "heading": "Pattern Difficulty",
+            "content": "<p>Clear step-by-step instructions with a full photo &amp; video sewalong — a confident first project, or an easy make for seasoned sewists.</p>",
+            "open_by_default": true
+          }
+        },
+        "sizing": {
+          "type": "info_accordion",
+          "settings": {
+            "heading": "Sizing",
+            "content": "<p>Inclusive size range XXS–4X with finished-garment measurements and a printable size chart included in the file.</p>"
+          }
+        },
+        "includes": {
+          "type": "info_accordion",
+          "settings": {
+            "heading": "Includes",
+            "content": "<p>Layered, print-at-home (A4 / US Letter) and A0 copyshop PDF files, a full sewing booklet, and a link to the YouTube sewalong.</p>"
+          }
+        },
+        "fabric": {
+          "type": "info_accordion",
+          "settings": {
+            "heading": "Fabric Recommendations",
+            "content": "<p>Light-to-mid-weight natural fibers — cotton lawn, linen, double gauze, or a soft chambray. See our <a href=\"/collections/fabric\">fabric collection</a>.</p>"
+          }
+        }
+      },
+      "block_order": ["difficulty", "sizing", "includes", "fabric"],
+      "settings": {}
+    },
+    "newsletter-band": {
+      "type": "newsletter-band",
       "settings": {}
     }
   },
   "order": [
-    "main"
+    "main",
+    "newsletter-band"
   ]
 }
