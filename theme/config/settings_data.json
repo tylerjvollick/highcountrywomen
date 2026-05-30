@@ -11,7 +11,6 @@
   "current": {
     "color_schemes": {
       "cream": {
-        "label": "Cream",
         "settings": {
           "background": "#F5EFE5",
           "surface": "#FBF8F1",
@@ -24,7 +23,6 @@
         }
       },
       "wheat": {
-        "label": "Wheat",
         "settings": {
           "background": "#EADFCC",
           "surface": "#F5EFE5",
@@ -37,7 +35,6 @@
         }
       },
       "blue": {
-        "label": "Blue",
         "settings": {
           "background": "#6D84AE",
           "surface": "#7B91B8",
@@ -50,7 +47,6 @@
         }
       },
       "ink": {
-        "label": "Ink",
         "settings": {
           "background": "#2E2A24",
           "surface": "#3A352E",
@@ -63,7 +59,6 @@
         }
       },
       "terracotta": {
-        "label": "Terracotta",
         "settings": {
           "background": "#D33F2B",
           "surface": "#C7472F",
@@ -76,7 +71,6 @@
         }
       },
       "sage": {
-        "label": "Sage",
         "settings": {
           "background": "#888A66",
           "surface": "#94966F",

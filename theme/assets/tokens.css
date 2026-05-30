@@ -92,6 +92,10 @@
   --space-5: 24px;  --space-6: 32px;  --space-7: 48px;  --space-8: 64px;
   --space-9: 96px;  --space-10: 128px;
 
+  /* ---- Page width & gutter — fixed per design (no merchant control) ----- */
+  --page-width:  1440px;
+  --page-margin: clamp(20px, 5vw, 72px);
+
   /* ---- Radii — gentle, never pill-y on big shapes ----------------------- */
   --radius-sm: 3px;
   --radius-md: 6px;
@@ -111,18 +115,25 @@
 
 /* ============================================================================
    SHOPIFY COLOR SCHEMES
-   Drop a scheme class on any <section> to flip its surface tokens. These map
-   1:1 to Shopify "Color schemes" so the same names can be wired in the theme
-   editor. Alternate them down a page for vertical rhythm:
+   The merchant picks one of these per section via Shopify's native color_scheme
+   field. Sections output `class="color-{{ section.settings.color_scheme }}"`
+   on their root element. The classnames here intentionally mirror the scheme
+   IDs in settings_schema.json (cream, wheat, blue, ink, terracotta, sage).
+
+   When the merchant edits a scheme's values in Theme settings → Colors, the
+   defaults below are overridden inline by Shopify in settings_data.json — these
+   class blocks remain a static fallback in case a scheme isn't fully defined.
+
+   Alternate them down a page for vertical rhythm:
    Cream → Wheat → Blue band → Cream → Ink footer.
    ========================================================================== */
 
-.scheme-cream  { --bg: var(--hcw-cream);  --surface: var(--hcw-paper); --text: var(--hcw-ink);   --text-soft: var(--hcw-charcoal); --text-mute: var(--hcw-mute);  --accent: var(--hcw-red); --accent-text:#fff; --line: var(--hcw-line); }
-.scheme-wheat  { --bg: var(--hcw-wheat);  --surface: var(--hcw-cream); --text: var(--hcw-ink);   --text-soft: var(--hcw-charcoal); --text-mute: var(--hcw-mute);  --accent: var(--hcw-red); --accent-text:#fff; --line: #DCCDB4; }
-.scheme-blue   { --bg: var(--hcw-blue);   --surface: #7B91B8;          --text: #FBF8F1;          --text-soft: #E8EDF4;            --text-mute: #CBD5E6;          --accent: var(--hcw-cream); --accent-text: var(--hcw-blue-deep); --line: rgba(255,255,255,.28); }
-.scheme-ink    { --bg: var(--hcw-ink);    --surface: #3A352E;          --text: var(--hcw-cream); --text-soft: #D9CFBE;            --text-mute: #A99E8C;          --accent: var(--hcw-red-bright); --accent-text:#fff; --line: rgba(245,239,229,.16); }
-.scheme-terra  { --bg: var(--hcw-red);    --surface: #C7472F;          --text: #FFF6EC;          --text-soft: #FBE3D8;            --text-mute: #F0C3B3;          --accent: var(--hcw-cream); --accent-text: var(--hcw-red-deep); --line: rgba(255,246,236,.30); }
-.scheme-sage   { --bg: var(--hcw-sage);   --surface: #94966F;          --text: #FBF8F1;          --text-soft: #ECEBD8;            --text-mute: #CFCFB3;          --accent: var(--hcw-cream); --accent-text: #5F6147; --line: rgba(255,255,255,.26); }
+.color-cream      { --bg: var(--hcw-cream);  --surface: var(--hcw-paper); --text: var(--hcw-ink);   --text-soft: var(--hcw-charcoal); --text-mute: var(--hcw-mute);  --accent: var(--hcw-red); --accent-text:#fff; --line: var(--hcw-line); }
+.color-wheat      { --bg: var(--hcw-wheat);  --surface: var(--hcw-cream); --text: var(--hcw-ink);   --text-soft: var(--hcw-charcoal); --text-mute: var(--hcw-mute);  --accent: var(--hcw-red); --accent-text:#fff; --line: #DCCDB4; }
+.color-blue       { --bg: var(--hcw-blue);   --surface: #7B91B8;          --text: #FBF8F1;          --text-soft: #E8EDF4;            --text-mute: #CBD5E6;          --accent: var(--hcw-cream); --accent-text: var(--hcw-blue-deep); --line: rgba(255,255,255,.28); }
+.color-ink        { --bg: var(--hcw-ink);    --surface: #3A352E;          --text: var(--hcw-cream); --text-soft: #D9CFBE;            --text-mute: #A99E8C;          --accent: var(--hcw-red-bright); --accent-text:#fff; --line: rgba(245,239,229,.16); }
+.color-terracotta { --bg: var(--hcw-red);    --surface: #C7472F;          --text: #FFF6EC;          --text-soft: #FBE3D8;            --text-mute: #F0C3B3;          --accent: var(--hcw-cream); --accent-text: var(--hcw-red-deep); --line: rgba(255,246,236,.30); }
+.color-sage       { --bg: var(--hcw-sage);   --surface: #94966F;          --text: #FBF8F1;          --text-soft: #ECEBD8;            --text-mute: #CFCFB3;          --accent: var(--hcw-cream); --accent-text: #5F6147; --line: rgba(255,255,255,.26); }
 
 /* ============================================================================
    BASE ELEMENTS — semantic defaults
