@@ -20,7 +20,13 @@
               class: 'hero-card__img-el'
           }}
         {%- else -%}
-          {{ 'lifestyle-1' | placeholder_svg_tag: 'hero-card__img-el hero-card__img-el--placeholder' }}
+          <img
+            class="hero-card__img-el"
+            src="{{ 'DSCF1659.jpg' | asset_url }}"
+            alt=""
+            loading="eager"
+            fetchpriority="high"
+          >
         {%- endif -%}
 
         {%- if badge_text != blank -%}
