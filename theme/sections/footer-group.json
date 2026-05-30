@@ -13,10 +13,51 @@
   "sections": {
     "footer": {
       "type": "footer",
-      "settings": {
-        "menu": "",
-        "show_payment_icons": true
-      }
+      "blocks": {
+        "menu-shop": {
+          "type": "menu",
+          "settings": {
+            "heading": "Shop",
+            "menu": "footer"
+          }
+        },
+        "menu-company": {
+          "type": "menu",
+          "settings": {
+            "heading": "Company",
+            "menu": "main-menu"
+          }
+        },
+        "social-instagram": {
+          "type": "social_link",
+          "settings": {
+            "platform": "instagram",
+            "url": ""
+          }
+        },
+        "social-facebook": {
+          "type": "social_link",
+          "settings": {
+            "platform": "facebook",
+            "url": ""
+          }
+        },
+        "social-youtube": {
+          "type": "social_link",
+          "settings": {
+            "platform": "youtube",
+            "url": ""
+          }
+        }
+      },
+      "block_order": [
+        "menu-shop",
+        "menu-company",
+        "social-instagram",
+        "social-facebook",
+        "social-youtube"
+      ],
+      "settings": {}
     }
   },
   "order": [
