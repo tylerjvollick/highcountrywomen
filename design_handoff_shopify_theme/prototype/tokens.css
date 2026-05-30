@@ -1,0 +1,201 @@
+/* ============================================================================
+   HIGH COUNTRY WOMEN — Colors & Type Foundations
+   ----------------------------------------------------------------------------
+   Heirloom, hand-stamped, prairie-modern. Warm cream grounds everything;
+   barn red is the single loud voice; earth tones (ochre, sage, clay, prairie
+   blue) provide vertical rhythm across a page.
+
+   FONTS — all three brand families are now self-hosted from /fonts (the user's
+   licensed files). Only the body sans is delivered from Google (it's the NEW
+   face we introduced, not a brand asset):
+   - Display serif  : "Goudy Old Style" (brand)  — self-hosted /fonts
+   - Secondary serif: "Lora" (brand)             — self-hosted /fonts
+   - Decorative     : "Amsterdam One" (brand)    — self-hosted /fonts
+   - Body sans      : Hanken Grotesk (Google CDN) — the "professional polish"
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300..700&display=swap');
+
+/* ---- Self-hosted brand faces ------------------------------------------- */
+/* Goudy Old Style — display serif */
+@font-face { font-family: 'Goudy Old Style'; font-style: normal; font-weight: 400; font-display: swap; src: url('fonts/GOUDOS.ttf') format('truetype'); }
+@font-face { font-family: 'Goudy Old Style'; font-style: italic; font-weight: 400; font-display: swap; src: url('fonts/GOUDOSI.TTF') format('truetype'); }
+@font-face { font-family: 'Goudy Old Style'; font-style: normal; font-weight: 700; font-display: swap; src: url('fonts/GOUDOSB.TTF') format('truetype'); }
+
+/* Lora — secondary serif */
+@font-face { font-family: 'Lora'; font-style: normal; font-weight: 400; font-display: swap; src: url('fonts/Lora-Regular.ttf') format('truetype'); }
+@font-face { font-family: 'Lora'; font-style: italic; font-weight: 400; font-display: swap; src: url('fonts/Lora-Italic.ttf') format('truetype'); }
+@font-face { font-family: 'Lora'; font-style: normal; font-weight: 700; font-display: swap; src: url('fonts/Lora-Bold.ttf') format('truetype'); }
+@font-face { font-family: 'Lora'; font-style: italic; font-weight: 700; font-display: swap; src: url('fonts/Lora-BoldItalic.ttf') format('truetype'); }
+
+/* Amsterdam One — decorative script (slant variant = italic) */
+@font-face { font-family: 'Amsterdam One'; font-style: normal; font-weight: 400; font-display: swap; src: url('fonts/AmsterdamOne-eZ12l.ttf') format('truetype'); }
+@font-face { font-family: 'Amsterdam One'; font-style: italic; font-weight: 400; font-display: swap; src: url('fonts/AmsterdamOneSlant-0WglP.ttf') format('truetype'); }
+
+:root {
+  /* ---- Core brand palette (anchored to the brand's stated values) -------- */
+  --hcw-red:        #D33F2B;   /* Barn Red — primary. (brand #dd3a29, deepened
+                                  a touch for legibility / printed-stamp feel) */
+  --hcw-red-bright: #DD3A29;   /* the literal brand red, for small accents     */
+  --hcw-red-deep:   #A6341F;   /* hover / red text on cream                    */
+
+  --hcw-cream:      #F5EFE5;   /* Cream — default page ground (brand exact)    */
+  --hcw-wheat:      #EADFCC;   /* Wheat/Oat — deeper warm for alt sections     */
+  --hcw-paper:      #FBF8F1;   /* Paper — lifted surface above cream           */
+
+  --hcw-blue:       #6D84AE;   /* Prairie Blue (brand exact)                   */
+  --hcw-blue-deep:  #50658B;   /* deeper blue for text on blue / hover         */
+
+  --hcw-ink:        #2E2A24;   /* warm near-black — primary text on light      */
+  --hcw-charcoal:   #4B4B4B;   /* Charcoal (brand exact) — secondary text      */
+
+  /* ---- Earth accents (pulled from the fabric + studio photography) ------- */
+  --hcw-ochre:      #C2913B;   /* Goldenrod — mustard plaid / brass lamp       */
+  --hcw-sage:       #888A66;   /* Sage — floral-ruffle green                   */
+  --hcw-clay:       #B5957C;   /* Clay/Taupe — heathered knit / mushroom       */
+  --hcw-brick:      #9E4129;   /* Brick — weathered barn-board red             */
+
+  /* ---- Neutral steps (warm-tinted greys) -------------------------------- */
+  --hcw-line:       #E2D8C6;   /* hairline on cream                            */
+  --hcw-line-soft:  #ECE3D4;   /* faintest divider                            */
+  --hcw-mute:       #8C8275;   /* muted warm grey — captions, meta             */
+  --hcw-mute-2:     #B3A795;   /* placeholder / disabled                       */
+
+  /* ---- Semantic surface tokens (default = Cream scheme) ----------------- */
+  --bg:             var(--hcw-cream);
+  --surface:        var(--hcw-paper);
+  --text:           var(--hcw-ink);
+  --text-soft:      var(--hcw-charcoal);
+  --text-mute:      var(--hcw-mute);
+  --accent:         var(--hcw-red);
+  --accent-text:    #FFFFFF;
+  --line:           var(--hcw-line);
+
+  /* ---- Type families ---------------------------------------------------- */
+  --font-display:   'Goudy Old Style', Georgia, 'Times New Roman', serif;
+  --font-serif:     'Lora', Georgia, 'Times New Roman', serif;
+  --font-sans:      'Hanken Grotesk', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-script:    'Amsterdam One', 'Snell Roundhand', cursive;
+
+  /* ---- Type scale (1.250 major-third, fluid where it matters) ----------- */
+  --step--1: clamp(0.78rem, 0.76rem + 0.10vw, 0.84rem);   /* meta / overline */
+  --step-0:  clamp(1.00rem, 0.97rem + 0.15vw, 1.0625rem); /* body            */
+  --step-1:  clamp(1.20rem, 1.12rem + 0.40vw, 1.40rem);   /* lead / h5       */
+  --step-2:  clamp(1.45rem, 1.30rem + 0.75vw, 1.85rem);   /* h4              */
+  --step-3:  clamp(1.85rem, 1.55rem + 1.50vw, 2.55rem);   /* h3              */
+  --step-4:  clamp(2.40rem, 1.90rem + 2.50vw, 3.60rem);   /* h2              */
+  --step-5:  clamp(3.10rem, 2.20rem + 4.50vw, 5.50rem);   /* h1 / display    */
+
+  /* ---- Spacing scale (8pt base, warm rhythm) ---------------------------- */
+  --space-1: 4px;   --space-2: 8px;   --space-3: 12px;  --space-4: 16px;
+  --space-5: 24px;  --space-6: 32px;  --space-7: 48px;  --space-8: 64px;
+  --space-9: 96px;  --space-10: 128px;
+
+  /* ---- Radii — gentle, never pill-y on big shapes ----------------------- */
+  --radius-sm: 3px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+  --radius-pill: 999px;
+
+  /* ---- Borders & shadows — soft, warm, low. Heirloom, not glossy. ------- */
+  --border-hair: 1px solid var(--hcw-line);
+  --border-ink:  1.5px solid var(--hcw-ink);
+  --shadow-sm:  0 1px 2px rgba(56, 44, 30, 0.05);
+  --shadow-md:  0 6px 20px rgba(56, 44, 30, 0.08);
+  --shadow-lg:  0 18px 48px rgba(56, 44, 30, 0.12);
+
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --dur:  220ms;
+}
+
+/* ============================================================================
+   SHOPIFY COLOR SCHEMES
+   Drop a scheme class on any <section> to flip its surface tokens. These map
+   1:1 to Shopify "Color schemes" so the same names can be wired in the theme
+   editor. Alternate them down a page for vertical rhythm:
+   Cream → Wheat → Blue band → Cream → Ink footer.
+   ========================================================================== */
+
+.scheme-cream  { --bg: var(--hcw-cream);  --surface: var(--hcw-paper); --text: var(--hcw-ink);   --text-soft: var(--hcw-charcoal); --text-mute: var(--hcw-mute);  --accent: var(--hcw-red); --accent-text:#fff; --line: var(--hcw-line); }
+.scheme-wheat  { --bg: var(--hcw-wheat);  --surface: var(--hcw-cream); --text: var(--hcw-ink);   --text-soft: var(--hcw-charcoal); --text-mute: var(--hcw-mute);  --accent: var(--hcw-red); --accent-text:#fff; --line: #DCCDB4; }
+.scheme-blue   { --bg: var(--hcw-blue);   --surface: #7B91B8;          --text: #FBF8F1;          --text-soft: #E8EDF4;            --text-mute: #CBD5E6;          --accent: var(--hcw-cream); --accent-text: var(--hcw-blue-deep); --line: rgba(255,255,255,.28); }
+.scheme-ink    { --bg: var(--hcw-ink);    --surface: #3A352E;          --text: var(--hcw-cream); --text-soft: #D9CFBE;            --text-mute: #A99E8C;          --accent: var(--hcw-red-bright); --accent-text:#fff; --line: rgba(245,239,229,.16); }
+.scheme-terra  { --bg: var(--hcw-red);    --surface: #C7472F;          --text: #FFF6EC;          --text-soft: #FBE3D8;            --text-mute: #F0C3B3;          --accent: var(--hcw-cream); --accent-text: var(--hcw-red-deep); --line: rgba(255,246,236,.30); }
+.scheme-sage   { --bg: var(--hcw-sage);   --surface: #94966F;          --text: #FBF8F1;          --text-soft: #ECEBD8;            --text-mute: #CFCFB3;          --accent: var(--hcw-cream); --accent-text: #5F6147; --line: rgba(255,255,255,.26); }
+
+/* ============================================================================
+   BASE ELEMENTS — semantic defaults
+   ========================================================================== */
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: var(--step-0);
+  line-height: 1.62;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.06;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  margin: 0;
+  text-wrap: balance;
+}
+h1 { font-size: var(--step-5); line-height: 1.0; }
+h2 { font-size: var(--step-4); }
+h3 { font-size: var(--step-3); }
+h4 { font-size: var(--step-2); line-height: 1.15; }
+h5 { font-family: var(--font-sans); font-size: var(--step-1); font-weight: 600; line-height: 1.25; letter-spacing: -0.005em; margin: 0; }
+
+p  { margin: 0 0 1em; max-width: 64ch; text-wrap: pretty; }
+
+/* Eyebrow / overline — the small all-caps label above headings (used heavily
+   on the current site, e.g. "READY FOR AN EASY SEWING PROJECT?") */
+.overline {
+  font-family: var(--font-sans);
+  font-size: var(--step--1);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* Lead paragraph — Lora italic, the "warm voice" */
+.lead {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--step-1);
+  line-height: 1.5;
+  color: var(--text-soft);
+}
+
+/* Decorative script — product-name flourish ("Nellie Tank & Dress"). Use
+   SPARINGLY: product art, hero accents, never for UI or body. Always red. */
+.script {
+  font-family: var(--font-script);
+  font-weight: 400;
+  color: var(--accent);
+  line-height: 1.05;
+}
+
+/* Wordmark — the all-caps Goudy logotype, wide-tracked */
+.wordmark {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 400;
+}
+
+small, .meta {
+  font-size: var(--step--1);
+  color: var(--text-mute);
+  letter-spacing: 0.01em;
+}
+
+a { color: inherit; }

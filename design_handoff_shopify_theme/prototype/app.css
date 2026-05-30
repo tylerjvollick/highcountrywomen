@@ -1,0 +1,118 @@
+/* ============================================================================
+   High Country Women — custom theme prototype · global layer
+   Sits on top of tokens.css. Adds layout helpers, the "stitch" rule motif,
+   responsive behavior, and tweak-driven hooks.
+   ========================================================================== */
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--hcw-cream); }
+html { scroll-behavior: smooth; }
+img { display: block; max-width: 100%; }
+::selection { background: rgba(211,63,43,.18); }
+button { font: inherit; }
+a { color: inherit; text-decoration: none; }
+
+/* The whole app is a fixed-content-width canvas that breathes. */
+.hcw-wrap { max-width: 1440px; margin: 0 auto; padding-inline: clamp(20px, 5vw, 72px); }
+.hcw-wrap--wide { max-width: 1600px; }
+
+/* Section vertical rhythm */
+.sec { padding-block: clamp(56px, 9vw, 132px); }
+.sec--tight { padding-block: clamp(40px, 6vw, 80px); }
+
+/* ---- The "stitch" rule — a dashed hairline that reads as a sewn seam. -----
+   This is our connective motif (NOT the quilt mark, which lives only in the
+   logo). Used as section dividers and accents. */
+.stitch {
+  border: none;
+  height: 0;
+  border-top: 1.5px dashed var(--line);
+  margin: 0;
+  opacity: .9;
+}
+.stitch--center { width: 64px; margin: 0 auto; border-top-color: var(--accent); }
+.stitch-v { width: 0; border-left: 1.5px dashed var(--line); align-self: stretch; }
+
+/* Eyebrow with flanking stitch tick */
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 12px;
+  font-family: var(--font-sans); font-size: var(--step--1); font-weight: 600;
+  letter-spacing: .18em; text-transform: uppercase; color: var(--accent);
+}
+.eyebrow::before {
+  content: ""; width: 26px; height: 0; border-top: 1.5px solid currentColor; opacity: .8;
+}
+.eyebrow--plain::before { display: none; }
+
+/* Index numerals (editorial catalog feel) */
+.indexnum {
+  font-family: var(--font-serif); font-style: italic;
+  font-size: var(--step-1); color: var(--accent);
+}
+
+/* Animated underline link */
+.ulink { position: relative; display: inline-block; cursor: pointer; }
+.ulink::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -2px; height: 1.5px;
+  background: currentColor; transform: scaleX(0); transform-origin: left;
+  transition: transform var(--dur) var(--ease);
+}
+.ulink:hover::after { transform: scaleX(1); }
+
+/* Reveal-on-scroll */
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
+.reveal.in { opacity: 1; transform: none; }
+
+/* Slow image zoom container */
+.zoomwrap { overflow: hidden; }
+.zoomwrap img, .zoomwrap .bg { transition: transform 900ms var(--ease); }
+.zoomwrap:hover img, .zoomwrap:hover .bg { transform: scale(1.045); }
+
+/* Marquee (heritage tagline ribbon) */
+.marquee { overflow: hidden; white-space: nowrap; }
+.marquee__track { display: inline-flex; gap: 0; animation: marquee 38s linear infinite; }
+.marquee:hover .marquee__track { animation-play-state: paused; }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* Scrollbar tidy for drawers / rails */
+.tidy-scroll::-webkit-scrollbar { height: 8px; width: 8px; }
+.tidy-scroll::-webkit-scrollbar-thumb { background: var(--line); border-radius: 999px; }
+
+/* Form controls */
+.field {
+  font-family: var(--font-sans); font-size: 15px; color: var(--text);
+  padding: 14px 16px; border: 1.5px solid var(--hcw-ink); border-radius: var(--radius-sm);
+  background: var(--surface); width: 100%;
+}
+.field::placeholder { color: var(--text-mute); }
+.scheme-ink .field, .scheme-blue .field, .scheme-terra .field, .scheme-sage .field { border-color: var(--line); background: transparent; }
+
+/* Hide scrollbars on horizontal product rails but keep scroll */
+.hrail { display: flex; gap: clamp(14px, 2vw, 24px); overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 8px; }
+.hrail > * { scroll-snap-align: start; flex: 0 0 auto; }
+
+/* ---- Responsive ---------------------------------------------------------- */
+.only-mobile { display: none; }
+
+/* Card-left hero: portrait image right, content card overlapping its left edge */
+.hero-cardleft { position: relative; }
+.hero-cardleft .hcl-img { width: 66%; margin-left: auto; }
+.hero-cardleft .hcl-card {
+  position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+  width: 40%;
+}
+@media (max-width: 860px) {
+  .hero-cardleft .hcl-img { width: 100%; }
+  .hero-cardleft .hcl-card { position: static; transform: none; width: auto; margin: -56px 14px 0; }
+}
+@media (max-width: 860px) {
+  .only-desktop { display: none !important; }
+  .only-mobile { display: block; }
+  .grid-3 { grid-template-columns: 1fr !important; }
+  .grid-4 { grid-template-columns: repeat(2, 1fr) !important; }
+  .split { grid-template-columns: 1fr !important; }
+  .split--reverse > *:first-child { order: 2; }
+}
+@media (max-width: 560px) {
+  .grid-4 { grid-template-columns: repeat(2, 1fr) !important; }
+}
