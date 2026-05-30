@@ -12,9 +12,38 @@
     "hero": {
       "type": "hero",
       "settings": {}
+    },
+    "collection-tiles": {
+      "type": "collection-tiles",
+      "blocks": {
+        "fabric": {
+          "type": "tile",
+          "settings": {
+            "heading": "Fabric",
+            "subheading": "Natural-fiber florals & linens"
+          }
+        },
+        "patterns": {
+          "type": "tile",
+          "settings": {
+            "heading": "Sewing Patterns",
+            "subheading": "Beginner-friendly PDF patterns"
+          }
+        },
+        "workshops": {
+          "type": "tile",
+          "settings": {
+            "heading": "Workshops",
+            "subheading": "In-person classes in Lander"
+          }
+        }
+      },
+      "block_order": ["fabric", "patterns", "workshops"],
+      "settings": {}
     }
   },
   "order": [
-    "hero"
+    "hero",
+    "collection-tiles"
   ]
 }

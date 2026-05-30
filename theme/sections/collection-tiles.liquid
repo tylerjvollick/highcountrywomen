@@ -1,0 +1,250 @@
+{%- liquid
+  comment
+    Cycle through the bundled DSCF photos as image fallbacks so the section looks
+    real before the merchant picks their own. Mod by 7 covers any block count.
+  endcomment
+  assign fallbacks = 'DSCF2423.jpg,DSCF0938.jpg,DSCF2467.jpg,DSCF1659.jpg,DSCF2468.jpg,DSCF2426.jpg,DSCF1546.jpg' | split: ','
+-%}
+
+<section class="collection-tiles color-{{ section.settings.color_scheme }} full-width">
+  <div class="collection-tiles__wrap">
+    <div class="collection-tiles__grid">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign coll = block.settings.collection
+          assign heading = block.settings.heading
+          if heading == blank
+            assign heading = coll.title
+          endif
+          assign link = block.settings.link
+          if link == blank
+            assign link = coll.url | default: '#'
+          endif
+          assign image = block.settings.image
+          if image == blank
+            assign image = coll.featured_image
+          endif
+          assign fallback_index = forloop.index0 | modulo: 7
+          assign fallback = fallbacks[fallback_index]
+        -%}
+
+        <a class="collection-tile" href="{{ link }}" {{ block.shopify_attributes }}>
+          <div class="collection-tile__media">
+            {%- if image != blank -%}
+              {{ image | image_url: width: 900 | image_tag:
+                  loading: 'lazy',
+                  sizes: '(min-width: 860px) 33vw, 100vw',
+                  widths: '360, 540, 720, 900',
+                  class: 'collection-tile__img'
+              }}
+            {%- else -%}
+              <img
+                class="collection-tile__img"
+                src="{{ fallback | asset_url }}"
+                alt=""
+                loading="lazy"
+              >
+            {%- endif -%}
+            <div class="collection-tile__scrim" aria-hidden="true"></div>
+          </div>
+
+          <div class="collection-tile__content">
+            {%- if heading != blank -%}
+              <span class="collection-tile__heading">{{ heading }}</span>
+            {%- endif -%}
+
+            {%- if block.settings.subheading != blank -%}
+              <span class="collection-tile__sub">
+                {{ block.settings.subheading }}
+                <svg class="collection-tile__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 12h14"/>
+                  <path d="m12 5 7 7-7 7"/>
+                </svg>
+              </span>
+            {%- endif -%}
+          </div>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .collection-tiles {
+    background: var(--bg);
+    color: var(--text);
+    padding-block: clamp(40px, 6vw, 80px);
+    width: 100%;
+  }
+
+  .collection-tiles__wrap {
+    max-width: var(--page-width);
+    margin-inline: auto;
+    padding-inline: var(--page-margin);
+  }
+
+  .collection-tiles__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(16px, 2vw, 26px);
+  }
+
+  .collection-tile {
+    position: relative;
+    display: block;
+    aspect-ratio: 3 / 4;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    color: var(--hcw-cream);
+    text-decoration: none;
+    background: var(--surface);
+  }
+
+  .collection-tile__media {
+    position: absolute;
+    inset: 0;
+  }
+  .collection-tile__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s var(--ease);
+  }
+  .collection-tile:hover .collection-tile__img {
+    transform: scale(1.04);
+  }
+
+  .collection-tile__scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(46, 42, 36, 0.04) 0%, rgba(46, 42, 36, 0.52) 100%);
+  }
+
+  .collection-tile__content {
+    position: absolute;
+    inset: 0;
+    padding: clamp(22px, 2.4vw, 34px);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+
+  .collection-tile__heading {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    line-height: 1.04;
+    font-size: clamp(2rem, 1.3rem + 2.2vw, 3.2rem);
+  }
+
+  .collection-tile__sub {
+    font-family: var(--font-sans);
+    font-size: clamp(14px, 0.9rem + 0.2vw, 16px);
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    opacity: 0.94;
+  }
+
+  .collection-tile__arrow {
+    width: 17px;
+    height: 17px;
+    transition: transform var(--dur) var(--ease);
+  }
+  .collection-tile:hover .collection-tile__arrow {
+    transform: translateX(4px);
+  }
+
+  @media (max-width: 860px) {
+    .collection-tiles__grid {
+      grid-template-columns: 1fr;
+    }
+    .collection-tile {
+      aspect-ratio: 4 / 3;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Collection tiles",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "cream"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tile",
+      "name": "Collection tile",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection",
+          "info": "Sets the heading, image, and link automatically. Override below if you want."
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading override"
+        },
+        {
+          "type": "text",
+          "id": "subheading",
+          "label": "Subheading"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image override"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link override"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection tiles",
+      "settings": {
+        "color_scheme": "cream"
+      },
+      "blocks": [
+        {
+          "type": "tile",
+          "settings": {
+            "heading": "Fabric",
+            "subheading": "Natural-fiber florals & linens"
+          }
+        },
+        {
+          "type": "tile",
+          "settings": {
+            "heading": "Sewing Patterns",
+            "subheading": "Beginner-friendly PDF patterns"
+          }
+        },
+        {
+          "type": "tile",
+          "settings": {
+            "heading": "Workshops",
+            "subheading": "In-person classes in Lander"
+          }
+        }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  }
+}
+{% endschema %}
