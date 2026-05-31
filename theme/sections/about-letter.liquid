@@ -1,0 +1,28 @@
+{%- comment -%}
+  Deprecation stub. The about-letter content was merged into about-intro
+  (see highcountrywomen-p2l). This file exists only so that stored section
+  references of type "about-letter" in settings_data.json or in saved
+  templates resolve without breaking the theme editor.
+
+  Renders nothing. No presets are exposed, so merchants cannot add new
+  instances from the editor. Settings are preserved (but unused) so any
+  saved field values still parse.
+{%- endcomment -%}
+
+{% schema %}
+{
+  "name": "About letter (deprecated)",
+  "settings": [
+    { "type": "text",     "id": "greeting",  "label": "Greeting" },
+    { "type": "richtext", "id": "body",      "label": "Letter body" },
+    { "type": "text",     "id": "signoff",   "label": "Sign-off" },
+    { "type": "text",     "id": "signature", "label": "Signature" },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "cream"
+    }
+  ]
+}
+{% endschema %}
