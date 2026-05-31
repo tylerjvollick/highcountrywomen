@@ -1,0 +1,503 @@
+{%- liquid
+  assign eyebrow = section.settings.eyebrow | strip
+  assign title = section.settings.title
+  assign zone = 520
+-%}
+
+<section
+  class="timeline-section color-{{ section.settings.color_scheme }} full-width"
+  data-tl-section
+  style="--tl-zone: {{ zone }}px;"
+>
+  <div class="timeline-section__wrap">
+    <div class="timeline-section__head">
+      <div class="timeline-section__head-text">
+        {%- if eyebrow != blank -%}
+          <span class="timeline-section__eyebrow">{{ eyebrow }}</span>
+        {%- endif -%}
+        {%- if title != blank -%}
+          <h2 class="timeline-section__title">{{ title }}</h2>
+        {%- endif -%}
+      </div>
+      <div class="timeline-section__arrows">
+        <button class="tl-arrow" type="button" aria-label="Previous" data-tl-prev disabled>
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+        </button>
+        <button class="tl-arrow" type="button" aria-label="Next" data-tl-next>
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="tl-rail" data-tl-rail>
+      <div class="tl-track">
+        <div class="tl-baseline" aria-hidden="true"></div>
+
+        {%- for block in section.blocks -%}
+          {%- liquid
+            case block.settings.size
+              when 'portrait'
+                assign w = 300
+                assign h = 375
+              when 'tall'
+                assign w = 280
+                assign h = 373
+              when 'square'
+                assign w = 330
+                assign h = 330
+              when 'landscape'
+                assign w = 460
+                assign h = 307
+              when 'wide'
+                assign w = 500
+                assign h = 312
+              else
+                assign w = 330
+                assign h = 330
+            endcase
+
+            assign room = zone | minus: h
+            if room < 0
+              assign room = 0
+            endif
+
+            assign offset_pct = block.settings.offset | default: 50
+            assign offset_px = room | times: offset_pct | divided_by: 100
+
+            assign focus = block.settings.focus | default: 'center' | strip
+          -%}
+
+          <article class="tl-item" style="width: {{ w }}px;" {{ block.shopify_attributes }}>
+            <div class="tl-figure">
+              <div class="tl-tick" style="height: {{ offset_px }}px;" aria-hidden="true"></div>
+              <div class="tl-media" style="width: {{ w }}px; height: {{ h }}px; margin-bottom: {{ offset_px }}px;">
+                {%- if block.settings.photo != blank -%}
+                  <div class="tl-photo">
+                    {{ block.settings.photo | image_url: width: 1000 | image_tag:
+                        loading: 'lazy',
+                        sizes: '(min-width: 860px) 33vw, 80vw',
+                        widths: '320, 480, 640, 800, 1000',
+                        class: 'tl-photo__img',
+                        style: 'object-position: center ' | append: focus | append: ';'
+                    }}
+                  </div>
+                {%- else -%}
+                  <div class="tl-card">
+                    <span class="tl-card-mark" aria-hidden="true">&#10022;</span>
+                    <p class="tl-quote">{{ block.settings.caption }}</p>
+                  </div>
+                {%- endif -%}
+              </div>
+              <span class="tl-dot" aria-hidden="true"></span>
+            </div>
+            <div class="tl-foot">
+              {%- if block.settings.date != blank -%}
+                <div class="tl-date">{{ block.settings.date }}</div>
+              {%- endif -%}
+              {%- if block.settings.photo != blank and block.settings.caption != blank -%}
+                <p class="tl-caption">{{ block.settings.caption }}</p>
+              {%- endif -%}
+            </div>
+          </article>
+        {%- endfor -%}
+
+        <div class="tl-end" aria-hidden="true"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .timeline-section {
+    background: var(--bg);
+    color: var(--text);
+    width: 100%;
+    overflow: hidden;
+    padding-block: clamp(48px, 6vw, 88px);
+  }
+  .timeline-section__wrap {
+    max-width: var(--page-width);
+    margin-inline: auto;
+    padding-inline: var(--page-margin);
+  }
+
+  .timeline-section__head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .timeline-section__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--font-sans);
+    font-size: var(--step--1);
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .timeline-section__eyebrow::before {
+    content: "";
+    width: 26px;
+    height: 0;
+    border-top: 1.5px solid currentColor;
+    opacity: 0.8;
+  }
+  .timeline-section__title {
+    margin: 14px 0 0;
+    max-width: 18ch;
+  }
+  .timeline-section__title > :first-child { margin: 0; }
+
+  .timeline-section__arrows {
+    display: flex;
+    gap: 10px;
+  }
+  .tl-arrow {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-pill, 9999px);
+    border: 1.5px solid var(--text);
+    background: transparent;
+    color: var(--text);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    transition: background var(--dur) var(--ease), color var(--dur) var(--ease), opacity var(--dur) var(--ease);
+  }
+  .tl-arrow:hover:not(:disabled) {
+    background: var(--text);
+    color: var(--bg);
+  }
+  .tl-arrow:disabled {
+    opacity: 0.28;
+    cursor: default;
+  }
+
+  .tl-rail {
+    margin-top: clamp(20px, 3vw, 36px);
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x proximity;
+    cursor: grab;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .tl-rail::-webkit-scrollbar { display: none; }
+  .tl-rail:active { cursor: grabbing; }
+
+  .tl-track {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: clamp(40px, 5vw, 92px);
+    padding-inline: max(calc((100% - 1440px) / 2), clamp(20px, 5vw, 48px));
+    padding-block: 8px clamp(8px, 1vw, 16px);
+    width: max-content;
+  }
+  .tl-baseline {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: var(--tl-zone);
+    height: 0;
+    border-top: 1px solid var(--line);
+    z-index: 0;
+  }
+
+  .tl-item {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 0 0 auto;
+    user-select: none;
+    scroll-snap-align: start;
+  }
+  .tl-figure {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    height: var(--tl-zone);
+  }
+  .tl-tick {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 1px;
+    background: var(--line);
+    transform: translateX(-50%);
+    z-index: 0;
+  }
+  .tl-media {
+    position: relative;
+    z-index: 1;
+  }
+  .tl-photo {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-sm);
+    background: var(--surface);
+  }
+  .tl-photo__img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .tl-card {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    text-align: center;
+    padding: clamp(20px, 2vw, 32px);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-sm);
+  }
+  .tl-card-mark {
+    color: var(--accent);
+    font-size: 20px;
+    line-height: 1;
+  }
+  .tl-quote {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: var(--step-1);
+    line-height: 1.32;
+    color: var(--text-soft);
+    text-wrap: pretty;
+    margin: 0;
+  }
+  .tl-dot {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: var(--accent);
+    transform: translate(-50%, 50%);
+    box-shadow: 0 0 0 4px var(--bg);
+    z-index: 2;
+  }
+  .tl-foot {
+    padding-top: 28px;
+    text-align: center;
+    max-width: 320px;
+  }
+  .tl-date {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .tl-caption {
+    margin: 10px auto 0;
+    font-family: var(--font-sans);
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: var(--text-soft);
+    max-width: 30ch;
+    text-wrap: pretty;
+  }
+  .tl-end {
+    flex: 0 0 clamp(20px, 5vw, 48px);
+  }
+{% endstylesheet %}
+
+{% javascript %}
+  (function () {
+    function initTimeline(section) {
+      if (section.dataset.tlInit === '1') return;
+      section.dataset.tlInit = '1';
+
+      var rail = section.querySelector('[data-tl-rail]');
+      var prev = section.querySelector('[data-tl-prev]');
+      var next = section.querySelector('[data-tl-next]');
+      if (!rail || !prev || !next) return;
+
+      var drag = { down: false, startX: 0, startScroll: 0, moved: false };
+
+      function syncArrows() {
+        prev.disabled = rail.scrollLeft <= 4;
+        next.disabled = rail.scrollLeft >= rail.scrollWidth - rail.clientWidth - 4;
+      }
+
+      function nudge(dir) {
+        var step = Math.min(rail.clientWidth * 0.7, 560);
+        rail.scrollBy({ left: dir * step, behavior: 'smooth' });
+      }
+
+      prev.addEventListener('click', function () { nudge(-1); });
+      next.addEventListener('click', function () { nudge(1); });
+      rail.addEventListener('scroll', syncArrows, { passive: true });
+      window.addEventListener('resize', syncArrows);
+
+      rail.addEventListener('pointerdown', function (e) {
+        drag = { down: true, startX: e.clientX, startScroll: rail.scrollLeft, moved: false };
+        if (rail.setPointerCapture) rail.setPointerCapture(e.pointerId);
+      });
+      rail.addEventListener('pointermove', function (e) {
+        if (!drag.down) return;
+        var dx = e.clientX - drag.startX;
+        if (Math.abs(dx) > 4) drag.moved = true;
+        rail.scrollLeft = drag.startScroll - dx;
+      });
+      function endDrag(e) {
+        drag.down = false;
+        if (rail.releasePointerCapture && e.pointerId != null) {
+          try { rail.releasePointerCapture(e.pointerId); } catch (_) {}
+        }
+      }
+      rail.addEventListener('pointerup', endDrag);
+      rail.addEventListener('pointercancel', endDrag);
+
+      rail.addEventListener('click', function (e) {
+        if (drag.moved) {
+          e.preventDefault();
+          e.stopPropagation();
+          drag.moved = false;
+        }
+      }, true);
+
+      syncArrows();
+    }
+
+    function initAll() {
+      document.querySelectorAll('[data-tl-section]').forEach(initTimeline);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initAll);
+    } else {
+      initAll();
+    }
+
+    document.addEventListener('shopify:section:load', initAll);
+  })();
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Timeline",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "A little history"
+    },
+    {
+      "type": "richtext",
+      "id": "title",
+      "label": "Title",
+      "default": "<p>How High Country Women came to be</p>"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "cream"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "milestone",
+      "name": "Milestone",
+      "settings": [
+        {
+          "type": "text",
+          "id": "date",
+          "label": "Date",
+          "info": "Shown as a red uppercase label below the line (e.g. 'January 2025').",
+          "default": "January 2025"
+        },
+        {
+          "type": "text",
+          "id": "caption",
+          "label": "Caption",
+          "info": "Under the photo for photo events. Inside the card for photo-less events."
+        },
+        {
+          "type": "image_picker",
+          "id": "photo",
+          "label": "Photo",
+          "info": "Optional — leave blank to render a serif 'moment' card instead."
+        },
+        {
+          "type": "text",
+          "id": "focus",
+          "label": "Photo focus (vertical)",
+          "info": "Examples: 'center', 'top', '22%', '80%'. Controls the photo crop's Y position.",
+          "default": "center"
+        },
+        {
+          "type": "select",
+          "id": "size",
+          "label": "Size",
+          "options": [
+            { "value": "portrait",  "label": "Portrait (300 × 4:5)" },
+            { "value": "tall",      "label": "Tall (280 × 3:4)" },
+            { "value": "square",    "label": "Square (330)" },
+            { "value": "landscape", "label": "Landscape (460 × 3:2)" },
+            { "value": "wide",      "label": "Wide (500 × 16:10)" }
+          ],
+          "default": "square"
+        },
+        {
+          "type": "range",
+          "id": "offset",
+          "label": "Float height",
+          "info": "0 = resting on the baseline. 100 = top of the zone.",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "unit": "%",
+          "default": 50
+        }
+      ]
+    }
+  ],
+  "max_blocks": 16,
+  "presets": [
+    {
+      "name": "Timeline",
+      "settings": {
+        "color_scheme": "cream"
+      },
+      "blocks": [
+        { "type": "milestone", "settings": { "date": "2021", "caption": "Katie and Tobey meet for the first time on the Lander bar patio.", "size": "landscape", "offset": 20 } },
+        { "type": "milestone", "settings": { "date": "2024", "caption": "Tobey coordinates Katie's wedding, and the two bond over a shared love of sewing.", "size": "portrait", "offset": 60 } },
+        { "type": "milestone", "settings": { "date": "December 2024", "caption": "A lightbulb moment during a quilt-coat sewing date — \"what if we started something together?\"", "size": "square", "offset": 30 } },
+        { "type": "milestone", "settings": { "date": "January 2025", "caption": "High Country Women is founded — and we both find out we're expecting our first babies.", "size": "tall", "offset": 55 } },
+        { "type": "milestone", "settings": { "date": "June 2025", "caption": "Our very first sewing pattern launches into the world.", "size": "square", "offset": 10 } },
+        { "type": "milestone", "settings": { "date": "August 2025", "caption": "Our second sewing pattern joins the collection.", "size": "portrait", "offset": 50 } },
+        { "type": "milestone", "settings": { "date": "September 2025", "caption": "Our babies arrive, just seven days apart.", "size": "landscape", "offset": 35 } },
+        { "type": "milestone", "settings": { "date": "Today", "caption": "Five patterns, a growing fabric collection, and our first in-person workshop in the works.", "size": "wide", "offset": 60 } }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  }
+}
+{% endschema %}

@@ -1,0 +1,192 @@
+{%- liquid
+  assign eyebrow = section.settings.eyebrow | strip
+  assign heading = section.settings.heading
+  assign lead = section.settings.lead
+  assign image = section.settings.image
+  assign caption = section.settings.caption | strip
+-%}
+
+<section class="about-intro color-{{ section.settings.color_scheme }} full-width">
+  <div class="about-intro__wrap">
+    <div class="about-intro__layout">
+      <div class="about-intro__text">
+        {%- if eyebrow != blank -%}
+          <span class="about-intro__eyebrow">{{ eyebrow }}</span>
+        {%- endif -%}
+
+        {%- if heading != blank -%}
+          <h1 class="about-intro__heading">{{ heading }}</h1>
+        {%- endif -%}
+
+        {%- if lead != blank -%}
+          <div class="about-intro__lead lead">{{ lead }}</div>
+        {%- endif -%}
+      </div>
+
+      <figure class="about-intro__figure">
+        {%- if image != blank -%}
+          {{ image | image_url: width: 1200 | image_tag:
+              loading: 'lazy',
+              sizes: '(min-width: 860px) 50vw, 100vw',
+              widths: '480, 720, 960, 1200, 1600',
+              class: 'about-intro__img'
+          }}
+        {%- else -%}
+          <div class="about-intro__img about-intro__img--placeholder" aria-hidden="true"></div>
+        {%- endif -%}
+
+        {%- if caption != blank -%}
+          <figcaption class="about-intro__caption">{{ caption }}</figcaption>
+        {%- endif -%}
+      </figure>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .about-intro {
+    background: var(--bg);
+    color: var(--text);
+    width: 100%;
+  }
+  .about-intro__wrap {
+    max-width: var(--page-width);
+    margin-inline: auto;
+    padding: clamp(48px, 7vw, 104px) var(--page-margin) clamp(16px, 2vw, 32px);
+  }
+  .about-intro__layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(28px, 5vw, 72px);
+    align-items: center;
+  }
+
+  .about-intro__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--font-sans);
+    font-size: var(--step--1);
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .about-intro__eyebrow::before {
+    content: "";
+    width: 26px;
+    height: 0;
+    border-top: 1.5px solid currentColor;
+    opacity: 0.8;
+  }
+
+  .about-intro__heading {
+    margin: 18px 0 0;
+    font-size: clamp(2.4rem, 1.6rem + 3vw, 4rem);
+    line-height: 1.08;
+    max-width: 14ch;
+  }
+  .about-intro__heading em {
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 400;
+  }
+
+  .about-intro__lead {
+    margin-top: 22px;
+    max-width: 42ch;
+  }
+  .about-intro__lead > :first-child { margin-top: 0; }
+  .about-intro__lead > :last-child  { margin-bottom: 0; }
+
+  .about-intro__figure {
+    margin: 0;
+  }
+  .about-intro__img {
+    display: block;
+    width: 100%;
+    height: clamp(260px, 32vw, 420px);
+    object-fit: cover;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-sm);
+    background: var(--surface);
+  }
+  .about-intro__img--placeholder {
+    background: var(--surface);
+  }
+  .about-intro__caption {
+    margin-top: 12px;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 14px;
+    color: var(--text-mute);
+  }
+
+  @media (max-width: 860px) {
+    .about-intro__layout {
+      grid-template-columns: 1fr;
+      gap: clamp(20px, 4vw, 32px);
+    }
+    .about-intro__heading {
+      max-width: none;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "About intro",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Our story"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Wrap a word in <em>…</em> for an italic accent.",
+      "default": "<p>Two friends, sewing in the high country.</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "lead",
+      "label": "Lead paragraph",
+      "default": "<p>We're Katie and Tobey — friends, neighbors, sewists, and the women behind High Country Women.</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Founders photo",
+      "info": "Landscape orientation works best."
+    },
+    {
+      "type": "text",
+      "id": "caption",
+      "label": "Caption",
+      "default": "Katie & Tobey — Lander, Wyoming"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "cream"
+    }
+  ],
+  "presets": [
+    {
+      "name": "About intro",
+      "settings": {
+        "color_scheme": "cream"
+      }
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  }
+}
+{% endschema %}

@@ -1,40 +1,109 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
-    "banner": {
-      "type": "page-banner",
-      "settings": {
-        "eyebrow": "Our story",
-        "heading": "Two friends, sewing in the high country.",
-        "body": "<p>High Country Women began at a kitchen table in Lander, Wyoming — a shared love of natural fibers, old-fashioned charm, and pieces made to last.</p>"
-      }
+    "intro": {
+      "type": "about-intro",
+      "settings": {}
     },
-    "studio-image": {
-      "type": "media-band",
-      "settings": {
-        "height_vw": 52,
-        "height_max": 640,
-        "focal_x": 50,
-        "focal_y": 40
-      }
+    "letter": {
+      "type": "about-letter",
+      "settings": {}
     },
-    "story": {
-      "type": "fabric-teaser",
+    "timeline": {
+      "type": "timeline",
+      "blocks": {
+        "m-2021": {
+          "type": "milestone",
+          "settings": {
+            "date": "2021",
+            "caption": "Katie and Tobey meet for the first time on the Lander bar patio.",
+            "focus": "40%",
+            "size": "landscape",
+            "offset": 20
+          }
+        },
+        "m-2024": {
+          "type": "milestone",
+          "settings": {
+            "date": "2024",
+            "caption": "Tobey coordinates Katie's wedding, and the two bond over a shared love of sewing.",
+            "focus": "45%",
+            "size": "portrait",
+            "offset": 60
+          }
+        },
+        "m-dec-2024": {
+          "type": "milestone",
+          "settings": {
+            "date": "December 2024",
+            "caption": "A lightbulb moment during a quilt-coat sewing date — \"what if we started something together?\"",
+            "size": "square",
+            "offset": 30
+          }
+        },
+        "m-jan-2025": {
+          "type": "milestone",
+          "settings": {
+            "date": "January 2025",
+            "caption": "High Country Women is founded — and we both find out we're expecting our first babies.",
+            "focus": "center",
+            "size": "tall",
+            "offset": 55
+          }
+        },
+        "m-jun-2025": {
+          "type": "milestone",
+          "settings": {
+            "date": "June 2025",
+            "caption": "Our very first sewing pattern launches into the world.",
+            "focus": "22%",
+            "size": "square",
+            "offset": 10
+          }
+        },
+        "m-aug-2025": {
+          "type": "milestone",
+          "settings": {
+            "date": "August 2025",
+            "caption": "Our second sewing pattern joins the collection.",
+            "size": "portrait",
+            "offset": 50
+          }
+        },
+        "m-sep-2025": {
+          "type": "milestone",
+          "settings": {
+            "date": "September 2025",
+            "caption": "Our babies arrive, just seven days apart.",
+            "focus": "80%",
+            "size": "landscape",
+            "offset": 35
+          }
+        },
+        "m-today": {
+          "type": "milestone",
+          "settings": {
+            "date": "Today",
+            "caption": "Five patterns, a growing fabric collection, and our first in-person workshop in the works.",
+            "focus": "center",
+            "size": "wide",
+            "offset": 60
+          }
+        }
+      },
+      "block_order": [
+        "m-2021",
+        "m-2024",
+        "m-dec-2024",
+        "m-jan-2025",
+        "m-jun-2025",
+        "m-aug-2025",
+        "m-sep-2025",
+        "m-today"
+      ],
       "settings": {
-        "eyebrow": "Heirloom, by hand",
-        "heading": "<p>An homage to the women who came before</p>",
-        "body": "<p>Every pattern is named after a high country woman in Wyoming — Nellie, Esther, Lizabeth — a quiet tribute to the grandmothers and makers who taught us that the best things are well-used and passed down.</p><p>We design beginner-friendly patterns and stock the natural-fiber fabric to make them, so anyone can sew something they'll keep for years.</p>",
-        "image_position": "left",
-        "cta_label": "Shop the patterns",
-        "cta_url": "/collections/sewingpatterns"
+        "eyebrow": "A little history",
+        "title": "<p>How High Country Women came to be</p>",
+        "color_scheme": "cream"
       }
     },
     "values": {
@@ -73,9 +142,9 @@
     }
   },
   "order": [
-    "banner",
-    "studio-image",
-    "story",
+    "intro",
+    "letter",
+    "timeline",
     "values",
     "newsletter-band"
   ]

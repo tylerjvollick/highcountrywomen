@@ -1,0 +1,127 @@
+{%- liquid
+  assign greeting = section.settings.greeting | strip
+  assign body = section.settings.body
+  assign signoff = section.settings.signoff | strip
+  assign signature = section.settings.signature | strip
+-%}
+
+<section class="about-letter color-{{ section.settings.color_scheme }} full-width">
+  <div class="about-letter__wrap">
+    {%- if greeting != blank -%}
+      <p class="about-letter__greeting lead">{{ greeting }}</p>
+    {%- endif -%}
+
+    {%- if body != blank -%}
+      <div class="about-letter__body">{{ body }}</div>
+    {%- endif -%}
+
+    {%- if signoff != blank or signature != blank -%}
+      <div class="about-letter__signoff">
+        {%- if signoff != blank -%}
+          <span class="about-letter__signoff-text">{{ signoff }}</span>
+        {%- endif -%}
+        {%- if signature != blank -%}
+          <div class="about-letter__signature">{{ signature }}</div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+  .about-letter {
+    background: var(--bg);
+    color: var(--text);
+    width: 100%;
+  }
+  .about-letter__wrap {
+    max-width: 720px;
+    margin-inline: auto;
+    padding: clamp(12px, 2vw, 28px) var(--page-margin) clamp(48px, 6vw, 88px);
+  }
+
+  .about-letter__greeting {
+    margin: 0;
+    font-size: var(--step-2);
+    color: var(--text);
+  }
+
+  .about-letter__body > p {
+    margin-top: 18px;
+    font-family: var(--font-sans);
+    font-size: 16.5px;
+    line-height: 1.78;
+    color: var(--text-soft);
+    text-wrap: pretty;
+  }
+  .about-letter__body > p:first-child {
+    margin-top: 20px;
+  }
+
+  .about-letter__signoff {
+    margin-top: 34px;
+  }
+  .about-letter__signoff-text {
+    display: block;
+    font-family: var(--font-sans);
+    font-size: 15px;
+    color: var(--text-soft);
+  }
+  .about-letter__signature {
+    margin-top: 4px;
+    font-family: var(--font-script);
+    color: var(--accent);
+    font-size: clamp(2.4rem, 1.8rem + 2.4vw, 3.6rem);
+    line-height: 1;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "About letter",
+  "settings": [
+    {
+      "type": "text",
+      "id": "greeting",
+      "label": "Greeting",
+      "default": "Hi there,"
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Letter body",
+      "default": "<p>Our story started in a small mountain town in Wyoming. In 2024, Tobey helped Katie plan her wedding after celebrating her own the year before — planning DIY weddings in rural Wyoming is not for the faint of heart! Our friendship took off, and before long we were planning regular sewing dates and dreaming up all the things we wanted to make.</p><p>At the time, we were both searching for what was next. Katie had recently been laid off, and Tobey was feeling stuck after spending several years trying to build a business that wasn't quite the right fit. We found ourselves dreaming about new possibilities — Katie dreamed of designing sewing patterns, and Tobey dreamed of opening a fabric shop.</p><p>One December evening during a quilt-coat sewing date, a lightbulb went off and we thought — \"what if we started something together?\" High Country Women was born a month later, in January of 2025. We also both found out we were pregnant with our first babies — at the same time.</p><p>In June 2025, we launched our first sewing pattern. In August, we launched our second. In September, our babies arrived just seven days apart.</p><p>Today, High Country Women has grown to include five sewing patterns, a small collection of fabrics, and our first in-person sewing workshop in the works. What began as two friends sewing together has become a business built around creativity, community, and a shared love of making things by hand.</p><p>We're excited to see where this journey takes us, and we're grateful you've chosen to be part of it.</p>"
+    },
+    {
+      "type": "text",
+      "id": "signoff",
+      "label": "Sign-off",
+      "default": "xoxo,"
+    },
+    {
+      "type": "text",
+      "id": "signature",
+      "label": "Signature",
+      "info": "Rendered in the Amsterdam One script.",
+      "default": "Katie & Tobey"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "cream"
+    }
+  ],
+  "presets": [
+    {
+      "name": "About letter",
+      "settings": {
+        "color_scheme": "cream"
+      }
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  }
+}
+{% endschema %}
