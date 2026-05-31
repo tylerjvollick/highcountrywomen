@@ -54,7 +54,7 @@
                 <span class="pattern-card__price">{{ product.price | money }}</span>
               </div>
 
-              {%- assign type_label = product.type | default: 'PDF Pattern' -%}
+              {%- assign type_label = product.type | default: 'PDF Sewing Pattern' -%}
               {%- assign difficulty = product.metafields.custom.pattern_difficulty_short -%}
               <p class="pattern-card__meta">
                 {%- if difficulty != blank -%}
