@@ -196,7 +196,7 @@
     display: flex;
     align-items: flex-start;
     gap: clamp(40px, 5vw, 92px);
-    padding-inline: max(calc((100% - 1440px) / 2), clamp(20px, 5vw, 48px));
+    padding-inline: max(calc((100% - 1440px) / 2 + var(--page-margin)), var(--page-margin));
     padding-block: 8px clamp(8px, 1vw, 16px);
     width: max-content;
   }
@@ -343,6 +343,10 @@
       }
 
       function nudge(dir) {
+        var atStart = rail.scrollLeft <= 4;
+        var atEnd = rail.scrollLeft >= rail.scrollWidth - rail.clientWidth - 4;
+        if (dir < 0 && atStart) return;
+        if (dir > 0 && atEnd) return;
         var step = Math.min(rail.clientWidth * 0.7, 560);
         rail.scrollBy({ left: dir * step, behavior: 'smooth' });
       }
