@@ -54,15 +54,23 @@
                     <a class="pattern-card__title" href="{{ result.url }}">{{ result.title }}</a>
                     <span class="pattern-card__price">{{ result.price | money }}</span>
                   </div>
-                  {%- assign type_label = result.type | default: 'PDF Sewing Pattern' -%}
+                  {%- if result.template_suffix == 'sewing-patterns' -%}
+                    {%- assign type_label = result.type | default: 'PDF Sewing Pattern' -%}
+                  {%- else -%}
+                    {%- assign type_label = result.type -%}
+                  {%- endif -%}
                   {%- assign difficulty = result.metafields.custom.pattern_difficulty_short -%}
-                  <p class="pattern-card__meta">
-                    {%- if difficulty != blank -%}
-                      {{ difficulty }} · {{ type_label }}
-                    {%- else -%}
-                      {{ type_label }}
-                    {%- endif -%}
-                  </p>
+                  {%- if difficulty != blank or type_label != blank -%}
+                    <p class="pattern-card__meta">
+                      {%- if difficulty != blank and type_label != blank -%}
+                        {{ difficulty }} · {{ type_label }}
+                      {%- elsif difficulty != blank -%}
+                        {{ difficulty }}
+                      {%- else -%}
+                        {{ type_label }}
+                      {%- endif -%}
+                    </p>
+                  {%- endif -%}
                 </article>
               {%- else -%}
                 <a class="search-result search-result--{{ result.object_type }}" href="{{ result.url }}">

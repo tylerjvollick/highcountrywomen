@@ -52,23 +52,23 @@
             <span class="pattern-card__price">{{ product.price | money }}</span>
           </div>
 
-          {%- assign type_label = product.type | default: 'PDF Sewing Pattern' -%}
+          {%- if product.template_suffix == 'sewing-patterns' -%}
+            {%- assign type_label = product.type | default: 'PDF Sewing Pattern' -%}
+          {%- else -%}
+            {%- assign type_label = product.type -%}
+          {%- endif -%}
           {%- assign difficulty = product.metafields.custom.pattern_difficulty_short -%}
-          <p class="pattern-card__meta">
-            {%- if difficulty != blank -%}
-              {{ difficulty }} · {{ type_label }}
-            {%- else -%}
-              {{ type_label }}
-            {%- endif -%}
-          </p>
-
-          <a class="pattern-card__cta ulink" href="{{ product.url }}">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M5 12h14"/>
-              <path d="m12 5 7 7-7 7"/>
-            </svg>
-            View pattern
-          </a>
+          {%- if difficulty != blank or type_label != blank -%}
+            <p class="pattern-card__meta">
+              {%- if difficulty != blank and type_label != blank -%}
+                {{ difficulty }} · {{ type_label }}
+              {%- elsif difficulty != blank -%}
+                {{ difficulty }}
+              {%- else -%}
+                {{ type_label }}
+              {%- endif -%}
+            </p>
+          {%- endif -%}
         </article>
       {%- else -%}
         {%- for i in (1..count) -%}
@@ -250,41 +250,6 @@
     font-style: italic;
     font-size: 13.5px;
     color: var(--text-mute);
-  }
-
-  .pattern-card__cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    margin-top: 11px;
-    font-size: 12.5px;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--accent);
-    text-decoration: none;
-    align-self: flex-start;
-    position: relative;
-    padding-bottom: 2px;
-  }
-  .pattern-card__cta svg {
-    width: 14px;
-    height: 14px;
-  }
-  .pattern-card__cta::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: -2px;
-    height: 1.5px;
-    background: currentColor;
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform var(--dur) var(--ease);
-  }
-  .pattern-card__cta:hover::after {
-    transform: scaleX(1);
   }
 
   @media (max-width: 860px) {
