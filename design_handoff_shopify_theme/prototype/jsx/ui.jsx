@@ -176,7 +176,7 @@ function NewsletterBand() {
           </form>
         </div>
         <div className="zoomwrap" style={{ minHeight: '440px', position: 'relative' }}>
-          <div className="bg" style={{ position: 'absolute', inset: 0, background: `url(${IMG}DSCF1546.jpg) center 30%/cover` }} />
+          <div className="bg" style={{ position: 'absolute', inset: 0, background: `url(${IMG}DSCF1546.jpg) center 80%/cover` }} />
         </div>
       </div>
     </section>
