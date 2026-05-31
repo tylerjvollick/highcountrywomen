@@ -54,8 +54,15 @@
                     <a class="pattern-card__title" href="{{ result.url }}">{{ result.title }}</a>
                     <span class="pattern-card__price">{{ result.price | money }}</span>
                   </div>
-                  {%- assign meta = result.type | default: 'PDF Pattern' -%}
-                  <p class="pattern-card__meta">{{ meta }}</p>
+                  {%- assign type_label = result.type | default: 'PDF Pattern' -%}
+                  {%- assign difficulty = result.metafields.custom.pattern_difficulty_short -%}
+                  <p class="pattern-card__meta">
+                    {%- if difficulty != blank -%}
+                      {{ difficulty }} · {{ type_label }}
+                    {%- else -%}
+                      {{ type_label }}
+                    {%- endif -%}
+                  </p>
                 </article>
               {%- else -%}
                 <a class="search-result search-result--{{ result.object_type }}" href="{{ result.url }}">

@@ -54,8 +54,15 @@
                 <span class="pattern-card__price">{{ product.price | money }}</span>
               </div>
 
-              {%- assign meta = product.type | default: 'PDF Pattern' -%}
-              <p class="pattern-card__meta">{{ meta }}</p>
+              {%- assign type_label = product.type | default: 'PDF Pattern' -%}
+              {%- assign difficulty = product.metafields.custom.pattern_difficulty_short -%}
+              <p class="pattern-card__meta">
+                {%- if difficulty != blank -%}
+                  {{ difficulty }} · {{ type_label }}
+                {%- else -%}
+                  {{ type_label }}
+                {%- endif -%}
+              </p>
             </article>
           {%- endfor -%}
         </div>
