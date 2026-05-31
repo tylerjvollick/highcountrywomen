@@ -28,12 +28,13 @@
         </button>
       </div>
     </div>
+  </div>
 
-    <div class="tl-rail" data-tl-rail>
-      <div class="tl-track">
-        <div class="tl-baseline" aria-hidden="true"></div>
+  <div class="tl-rail" data-tl-rail>
+    <div class="tl-track">
+      <div class="tl-baseline" aria-hidden="true"></div>
 
-        {%- for block in section.blocks -%}
+      {%- for block in section.blocks -%}
           {%- liquid
             case block.settings.size
               when 'portrait'
@@ -101,8 +102,7 @@
           </article>
         {%- endfor -%}
 
-        <div class="tl-end" aria-hidden="true"></div>
-      </div>
+      <div class="tl-end" aria-hidden="true"></div>
     </div>
   </div>
 </section>
