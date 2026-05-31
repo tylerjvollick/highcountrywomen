@@ -1,0 +1,28 @@
+{
+  "sections": {
+    "banner": {
+      "type": "collection-banner",
+      "settings": {
+        "eyebrow": "In-person · Lander, Wyoming",
+        "blurb": "<p>Small-group sewing classes in our high-country studio — beginner-friendly and limited so we can keep the room intimate.</p>",
+        "use_collection_description": true
+      }
+    },
+    "main": {
+      "type": "collection",
+      "settings": {
+        "product_label": "workshops",
+        "hide_availability_filter": false
+      }
+    },
+    "newsletter-band": {
+      "type": "newsletter-band",
+      "settings": {}
+    }
+  },
+  "order": [
+    "banner",
+    "main",
+    "newsletter-band"
+  ]
+}

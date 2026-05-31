@@ -13,6 +13,9 @@
         <div class="collection-grid__filters">
           {%- if section.settings.show_filters -%}
             {%- for filter in collection.filters -%}
+              {%- if section.settings.hide_availability_filter and filter.param_name contains 'availability' -%}
+                {%- continue -%}
+              {%- endif -%}
               <details class="collection-grid__filter">
                 <summary class="collection-grid__filter-summary">
                   {{ filter.label }}
@@ -37,9 +40,39 @@
                         {%- endfor -%}
                       </ul>
                     {%- when 'price_range' -%}
-                      <div class="collection-grid__filter-range">
-                        <span>{{ filter.min_value.value | money }} – {{ filter.max_value.value | money }}</span>
-                      </div>
+                      <form action="{{ collection.url }}" method="get" class="collection-grid__filter-price">
+                        {%- for other in collection.filters -%}
+                          {%- if other.param_name != filter.param_name -%}
+                            {%- for v in other.active_values -%}
+                              <input type="hidden" name="{{ other.param_name }}" value="{{ v.value }}">
+                            {%- endfor -%}
+                          {%- endif -%}
+                        {%- endfor -%}
+                        {%- if collection.sort_by != blank -%}
+                          <input type="hidden" name="sort_by" value="{{ collection.sort_by }}">
+                        {%- endif -%}
+                        <label class="collection-grid__filter-price-field">
+                          <span class="collection-grid__filter-price-label">Min</span>
+                          <input
+                            type="number"
+                            name="filter.v.price.gte"
+                            min="0"
+                            placeholder="{{ filter.min_value.value | money_without_currency }}"
+                            value="{{ filter.min_value.value }}"
+                          >
+                        </label>
+                        <label class="collection-grid__filter-price-field">
+                          <span class="collection-grid__filter-price-label">Max</span>
+                          <input
+                            type="number"
+                            name="filter.v.price.lte"
+                            min="0"
+                            placeholder="{{ filter.max_value.value | money_without_currency }}"
+                            value="{{ filter.max_value.value }}"
+                          >
+                        </label>
+                        <button type="submit" class="collection-grid__filter-price-apply">Apply</button>
+                      </form>
                   {%- endcase -%}
                 </div>
               </details>
@@ -244,6 +277,56 @@
     font-size: 12px;
   }
 
+  .collection-grid__filter-price {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    min-width: 220px;
+  }
+  .collection-grid__filter-price-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-family: var(--font-sans);
+    font-size: 12px;
+    color: var(--text-mute);
+  }
+  .collection-grid__filter-price-label {
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .collection-grid__filter-price input {
+    width: 100%;
+    padding: 8px 10px;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    color: var(--text);
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+  }
+  .collection-grid__filter-price input:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+  .collection-grid__filter-price-apply {
+    grid-column: 1 / -1;
+    padding: 9px 14px;
+    font-family: var(--font-sans);
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent-text);
+    background: var(--accent);
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+  }
+  .collection-grid__filter-price-apply:hover {
+    filter: brightness(0.95);
+  }
+
   /* Grid (same look as featured-patterns) */
   .collection-grid__grid {
     display: grid;
@@ -407,6 +490,13 @@
       "label": "Show storefront filters",
       "info": "Enable filters in your Shopify admin → Online Store → Navigation → Filtering and editing menu for them to appear.",
       "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_availability_filter",
+      "label": "Hide the availability filter",
+      "info": "Turn on for digital-only collections (e.g. PDF patterns) where everything is always in stock.",
+      "default": false
     },
     {
       "type": "checkbox",
