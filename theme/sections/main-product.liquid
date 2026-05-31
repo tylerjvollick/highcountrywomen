@@ -9,11 +9,24 @@
 <section class="product color-{{ section.settings.color_scheme }} full-width" data-product-section>
   <div class="product__wrap">
     {%- if section.settings.show_breadcrumb -%}
+      {%- liquid
+        assign crumb_collection = collection
+        if crumb_collection == blank
+          case product.template_suffix
+            when 'sewing-patterns'
+              assign crumb_collection = collections['sewingpatterns']
+            when 'fabric'
+              assign crumb_collection = collections['fabric']
+            when 'workshops'
+              assign crumb_collection = collections['workshops']
+          endcase
+        endif
+      -%}
       <nav class="product__breadcrumb" aria-label="Breadcrumb">
         <a href="{{ routes.root_url }}">Home</a>
         <span class="product__breadcrumb-sep">/</span>
-        {%- if collection != blank -%}
-          <a href="{{ collection.url }}">{{ collection.title }}</a>
+        {%- if crumb_collection.title != blank -%}
+          <a href="{{ crumb_collection.url }}">{{ crumb_collection.title }}</a>
         {%- else -%}
           <a href="{{ routes.all_products_collection_url }}">Shop</a>
         {%- endif -%}
