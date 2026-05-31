@@ -1,7 +1,0 @@
-{
-  "name": "highcountrywomen-theme",
-  "private": true,
-  "scripts": {
-    "push": "shopify theme push --theme=188892709150 --ignore=\"config/settings_data.json\" --ignore=\"templates/*.json\" --ignore=\"sections/*.json\""
-  }
-}
