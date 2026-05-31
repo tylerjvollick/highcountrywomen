@@ -72,9 +72,9 @@
   }
 
   .hero-card__wrap {
-    max-width: var(--page-width);
+    max-width: calc(var(--page-width) + 80px);
     margin-inline: auto;
-    padding-inline: var(--page-margin);
+    padding-inline: clamp(16px, 3vw, 32px);
   }
 
   .hero-card__layout {
@@ -93,7 +93,7 @@
   .hero-card__img-el {
     display: block;
     width: 100%;
-    height: clamp(552px, 83vh, 782px);
+    height: clamp(620px, 93vh, 880px);
     object-fit: cover;
     object-position: center 16%;
   }
