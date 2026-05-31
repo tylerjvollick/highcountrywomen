@@ -11,6 +11,30 @@
   "sections": {
     "hero": {
       "type": "hero",
+      "blocks": {
+        "link-patterns": {
+          "type": "link",
+          "settings": {
+            "label": "Patterns",
+            "url": "shopify://collections/sewingpatterns"
+          }
+        },
+        "link-fabric": {
+          "type": "link",
+          "settings": {
+            "label": "Fabric",
+            "url": "shopify://collections/fabric"
+          }
+        },
+        "link-workshops": {
+          "type": "link",
+          "settings": {
+            "label": "Workshops",
+            "url": "shopify://collections/workshops"
+          }
+        }
+      },
+      "block_order": ["link-patterns", "link-fabric", "link-workshops"],
       "settings": {}
     },
     "collection-tiles": {

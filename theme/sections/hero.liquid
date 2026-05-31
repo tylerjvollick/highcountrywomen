@@ -3,8 +3,6 @@
   assign subheading = section.settings.subheading
   assign image = section.settings.image
   assign badge_text = section.settings.badge_text | strip
-  assign cta_url = section.settings.cta_url
-  assign cta_label = section.settings.cta_label | strip
 -%}
 
 <section class="hero-card color-{{ section.settings.color_scheme }} full-width">
@@ -30,7 +28,11 @@
         {%- endif -%}
 
         {%- if badge_text != blank -%}
-          <span class="hero-card__badge">{{ badge_text }}</span>
+          {%- if section.settings.badge_url != blank -%}
+            <a class="hero-card__badge hero-card__badge--link" href="{{ section.settings.badge_url }}">{{ badge_text }}</a>
+          {%- else -%}
+            <span class="hero-card__badge">{{ badge_text }}</span>
+          {%- endif -%}
         {%- endif -%}
       </div>
 
@@ -45,8 +47,16 @@
           <p class="hero-card__subheading">{{ subheading }}</p>
         {%- endif -%}
 
-        {%- if cta_url != blank and cta_label != blank -%}
-          <a class="hero-card__cta" href="{{ cta_url }}">{{ cta_label }}</a>
+        {%- if section.blocks.size > 0 -%}
+          <ul class="hero-card__links" role="list">
+            {%- for block in section.blocks -%}
+              {%- if block.settings.label != blank -%}
+                <li class="hero-card__links-item" {{ block.shopify_attributes }}>
+                  <a class="hero-card__link" href="{{ block.settings.url | default: '#' }}">{{ block.settings.label }}</a>
+                </li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
         {%- endif -%}
       </div>
     </div>
@@ -106,6 +116,13 @@
     text-transform: uppercase;
     padding: 8px 14px;
   }
+  a.hero-card__badge--link {
+    text-decoration: none;
+    transition: background var(--dur) var(--ease);
+  }
+  a.hero-card__badge--link:hover {
+    background: #94966F;
+  }
 
   /* Content card — left, overlaps image, vertically centered */
   .hero-card__card {
@@ -148,27 +165,46 @@
     margin: 0;
   }
 
-  .hero-card__cta {
-    display: inline-flex;
+  .hero-card__links {
+    display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    margin-top: 22px;
-    padding: 14px 24px;
-    background: var(--accent);
-    color: var(--accent-text);
-    font-family: var(--font-sans);
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    text-decoration: none;
-    border-radius: var(--radius-sm);
-    transition: background var(--dur) var(--ease);
+    gap: 18px;
+    margin: 22px 0 0;
+    padding: 0;
+    list-style: none;
   }
-  .hero-card__cta:hover {
-    background: var(--hcw-red-deep);
+  .hero-card__links::before,
+  .hero-card__links::after {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex: 0 0 auto;
+  }
+  .hero-card__link {
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text);
+    text-decoration: none;
+    transition: color var(--dur) var(--ease);
+  }
+  .hero-card__link:hover {
+    color: var(--accent);
   }
 
   @media (max-width: 860px) {
+    .hero-card__layout {
+      display: flex;
+      flex-direction: column-reverse;
+      gap: 16px;
+    }
     .hero-card__img {
       width: 100%;
     }
@@ -179,7 +215,14 @@
       position: static;
       transform: none;
       width: auto;
-      margin: -56px 14px 0;
+      margin: 0 14px;
+    }
+    .hero-card__links {
+      justify-content: center;
+    }
+    .hero-card__links::before,
+    .hero-card__links::after {
+      display: none;
     }
   }
 {% endstylesheet %}
@@ -209,21 +252,16 @@
       "default": "Heirloom Pieces · No. 01"
     },
     {
+      "type": "url",
+      "id": "badge_url",
+      "label": "Corner badge link",
+      "info": "Optional — makes the badge clickable."
+    },
+    {
       "type": "image_picker",
       "id": "image",
       "label": "Hero image",
       "info": "Portrait orientation works best."
-    },
-    {
-      "type": "url",
-      "id": "cta_url",
-      "label": "Button link"
-    },
-    {
-      "type": "text",
-      "id": "cta_label",
-      "label": "Button label",
-      "default": "Shop the collection"
     },
     {
       "type": "color_scheme",
@@ -232,12 +270,37 @@
       "default": "cream"
     }
   ],
+  "blocks": [
+    {
+      "type": "link",
+      "name": "Link",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Patterns"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4,
   "presets": [
     {
       "name": "Hero",
       "settings": {
         "color_scheme": "cream"
-      }
+      },
+      "blocks": [
+        { "type": "link", "settings": { "label": "Patterns" } },
+        { "type": "link", "settings": { "label": "Fabric" } },
+        { "type": "link", "settings": { "label": "Workshops" } }
+      ]
     }
   ],
   "disabled_on": {

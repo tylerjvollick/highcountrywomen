@@ -4,6 +4,10 @@
     real before the merchant picks their own. Mod by 7 covers any block count.
   endcomment
   assign fallbacks = 'DSCF2423.jpg,DSCF0938.jpg,DSCF2467.jpg,DSCF1659.jpg,DSCF2468.jpg,DSCF2426.jpg,DSCF1546.jpg' | split: ','
+  comment
+    Known-collection mapping: branded photo per landing collection. Wins over the
+    cycling fallback above when the block points at one of these handles.
+  endcomment
 -%}
 
 <section class="collection-tiles color-{{ section.settings.color_scheme }} full-width">
@@ -21,7 +25,20 @@
             assign link = coll.url | default: '#'
           endif
           assign image = block.settings.image
-          if image == blank
+          assign handle_cdn = ''
+          assign handle_asset = ''
+          case coll.handle
+            when 'fabric'
+              assign handle_cdn = 'https://cdn.shopify.com/s/files/1/0991/3289/9614/files/DSCF2426_8dfe1c6c-72e3-44b9-b85d-083a6652bd44.jpg?v=1780080541'
+              assign handle_asset = 'DSCF2426.jpg'
+            when 'sewingpatterns'
+              assign handle_cdn = 'https://cdn.shopify.com/s/files/1/0991/3289/9614/files/DSCF0938.jpg?v=1780173287'
+              assign handle_asset = 'DSCF0938.jpg'
+            when 'workshops'
+              assign handle_cdn = 'https://cdn.shopify.com/s/files/1/0991/3289/9614/files/DSCF2468_7675ad75-3c56-459b-ba3b-b5ba09c9aa31.jpg?v=1780173314'
+              assign handle_asset = 'DSCF2468.jpg'
+          endcase
+          if image == blank and handle_cdn == blank and handle_asset == blank
             assign image = coll.featured_image
           endif
           assign fallback_index = forloop.index0 | modulo: 7
@@ -37,6 +54,20 @@
                   widths: '360, 540, 720, 900',
                   class: 'collection-tile__img'
               }}
+            {%- elsif handle_cdn != blank -%}
+              <img
+                class="collection-tile__img"
+                src="{{ handle_cdn }}"
+                alt=""
+                loading="lazy"
+              >
+            {%- elsif handle_asset != blank -%}
+              <img
+                class="collection-tile__img"
+                src="{{ handle_asset | asset_url }}"
+                alt=""
+                loading="lazy"
+              >
             {%- else -%}
               <img
                 class="collection-tile__img"

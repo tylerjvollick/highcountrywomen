@@ -55,7 +55,12 @@
             class: 'site-header__logo-img'
         }}
       {%- else -%}
-        <span class="site-header__wordmark wordmark">{{ shop.name }}</span>
+        <img
+          class="site-header__logo-img"
+          src="{{ 'logo.png' | asset_url }}"
+          alt="{{ shop.name }}"
+          loading="eager"
+        >
       {%- endif -%}
     </a>
 

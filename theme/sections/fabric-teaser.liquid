@@ -1,9 +1,7 @@
 {%- liquid
   assign coll = section.settings.collection
   assign image = section.settings.image
-  if image == blank
-    assign image = coll.featured_image
-  endif
+  assign default_cdn = 'https://cdn.shopify.com/s/files/1/0991/3289/9614/files/DSCF2438.jpg?v=1780011728'
   assign cta_url = section.settings.cta_url
   if cta_url == blank
     assign cta_url = coll.url
@@ -46,6 +44,13 @@
               widths: '480, 720, 960, 1200, 1600',
               class: 'fabric-teaser__img'
           }}
+        {%- elsif default_cdn != blank -%}
+          <img
+            class="fabric-teaser__img"
+            src="{{ default_cdn }}"
+            alt=""
+            loading="lazy"
+          >
         {%- else -%}
           <img
             class="fabric-teaser__img"
