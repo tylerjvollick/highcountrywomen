@@ -97,7 +97,10 @@
     width: 100%;
   }
 
-  .site-header[data-sticky="true"] {
+  /* Sticky lives on the section wrapper — sticky on .site-header alone
+     would only stick within its own shopify-section wrapper, which is no
+     taller than the header itself. */
+  .shopify-section:has(> .site-header[data-sticky="true"]) {
     position: sticky;
     top: 0;
     z-index: 60;
