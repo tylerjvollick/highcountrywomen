@@ -322,7 +322,10 @@
   }
   .tl-start,
   .tl-end {
-    flex: 0 0 max(calc((100vw - 1440px) / 2 + var(--page-margin)), var(--page-margin));
+    flex: none;
+    width: max(calc((100vw - 1440px) / 2 + var(--page-margin)), var(--page-margin));
+    min-width: var(--page-margin);
+    align-self: stretch;
   }
 {% endstylesheet %}
 
