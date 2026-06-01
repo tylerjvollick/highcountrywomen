@@ -1,0 +1,201 @@
+{%- comment -%}
+  Long-form rich-text section for policy / informational pages
+  (shipping & returns, FAQ, terms, etc.). The merchant pastes copy into
+  one richtext setting; headings, paragraphs, lists, links and emphasis
+  are all styled through this section's stylesheet.
+{%- endcomment -%}
+
+{%- liquid
+  assign alignment = section.settings.alignment | default: 'left'
+-%}
+
+<section class="prose-section color-{{ section.settings.color_scheme }} full-width prose-section--align-{{ alignment }}">
+  <div class="prose-section__wrap">
+    <div class="prose-section__inner">
+      {%- if section.settings.eyebrow != blank -%}
+        <span class="prose-section__eyebrow">{{ section.settings.eyebrow }}</span>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <h2 class="prose-section__heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.body != blank -%}
+        <div class="prose-section__body">{{ section.settings.body }}</div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .prose-section {
+    background: var(--bg);
+    color: var(--text);
+    width: 100%;
+  }
+  .prose-section__wrap {
+    max-width: var(--page-width);
+    margin-inline: auto;
+    padding: clamp(36px, 5vw, 72px) var(--page-margin);
+  }
+  .prose-section__inner {
+    max-width: 68ch;
+  }
+  .prose-section--align-center .prose-section__inner {
+    margin-inline: auto;
+    text-align: left;
+  }
+
+  .prose-section__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--font-sans);
+    font-size: var(--step--1);
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .prose-section__eyebrow::before {
+    content: "";
+    width: 26px;
+    height: 0;
+    border-top: 1.5px solid currentColor;
+    opacity: 0.8;
+  }
+
+  .prose-section__heading {
+    margin: 16px 0 0;
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 1.4rem + 2vw, 3rem);
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+    color: var(--text);
+  }
+
+  .prose-section__body {
+    margin-top: clamp(20px, 2.5vw, 32px);
+    font-family: var(--font-sans);
+    font-size: 16.5px;
+    line-height: 1.78;
+    color: var(--text-soft);
+  }
+  .prose-section__body > p {
+    margin: 0 0 1.1em;
+    max-width: none;
+    color: var(--text-soft);
+  }
+  .prose-section__body > p:last-child { margin-bottom: 0; }
+
+  .prose-section__body h1,
+  .prose-section__body h2,
+  .prose-section__body h3,
+  .prose-section__body h4 {
+    font-family: var(--font-display);
+    color: var(--text);
+    line-height: 1.15;
+    letter-spacing: -0.005em;
+    margin: 2em 0 0.5em;
+  }
+  .prose-section__body > :first-child {
+    margin-top: 0;
+  }
+  .prose-section__body h2 { font-size: var(--step-3); }
+  .prose-section__body h3 {
+    font-size: var(--step-2);
+    font-family: var(--font-display);
+  }
+  .prose-section__body h4 { font-size: var(--step-1); }
+
+  .prose-section__body strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+  .prose-section__body em {
+    font-style: italic;
+  }
+  .prose-section__body a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+    transition: color var(--dur) var(--ease);
+  }
+  .prose-section__body a:hover {
+    color: var(--hcw-red-deep);
+  }
+
+  .prose-section__body ul,
+  .prose-section__body ol {
+    margin: 0 0 1.1em;
+    padding-left: 1.4em;
+  }
+  .prose-section__body li {
+    margin-bottom: 0.4em;
+  }
+  .prose-section__body li::marker {
+    color: var(--accent);
+  }
+
+  .prose-section__body hr {
+    margin: 2em 0;
+    border: 0;
+    border-top: 1px solid var(--line);
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Prose",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Body",
+      "info": "Supports paragraphs, headings, lists, links, and emphasis."
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Column position",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Centered" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Appearance"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "cream"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Prose",
+      "settings": {
+        "color_scheme": "cream"
+      }
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  }
+}
+{% endschema %}

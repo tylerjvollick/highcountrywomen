@@ -1,0 +1,55 @@
+{
+  "sections": {
+    "banner": {
+      "type": "page-banner",
+      "settings": {
+        "eyebrow": "Get in touch",
+        "heading": "Say hello",
+        "body": "<p>Questions about a pattern, a fabric, or an upcoming workshop? We'd love to hear from you.</p>",
+        "color_scheme": "cream"
+      }
+    },
+    "form": {
+      "type": "contact-form",
+      "settings": {
+        "name_label": "Name",
+        "email_label": "Email",
+        "show_phone": false,
+        "phone_label": "Phone",
+        "message_label": "Message",
+        "button_label": "Send us a note",
+        "success_message": "Thanks for reaching out — we'll get back to you within a few days.",
+        "info_eyebrow": "Or reach us at",
+        "info_heading": "<p>Other ways to find us</p>",
+        "email_caption": "Email",
+        "email": "hello@highcountrywomen.com",
+        "location_caption": "Where we are",
+        "location": "<p>Lander, Wyoming</p>",
+        "hours_caption": "Response time",
+        "hours": "<p>We aim to reply within 2–3 business days.</p>",
+        "social_caption": "Follow along",
+        "social": "<p><a href=\"https://instagram.com/highcountrywomen\">@highcountrywomen</a></p>",
+        "color_scheme": "cream"
+      }
+    },
+    "newsletter-band": {
+      "type": "newsletter-band",
+      "settings": {
+        "eyebrow": "Ready for an easy sewing project?",
+        "heading": "<p>Download the Free<br>Pillow Cover Pattern</p>",
+        "body": "<p>A classic pillow cover with an envelope opening and optional ruffle — perfect for beginners. Refresh any space with cozy textures and color.</p>",
+        "image_position": "right",
+        "placeholder_text": "Email address",
+        "button_label": "Email me the pattern",
+        "tag": "free-pillow-pattern",
+        "success_message": "Thank you — check your inbox for the pattern.",
+        "color_scheme": "wheat"
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "form",
+    "newsletter-band"
+  ]
+}

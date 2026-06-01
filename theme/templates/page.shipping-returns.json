@@ -1,0 +1,42 @@
+{
+  "sections": {
+    "hero": {
+      "type": "page-hero",
+      "settings": {
+        "eyebrow": "The fine print",
+        "heading": "Shipping & returns",
+        "body": "<p>Here's everything you need to know about getting your order to your door.</p>",
+        "image": "shopify://shop_images/DSCF2426.jpg",
+        "height_vw": 42,
+        "height_max": 520,
+        "focal_x": 50,
+        "focal_y": 45
+      }
+    },
+    "shipping": {
+      "type": "prose",
+      "settings": {
+        "eyebrow": "",
+        "heading": "Shipping",
+        "body": "<h3>USA</h3><p>We offer <strong>free shipping</strong> for domestic orders over $100 USD after discounts and before taxes. All orders less than $100 USD will ship for a flat rate of $9 USD. Our processing time is usually 1–2 business days. Transit time varies, but most packages arrive within 4–6 days.</p><p>Once a package leaves our facility, we are no longer responsible if it is damaged or lost by the shipping company. If you think your package has been lost, please reach out and we will help provide the information needed to file a claim.</p><h3>Canada</h3><p>We do offer shipping to Canada for a flat rate of $18 USD.</p><p><strong>Please note that any custom duty and import taxes are the responsibility of the customer.</strong> These fees can be up to 18% of the cost of your order and will be billed to you by the courier after your package is delivered.</p><p>Once a package leaves our facility, we are no longer responsible if it is damaged or lost by the shipping company. If you think your package has been lost, please reach out and we will help provide the information needed to file a claim.</p>",
+        "alignment": "left",
+        "color_scheme": "cream"
+      }
+    },
+    "returns": {
+      "type": "prose",
+      "settings": {
+        "eyebrow": "",
+        "heading": "Return policy",
+        "body": "<p><strong>Fabric:</strong> Fabric purchases are final sale and cannot be returned, exchanged, or refunded once cut.</p><p><strong>Digital patterns:</strong> Due to the nature of digital products, all digital sewing pattern purchases are final sale and non-refundable. Once a pattern has been purchased and downloaded, we're unable to offer returns.</p><p>That said, we want you to have a great experience sewing with our patterns. If you have any questions, trouble accessing your files, or need help with your purchase, please don't hesitate to <a href=\"/pages/contact\">contact us</a>.</p><p><strong>Workshops:</strong> We require a <strong>two-week notice</strong> for any cancellations. If you cancel within two weeks of the class, we cannot offer any refunds, store credits, or rescheduling options. Exceptions can be made for family and health emergencies and will be addressed on a case-by-case basis.</p>",
+        "alignment": "left",
+        "color_scheme": "wheat"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "shipping",
+    "returns"
+  ]
+}
