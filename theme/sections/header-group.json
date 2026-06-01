@@ -11,20 +11,17 @@
   "type": "header",
   "name": "t:general.header",
   "sections": {
-    "announcement-bar": {
-      "type": "announcement-bar",
-      "settings": {
-        "text": "Free pillow-cver pattern - perfect for the nervous beginner",
-        "color_scheme": "terracotta"
-      }
-    },
     "header": {
       "type": "header",
-      "settings": {}
+      "settings": {
+        "menu": "main-nav",
+        "show_search": true,
+        "sticky": true,
+        "color_scheme": ""
+      }
     }
   },
   "order": [
-    "announcement-bar",
     "header"
   ]
 }

@@ -12,20 +12,38 @@
     "banner": {
       "type": "collection-banner",
       "settings": {
-        "eyebrow": "By the yard",
-        "blurb": "<p>Natural-fiber cottons and linens — vintage florals, gingham and stripes, chosen to pair beautifully with our patterns.</p>",
-        "use_collection_description": true
+        "eyebrow": "By the half yard",
+        "heading": "",
+        "blurb": "<p>Floral cotton lawns, chosen to pair beautifully with our patterns.</p>",
+        "use_collection_description": true,
+        "color_scheme": ""
       }
     },
     "main": {
       "type": "collection",
       "settings": {
-        "product_label": "fabrics"
+        "products_per_page": 12,
+        "product_label": "fabrics",
+        "show_filters": true,
+        "hide_availability_filter": false,
+        "show_sort": true,
+        "color_scheme": ""
       }
     },
     "newsletter-band": {
       "type": "newsletter-band",
-      "settings": {}
+      "settings": {
+        "eyebrow": "Ready for an easy sewing project?",
+        "heading": "<p>Download the Free<br/>Pillow Cover Pattern</p>",
+        "body": "<p>A classic pillow cover with an envelope opening and optional ruffle — perfect for beginners. Refresh any space with cozy textures and color.</p>",
+        "image": "shopify://shop_images/DSCF1546.jpg",
+        "image_position": "right",
+        "placeholder_text": "Email address",
+        "button_label": "Email me the pattern",
+        "tag": "free-pillow-pattern",
+        "success_message": "Thank you — check your inbox for the pattern.",
+        "color_scheme": ""
+      }
     }
   },
   "order": [

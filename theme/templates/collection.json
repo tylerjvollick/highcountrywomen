@@ -20,8 +20,7 @@
     "main": {
       "type": "collection",
       "settings": {
-        "product_label": "patterns",
-        "hide_availability_filter": true
+        "product_label": "patterns"
       }
     },
     "newsletter-band": {

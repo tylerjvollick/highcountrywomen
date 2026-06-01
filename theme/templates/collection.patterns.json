@@ -12,9 +12,9 @@
     "banner": {
       "type": "collection-banner",
       "settings": {
-        "eyebrow": "In Person Classes in Lander, Wyoming",
-        "heading": "Workshops",
-        "blurb": "<p>Join like-minded creatives in learning something new</p>",
+        "eyebrow": "Made for Every Sewist",
+        "heading": "Sewing Patterns",
+        "blurb": "<p>Beginner-friendly PDF patterns for the home sewist — named for the women of the high country.</p>",
         "use_collection_description": true,
         "color_scheme": ""
       }

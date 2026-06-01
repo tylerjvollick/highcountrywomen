@@ -1,8 +1,38 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "intro": {
       "type": "about-intro",
-      "settings": {}
+      "settings": {
+        "eyebrow": "Our story",
+        "heading": "<p>Two friends, sewing in the high country.</p>",
+        "lead": "<p>We're Tobey and Katie — friends, neighbors, sewists, and the women behind High Country Women.</p>",
+        "greeting": "Hi there,",
+        "body": "<p>Our story started in a small mountain town in Wyoming. In 2024, Tobey helped Katie plan her wedding after celebrating her own the year before — planning DIY weddings in rural Wyoming is not for the faint of heart! Our friendship took off, and before long we were planning regular sewing dates and dreaming up all the things we wanted to make.</p><p>At the time, we were both searching for what was next. Katie had recently been laid off, and Tobey was feeling stuck after spending several years trying to build a business that wasn't quite the right fit. We found ourselves dreaming about new possibilities — Katie dreamed of designing sewing patterns, and Tobey dreamed of opening a fabric shop.</p><p>One December evening during a quilt-coat sewing date, a lightbulb went off and we thought — \"what if we started something together?\" High Country Women was born a month later, in January of 2025. We also both found out we were pregnant with our first babies — at the same time.</p><p>In June 2025, we launched our first sewing pattern. In August, we launched our second. In September, our babies arrived just seven days apart.</p><p>Today, High Country Women has grown to include five sewing patterns, a small collection of fabrics, and our first in-person sewing workshop in the works. What began as two friends sewing together has become a business built around creativity, community, and a shared love of making things by hand.</p><p>We're excited to see where this journey takes us, and we're grateful you've chosen to be part of it.</p>",
+        "signoff": "xoxo,",
+        "signature": "Tobey & Katie",
+        "image": "shopify://shop_images/DSCF2486_3.jpg",
+        "caption": "Tobey & Katie — Lander, Wyoming",
+        "color_scheme": ""
+      }
+    },
+    "letter": {
+      "type": "about-letter",
+      "settings": {
+        "greeting": "Hi there,",
+        "body": "<p>Our story started in a small mountain town in Wyoming. In 2024, Tobey helped Katie plan her wedding after celebrating her own the year before — planning DIY weddings in rural Wyoming is not for the faint of heart! Our friendship took off, and before long we were planning regular sewing dates and dreaming up all the things we wanted to make.</p><p>At the time, we were both searching for what was next. Katie had recently been laid off, and Tobey was feeling stuck after spending several years trying to build a business that wasn't quite the right fit. We found ourselves dreaming about new possibilities — Katie dreamed of designing sewing patterns, and Tobey dreamed of opening a fabric shop.</p><p>One December evening during a quilt-coat sewing date, a lightbulb went off and we thought — \"what if we started something together?\" High Country Women was born a month later, in January of 2025. We also both found out we were pregnant with our first babies — at the same time.</p><p>In June 2025, we launched our first sewing pattern. In August, we launched our second. In September, our babies arrived just seven days apart.</p><p>Today, High Country Women has grown to include five sewing patterns, a small collection of fabrics, and our first in-person sewing workshop in the works. What began as two friends sewing together has become a business built around creativity, community, and a shared love of making things by hand.</p><p>We're excited to see where this journey takes us, and we're grateful you've chosen to be part of it.</p>",
+        "signoff": "xoxo,",
+        "signature": "Katie & Tobey",
+        "color_scheme": ""
+      }
     },
     "timeline": {
       "type": "timeline",
@@ -10,8 +40,8 @@
         "m-2021": {
           "type": "milestone",
           "settings": {
-            "date": "2021",
-            "caption": "Katie and Tobey meet for the first time on the Lander bar patio.",
+            "date": "July 2021",
+            "caption": "Katie and Tobey meet for the first time at an art crawl, where Tobey was selling leather bags.",
             "focus": "40%",
             "size": "landscape",
             "offset": 20
@@ -20,7 +50,7 @@
         "m-2024": {
           "type": "milestone",
           "settings": {
-            "date": "2024",
+            "date": "summer 2024",
             "caption": "Tobey coordinates Katie's wedding, and the two bond over a shared love of sewing.",
             "focus": "45%",
             "size": "portrait",
@@ -32,6 +62,7 @@
           "settings": {
             "date": "December 2024",
             "caption": "A lightbulb moment during a quilt-coat sewing date — \"what if we started something together?\"",
+            "focus": "center",
             "size": "square",
             "offset": 30
           }
@@ -50,7 +81,7 @@
           "type": "milestone",
           "settings": {
             "date": "June 2025",
-            "caption": "Our very first sewing pattern launches into the world.",
+            "caption": "We launch our very first sewing pattern (two, actually!), the Esther Set.",
             "focus": "22%",
             "size": "square",
             "offset": 10
@@ -60,7 +91,8 @@
           "type": "milestone",
           "settings": {
             "date": "August 2025",
-            "caption": "Our second sewing pattern joins the collection.",
+            "caption": "Our second sewing pattern, the Nellie Tank + Dress, joins the collection.",
+            "focus": "center",
             "size": "portrait",
             "offset": 50
           }
@@ -70,6 +102,26 @@
           "settings": {
             "date": "September 2025",
             "caption": "Our babies arrive, just seven days apart.",
+            "focus": "80%",
+            "size": "landscape",
+            "offset": 35
+          }
+        },
+        "milestone_cJKzyY": {
+          "type": "milestone",
+          "settings": {
+            "date": "January 2026",
+            "caption": "After taking maternity and getting into the swing of parenthood (does that ever really happen?!), we got back to work. We launched the Lizabeth Lounge Top in January, inspired by a cozy postpartum winter.",
+            "focus": "80%",
+            "size": "landscape",
+            "offset": 35
+          }
+        },
+        "milestone_93QHBN": {
+          "type": "milestone",
+          "settings": {
+            "date": "March 2026",
+            "caption": "With new babies to sew for, we got excited about matching our littles! We launched our first kids pattern: the Kids Lizabeth Crewneck.",
             "focus": "80%",
             "size": "landscape",
             "offset": 35
@@ -94,6 +146,8 @@
         "m-jun-2025",
         "m-aug-2025",
         "m-sep-2025",
+        "milestone_cJKzyY",
+        "milestone_93QHBN",
         "m-today"
       ],
       "settings": {
@@ -127,18 +181,35 @@
           }
         }
       },
-      "block_order": ["natural", "beginner", "heirloom"],
+      "block_order": [
+        "natural",
+        "beginner",
+        "heirloom"
+      ],
       "settings": {
+        "eyebrow": "",
+        "heading": "",
         "color_scheme": "blue"
       }
     },
     "newsletter-band": {
       "type": "newsletter-band",
-      "settings": {}
+      "settings": {
+        "eyebrow": "Ready for an easy sewing project?",
+        "heading": "<p>Download the Free<br>Pillow Cover Pattern</p>",
+        "body": "<p>A classic pillow cover with an envelope opening and optional ruffle — perfect for beginners. Refresh any space with cozy textures and color.</p>",
+        "image_position": "right",
+        "placeholder_text": "Email address",
+        "button_label": "Email me the pattern",
+        "tag": "free-pillow-pattern",
+        "success_message": "Thank you — check your inbox for the pattern.",
+        "color_scheme": ""
+      }
     }
   },
   "order": [
     "intro",
+    "letter",
     "timeline",
     "values",
     "newsletter-band"

@@ -34,26 +34,38 @@
           }
         }
       },
-      "block_order": ["link-patterns", "link-fabric", "link-workshops"],
-      "settings": {}
+      "block_order": [
+        "link-patterns",
+        "link-fabric",
+        "link-workshops"
+      ],
+      "settings": {
+        "heading": "<p>sewing patterns & fabric for <em>heirloom</em> pieces</p>",
+        "subheading": "Everything you need to make pieces worth keeping",
+        "badge_text": "Esther Skirt & Tank",
+        "badge_url": "shopify://products/esther-set-pdf-sewing-pattern",
+        "color_scheme": ""
+      }
     },
     "collection-tiles": {
       "type": "collection-tiles",
       "blocks": {
+        "patterns": {
+          "type": "tile",
+          "settings": {
+            "collection": "sewingpatterns",
+            "heading": "Patterns",
+            "subheading": "Beginner-friendly PDF patterns",
+            "link": ""
+          }
+        },
         "fabric": {
           "type": "tile",
           "settings": {
             "collection": "fabric",
             "heading": "Fabric",
-            "subheading": "Natural-fiber florals & linens"
-          }
-        },
-        "patterns": {
-          "type": "tile",
-          "settings": {
-            "collection": "sewingpatterns",
-            "heading": "Sewing Patterns",
-            "subheading": "Beginner-friendly PDF patterns"
+            "subheading": "Floral cotton lawns",
+            "link": ""
           }
         },
         "workshops": {
@@ -61,32 +73,71 @@
           "settings": {
             "collection": "workshops",
             "heading": "Workshops",
-            "subheading": "In-person classes in Lander"
+            "subheading": "In-person classes in Lander",
+            "link": ""
           }
         }
       },
-      "block_order": ["fabric", "patterns", "workshops"],
-      "settings": {}
+      "block_order": [
+        "patterns",
+        "fabric",
+        "workshops"
+      ],
+      "settings": {
+        "color_scheme": ""
+      }
     },
     "featured-patterns": {
       "type": "featured-patterns",
       "settings": {
-        "collection": "sewingpatterns"
+        "eyebrow": "Made for every sewist",
+        "heading": "Shop our sewing patterns",
+        "collection": "sewingpatterns",
+        "products_to_show": 4,
+        "show_view_all": true,
+        "view_all_label": "View all patterns",
+        "view_all_url": "",
+        "color_scheme": ""
       }
     },
     "heritage-band": {
       "type": "heritage-band",
-      "settings": {}
+      "settings": {
+        "eyebrow": "honoring the women who came before us",
+        "heading": "<p>Each pattern is named after an influential high country woman.</p>",
+        "body": "",
+        "cta_label": "",
+        "cta_url": "",
+        "color_scheme": ""
+      }
     },
     "fabric-teaser": {
       "type": "fabric-teaser",
       "settings": {
-        "collection": "fabric"
+        "eyebrow": "By the yard",
+        "heading": "<p>Floral cotton lawns<br/>for your next make</p>",
+        "body": "<p>Natural-fiber fabrics, hand-picked to pair with our patterns. Soft, durable, and made to be lived in.</p>",
+        "image_position": "right",
+        "collection": "fabric",
+        "cta_label": "Shop fabric",
+        "cta_url": "",
+        "color_scheme": ""
       }
     },
     "newsletter-band": {
       "type": "newsletter-band",
-      "settings": {}
+      "settings": {
+        "eyebrow": "Ready for an easy sewing project?",
+        "heading": "<p>Download the Free<br/>Pillow Cover Pattern</p>",
+        "body": "<p>A classic pillow cover with an envelope opening and optional ruffle — perfect for beginners. Refresh any space with cozy textures and color.</p>",
+        "image": "shopify://shop_images/DSCF1546.jpg",
+        "image_position": "right",
+        "placeholder_text": "Email address",
+        "button_label": "Email me the pattern",
+        "tag": "free-pillow-pattern",
+        "success_message": "Thank you — check your inbox for the pattern.",
+        "color_scheme": ""
+      }
     }
   },
   "order": [

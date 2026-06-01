@@ -16,7 +16,7 @@
           "type": "info_accordion",
           "settings": {
             "heading": "Pattern Difficulty",
-            "content": "<p>Clear step-by-step instructions with a full photo &amp; video sewalong — a confident first project, or an easy make for seasoned sewists.</p>",
+            "content": "<p>{{ product.metafields.custom.pattern_difficulty | metafield_tag }}</p>",
             "open_by_default": true
           }
         },
@@ -24,47 +24,70 @@
           "type": "info_accordion",
           "settings": {
             "heading": "Sizing",
-            "content": "<p>Inclusive size range XXS–4X with finished-garment measurements and a printable size chart included in the file.</p>"
+            "content": "<p>{{ product.metafields.custom.sizing | metafield_tag }}</p>",
+            "open_by_default": false
           }
         },
         "includes": {
           "type": "info_accordion",
           "settings": {
             "heading": "Includes",
-            "content": "<p>Layered, print-at-home (A4 / US Letter) and A0 copyshop PDF files, a full sewing booklet, and a link to the YouTube sewalong.</p>"
+            "content": "<p>{{ product.metafields.custom.includes | metafield_tag }}</p>",
+            "open_by_default": false
           }
         },
         "fabric": {
           "type": "info_accordion",
           "settings": {
             "heading": "Fabric Recommendations",
-            "content": "<p>Light-to-mid-weight natural fibers — cotton lawn, linen, double gauze, or a soft chambray. See our <a href=\"/collections/fabric\">fabric collection</a>.</p>"
+            "content": "<p>{{ product.metafields.custom.fabric_recommendations | metafield_tag }}</p>",
+            "open_by_default": false
           }
         }
       },
-      "block_order": ["difficulty", "sizing", "includes", "fabric"],
+      "block_order": [
+        "difficulty",
+        "sizing",
+        "includes",
+        "fabric"
+      ],
       "settings": {
+        "show_breadcrumb": true,
         "fallback_type_label": "PDF Pattern",
-        "legal": "<p>This listing is for a PDF pattern only, not a paper pattern or physical product. After your purchase has been finalized you will receive a link to zip folders containing your digital patterns.</p><p>Copyright © 2026 High Country Women. ALL RIGHTS RESERVED. Not for resale or profit.</p>"
+        "show_meta_secondary": false,
+        "button_label": "Add to cart",
+        "show_quantity": false,
+        "show_dynamic_checkout": true,
+        "legal": "<p>This listing is for a PDF pattern only, not a paper pattern or physical product. After your purchase has been finalized you will receive a link to zip folders containing your digital patterns.</p><p>Copyright © 2026 High Country Women. ALL RIGHTS RESERVED. Not for resale or profit.</p>",
+        "color_scheme": ""
       }
     },
     "sewalong-video": {
       "type": "sewalong-video",
-      "settings": {}
+      "settings": {
+        "eyebrow": "Detailed sewalong tutorial",
+        "heading": "Follow along, every step of the way",
+        "body": "<p>We walk you through the entire pattern in our detailed YouTube sewalong — perfect for beginners.</p>",
+        "metafield_namespace": "custom",
+        "metafield_key": "youtube_url",
+        "color_scheme": ""
+      }
     },
     "related-products": {
       "type": "related-products",
-      "settings": {}
-    },
-    "newsletter-band": {
-      "type": "newsletter-band",
-      "settings": {}
+      "settings": {
+        "heading": "You may also like",
+        "products_to_show": 4,
+        "show_view_all": true,
+        "view_all_label": "View all",
+        "view_all_url": "",
+        "color_scheme": ""
+      }
     }
   },
   "order": [
     "main",
     "sewalong-video",
-    "related-products",
-    "newsletter-band"
+    "related-products"
   ]
 }
