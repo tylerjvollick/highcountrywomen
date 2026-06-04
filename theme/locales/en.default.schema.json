@@ -75,6 +75,13 @@
     }
   },
   "settings_schema": {
+    "logo_and_favicon": {
+      "name": "Logo and favicon",
+      "favicon": {
+        "label": "Favicon",
+        "info": "A small square image shown in the browser tab. Upload a PNG at least 32×32 — Shopify will resize as needed. Leave blank to use the bundled quilt-star default."
+      }
+    },
     "colors": {
       "paragraph": "Each section on your storefront uses one of these schemes. Edit a scheme's colors here and the change will flow to every section that uses it.",
       "definition": {
