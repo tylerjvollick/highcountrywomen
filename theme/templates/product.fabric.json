@@ -24,7 +24,8 @@
           "type": "info_accordion",
           "settings": {
             "heading": "Care & washing",
-            "content": "<p>We recommend you pre-wash your fabric however you intend to wash your finished garment. For us, that's machine wash cool, dry on medium heat. Natural fibers will soften and develop a beautiful drape with use.</p>"
+            "content": "<p>We recommend you pre-wash your fabric however you intend to wash your finished garment. For us, that's machine wash cool, dry on medium heat. Natural fibers will soften and develop a beautiful drape with use.</p>",
+            "open_by_default": false
           }
         },
         "fiber": {
@@ -32,7 +33,8 @@
           "settings": {
             "heading": "Fiber content",
             "namespace": "custom",
-            "key": "fiber_content"
+            "key": "fiber_content",
+            "open_by_default": false
           }
         },
         "width": {
@@ -40,31 +42,42 @@
           "settings": {
             "heading": "Width & weight",
             "namespace": "custom",
-            "key": "fabric_specs"
+            "key": "fabric_specs",
+            "open_by_default": false
           }
         }
       },
-      "block_order": ["half-yard", "care", "fiber", "width"],
+      "block_order": [
+        "half-yard",
+        "care",
+        "fiber",
+        "width"
+      ],
       "settings": {
+        "show_breadcrumb": true,
         "fallback_type_label": "Fabric",
+        "show_meta_secondary": false,
+        "button_label": "Add to cart",
         "show_quantity": true,
-        "legal": "<p>Natural fibers vary slightly in color and texture from cut to cut and from screen to in-hand. We do our best to photograph faithfully; small variations are part of the charm of working with real cloth.</p>"
+        "show_dynamic_checkout": true,
+        "legal": "<p>Natural fibers vary slightly in color and texture from cut to cut and from screen to in-hand. We do our best to photograph faithfully; small variations are part of the charm of working with real cloth.</p>",
+        "color_scheme": ""
       }
     },
     "related-products": {
       "type": "related-products",
       "settings": {
-        "heading": "More fabric"
+        "heading": "You may also like",
+        "products_to_show": 4,
+        "show_view_all": true,
+        "view_all_label": "View all",
+        "view_all_url": "shopify://collections/sewingpatterns",
+        "color_scheme": ""
       }
-    },
-    "newsletter-band": {
-      "type": "newsletter-band",
-      "settings": {}
     }
   },
   "order": [
     "main",
-    "related-products",
-    "newsletter-band"
+    "related-products"
   ]
 }

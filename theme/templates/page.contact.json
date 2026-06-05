@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "banner": {
@@ -12,6 +21,9 @@
     "form": {
       "type": "contact-form",
       "settings": {
+        "eyebrow": "",
+        "heading": "",
+        "body": "",
         "name_label": "Name",
         "email_label": "Email",
         "show_phone": false,
@@ -36,8 +48,9 @@
       "type": "newsletter-band",
       "settings": {
         "eyebrow": "Ready for an easy sewing project?",
-        "heading": "<p>Download the Free<br>Pillow Cover Pattern</p>",
+        "heading": "<p>Download the Free<br/>Pillow Cover Pattern</p>",
         "body": "<p>A classic pillow cover with an envelope opening and optional ruffle — perfect for beginners. Refresh any space with cozy textures and color.</p>",
+        "image": "shopify://shop_images/DSCF1546.jpg",
         "image_position": "right",
         "placeholder_text": "Email address",
         "button_label": "Email me the pattern",

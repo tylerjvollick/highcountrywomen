@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
@@ -28,7 +37,7 @@
       "settings": {
         "eyebrow": "",
         "heading": "Return policy",
-        "body": "<p><strong>Fabric:</strong> Fabric purchases are final sale and cannot be returned, exchanged, or refunded once cut.</p><p><strong>Digital patterns:</strong> Due to the nature of digital products, all digital sewing pattern purchases are final sale and non-refundable. Once a pattern has been purchased and downloaded, we're unable to offer returns.</p><p>That said, we want you to have a great experience sewing with our patterns. If you have any questions, trouble accessing your files, or need help with your purchase, please don't hesitate to <a href=\"/pages/contact\">contact us</a>.</p><p><strong>Workshops:</strong> We require a <strong>two-week notice</strong> for any cancellations. If you cancel within two weeks of the class, we cannot offer any refunds, store credits, or rescheduling options. Exceptions can be made for family and health emergencies and will be addressed on a case-by-case basis.</p>",
+        "body": "<p><strong>Fabric:</strong> Fabric purchases are final sale and cannot be returned, exchanged, or refunded once cut.</p><p><strong>Digital patterns:</strong> Due to the nature of digital products, all digital sewing pattern purchases are final sale and non-refundable. Once a pattern has been purchased and downloaded, we're unable to offer returns.</p><p>That said, we want you to have a great experience sewing with our patterns. If you have any questions, trouble accessing your files, or need help with your purchase, please don't hesitate to <a href=\"/pages/contact\">contact us</a>.</p><p><strong>Workshops:</strong> If you need to cancel your workshop registration, please notify us at least 14 days before the class date. Cancellations made less than 14 days before the workshop are not eligible for a refund, store credit, or transfer to a future class. We understand that unexpected circumstances can arise, and exceptions for family or medical emergencies may be considered on a case-by-case basis.</p>",
         "alignment": "left",
         "color_scheme": "wheat"
       }

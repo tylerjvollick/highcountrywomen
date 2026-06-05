@@ -26,7 +26,8 @@
           "settings": {
             "heading": "Skill level",
             "namespace": "custom",
-            "key": "workshop_level"
+            "key": "workshop_level",
+            "open_by_default": false
           }
         },
         "what-youll-make": {
@@ -34,38 +35,68 @@
           "settings": {
             "heading": "What you'll make",
             "namespace": "custom",
-            "key": "workshop_outcome"
+            "key": "workshop_outcome",
+            "open_by_default": false
           }
         },
         "what-to-bring": {
           "type": "info_accordion",
           "settings": {
             "heading": "What to bring",
-            "content": "<p>Just yourself. Machines, fabric, tea, and tools are all provided.</p>"
+            "content": "<p>{{ product.metafields.custom.what_to_bring | metafield_tag }}</p>",
+            "open_by_default": false
+          }
+        },
+        "info_accordion_tMACCj": {
+          "type": "info_accordion",
+          "settings": {
+            "heading": "What's Included",
+            "content": "<p>{{ product.metafields.custom.what_s_included | metafield_tag }}</p>",
+            "open_by_default": false
+          }
+        },
+        "info_accordion_yYaEwF": {
+          "type": "info_accordion",
+          "settings": {
+            "heading": "You'll learn how to",
+            "content": "<p>{{ product.metafields.custom.you_ll_learn_how_to | metafield_tag }}</p>",
+            "open_by_default": false
           }
         }
       },
-      "block_order": ["when-where", "skill-level", "what-youll-make", "what-to-bring"],
+      "block_order": [
+        "when-where",
+        "skill-level",
+        "what-youll-make",
+        "what-to-bring",
+        "info_accordion_tMACCj",
+        "info_accordion_yYaEwF"
+      ],
       "settings": {
+        "show_breadcrumb": true,
         "fallback_type_label": "Workshop",
+        "show_meta_secondary": false,
         "button_label": "Reserve a spot",
-        "legal": "<p>Reservation is final on payment. If you need to cancel, please give us at least seven days' notice and we'll happily transfer your spot to another date or issue a credit toward fabric or a pattern.</p>"
+        "show_quantity": false,
+        "show_dynamic_checkout": true,
+        "legal": "<p>Reservation is final on payment. If you need to cancel, please give us at least seven days' notice and we'll happily transfer your spot to another date or issue a credit toward fabric or a pattern.</p>",
+        "color_scheme": ""
       }
     },
     "related-products": {
       "type": "related-products",
       "settings": {
-        "heading": "Other workshops"
+        "heading": "You may also like",
+        "products_to_show": 4,
+        "show_view_all": true,
+        "view_all_label": "View all",
+        "view_all_url": "shopify://collections/sewingpatterns",
+        "color_scheme": ""
       }
-    },
-    "newsletter-band": {
-      "type": "newsletter-band",
-      "settings": {}
     }
   },
   "order": [
     "main",
-    "related-products",
-    "newsletter-band"
+    "related-products"
   ]
 }

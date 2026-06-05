@@ -156,48 +156,13 @@
         "color_scheme": "cream"
       }
     },
-    "values": {
-      "type": "values-grid",
-      "blocks": {
-        "natural": {
-          "type": "value",
-          "settings": {
-            "heading": "Natural fibers",
-            "body": "<p>Cottons, linens and vintage florals chosen to wear in, not out.</p>"
-          }
-        },
-        "beginner": {
-          "type": "value",
-          "settings": {
-            "heading": "Beginner friendly",
-            "body": "<p>Clear instructions and full video sewalongs for every pattern.</p>"
-          }
-        },
-        "heirloom": {
-          "type": "value",
-          "settings": {
-            "heading": "Made to last",
-            "body": "<p>Durable, comfortable pieces meant to become heirlooms.</p>"
-          }
-        }
-      },
-      "block_order": [
-        "natural",
-        "beginner",
-        "heirloom"
-      ],
-      "settings": {
-        "eyebrow": "",
-        "heading": "",
-        "color_scheme": "blue"
-      }
-    },
     "newsletter-band": {
       "type": "newsletter-band",
       "settings": {
         "eyebrow": "Ready for an easy sewing project?",
-        "heading": "<p>Download the Free<br>Pillow Cover Pattern</p>",
+        "heading": "<p>Download the Free<br/>Pillow Cover Pattern</p>",
         "body": "<p>A classic pillow cover with an envelope opening and optional ruffle — perfect for beginners. Refresh any space with cozy textures and color.</p>",
+        "image": "shopify://shop_images/DSCF1546.jpg",
         "image_position": "right",
         "placeholder_text": "Email address",
         "button_label": "Email me the pattern",
@@ -211,7 +176,6 @@
     "intro",
     "letter",
     "timeline",
-    "values",
     "newsletter-band"
   ]
 }
