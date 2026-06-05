@@ -211,6 +211,44 @@
                       <div class="product__accordion-body">{{ mf | metafield_tag }}</div>
                     </details>
                   {%- endif -%}
+                {%- when 'linked_metafield' -%}
+                  {%- assign links_mf = product.metafields[block.settings.namespace][block.settings.key] -%}
+                  {%- if links_mf.value.size > 0 -%}
+                    <details
+                      class="product__accordion"
+                      {% if block.settings.open_by_default %}open{% endif %}
+                      {{ block.shopify_attributes }}
+                    >
+                      <summary class="product__accordion-summary">
+                        {{ block.settings.heading }}
+                        <svg class="product__accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                          <path d="M5 12h14"/>
+                          <path class="product__accordion-icon-vert" d="M12 5v14"/>
+                        </svg>
+                      </summary>
+                      <div class="product__accordion-body">
+                        <ul class="product__link-list">
+                          {%- for link in links_mf.value -%}
+                            {%- assign is_external = false -%}
+                            {%- if link.url contains '://' -%}
+                              {%- assign is_external = true -%}
+                            {%- endif -%}
+                            <li>
+                              <a href="{{ link.url }}"{% if is_external %} target="_blank" rel="noopener"{% endif %}>
+                                <span>{{ link.text | default: link.url }}</span>
+                                {%- if is_external -%}
+                                  <svg class="product__link-external" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M7 17 17 7"/>
+                                    <path d="M7 7h10v10"/>
+                                  </svg>
+                                {%- endif -%}
+                              </a>
+                            </li>
+                          {%- endfor -%}
+                        </ul>
+                      </div>
+                    </details>
+                  {%- endif -%}
               {%- endcase -%}
             {%- endfor -%}
           </div>
@@ -596,6 +634,43 @@
     margin-bottom: 0;
   }
 
+  /* Link list inside an accordion (linked_metafield block) */
+  .product__link-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .product__link-list li + li {
+    border-top: 1px solid var(--line);
+  }
+  .product__link-list a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 0;
+    color: var(--text);
+    text-decoration: none;
+    transition: color var(--dur) var(--ease);
+  }
+  .product__link-list a:hover {
+    color: var(--accent);
+  }
+  .product__link-list a span {
+    border-bottom: 1px solid transparent;
+    transition: border-color var(--dur) var(--ease);
+  }
+  .product__link-list a:hover span {
+    border-bottom-color: currentColor;
+  }
+  .product__link-external {
+    width: 12px;
+    height: 12px;
+    flex: none;
+    opacity: 0.6;
+  }
+
   /* Legal copy */
   .product__legal {
     margin-top: 28px;
@@ -840,6 +915,40 @@
           "type": "text",
           "id": "key",
           "label": "Metafield key"
+        },
+        {
+          "type": "checkbox",
+          "id": "open_by_default",
+          "label": "Open by default",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "linked_metafield",
+      "name": "Linked metafield",
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Renders a 'list of links' product metafield (URL + label per item) as a styled list inside an accordion. Use this for things like recommended patterns where the merchant manages the links in admin → Products → Metafields."
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Recommended patterns"
+        },
+        {
+          "type": "text",
+          "id": "namespace",
+          "label": "Metafield namespace",
+          "default": "custom"
+        },
+        {
+          "type": "text",
+          "id": "key",
+          "label": "Metafield key",
+          "info": "Must be a 'list of links' (list.link) metafield on the product."
         },
         {
           "type": "checkbox",

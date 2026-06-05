@@ -28,6 +28,15 @@
             "open_by_default": false
           }
         },
+        "pattern-recommendations": {
+          "type": "linked_metafield",
+          "settings": {
+            "heading": "Pattern recommendations",
+            "namespace": "custom",
+            "key": "pattern_recommendations",
+            "open_by_default": false
+          }
+        },
         "fiber": {
           "type": "metafield",
           "settings": {
@@ -50,6 +59,7 @@
       "block_order": [
         "half-yard",
         "care",
+        "pattern-recommendations",
         "fiber",
         "width"
       ],
