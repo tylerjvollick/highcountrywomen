@@ -23,7 +23,7 @@
       "type": "collection",
       "settings": {
         "products_per_page": 12,
-        "product_label": "patterns",
+        "product_label": "workshop",
         "show_filters": true,
         "hide_availability_filter": false,
         "show_sort": true,

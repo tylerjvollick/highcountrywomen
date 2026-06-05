@@ -11,7 +11,12 @@
   "sections": {
     "main": {
       "type": "main-cart",
-      "settings": {}
+      "settings": {
+        "color_scheme": "",
+        "empty_message": "Nothing in your cart yet!",
+        "empty_button_label": "Shop Patterns",
+        "empty_button_link": "shopify://collections/sewingpatterns"
+      }
     }
   },
   "order": [
