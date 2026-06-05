@@ -32,21 +32,35 @@
           "type": "social_link",
           "settings": {
             "platform": "instagram",
-            "url": ""
+            "url": "https://www.instagram.com/highcountrywomen/"
           }
         },
         "social-facebook": {
           "type": "social_link",
           "settings": {
             "platform": "facebook",
-            "url": ""
+            "url": "https://www.facebook.com/p/High-Country-Women-61576205097769/"
           }
         },
         "social-youtube": {
           "type": "social_link",
           "settings": {
             "platform": "youtube",
-            "url": ""
+            "url": "https://www.youtube.com/@HighCountryWomen"
+          }
+        },
+        "social-pinterest": {
+          "type": "social_link",
+          "settings": {
+            "platform": "pinterest",
+            "url": "https://www.pinterest.com/highcountrywomen/"
+          }
+        },
+        "social-tiktok": {
+          "type": "social_link",
+          "settings": {
+            "platform": "tiktok",
+            "url": "https://www.tiktok.com/@highcountrywomen"
           }
         }
       },
@@ -55,7 +69,9 @@
         "menu-company",
         "social-instagram",
         "social-facebook",
-        "social-youtube"
+        "social-pinterest",
+        "social-youtube",
+        "social-tiktok"
       ],
       "settings": {}
     }
