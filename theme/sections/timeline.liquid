@@ -179,7 +179,7 @@
   }
 
   .tl-rail {
-    margin-top: clamp(20px, 3vw, 36px);
+    margin-top: clamp(8px, 1.2vw, 16px);
     overflow-x: auto;
     overflow-y: hidden;
     cursor: grab;
@@ -315,6 +315,26 @@
     color: var(--text-soft);
     max-width: 30ch;
     text-wrap: pretty;
+  }
+
+  /*
+    Mobile: cards have varying heights (300-460px) and staggered offsets
+    designed for the desktop zone, which leaves huge empty space above
+    them on a phone. Force a uniform card height, drop the stagger to a
+    small fixed value, and shrink the zone so the cards sit just below
+    the arrows. Baseline + dots + dates stay intact.
+  */
+  @media (max-width: 860px) {
+    .timeline-section {
+      --tl-zone: 340px !important;
+    }
+    .tl-media {
+      height: 320px !important;
+      margin-bottom: 20px !important;
+    }
+    .tl-tick {
+      height: 20px !important;
+    }
   }
 {% endstylesheet %}
 
