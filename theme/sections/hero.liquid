@@ -202,8 +202,7 @@
   @media (max-width: 860px) {
     .hero-card__layout {
       display: flex;
-      flex-direction: column-reverse;
-      gap: 16px;
+      flex-direction: column;
     }
     .hero-card__img {
       width: 100%;
@@ -212,10 +211,11 @@
       height: clamp(380px, 60vh, 560px);
     }
     .hero-card__card {
-      position: static;
+      position: relative;
       transform: none;
       width: auto;
-      margin: 0 14px;
+      margin: clamp(-112px, -12vw, -64px) clamp(16px, 4vw, 32px) 0;
+      z-index: 1;
     }
     .hero-card__links {
       justify-content: center;
